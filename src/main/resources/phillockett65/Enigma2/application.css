@@ -70,6 +70,12 @@
     -fx-font-weight: bold;
 }
 
+.increment-arrow-button{
+    -fx-background-radius: 0 12 0 0;
+}
+.decrement-arrow-button{
+    -fx-background-radius: 0 0 12 0;
+}
 .increment-arrow-button, .decrement-arrow-button{
     -fx-background-color: #9B4642;
 }
