@@ -2,6 +2,8 @@
 
 'Enigma2' is a JavaFX application that simulates the Enigma machine.
 
+**USE AT OWN RISK.**
+
 ## Overview
 This project has been set up as a Maven project that uses JavaFX, FXML and 
 CSS to render the GUI. Maven can be run from the command line as shown below.
