@@ -1,6 +1,6 @@
-# Enigma
+# Enigma2
 
-'Enigma' is a JavaFX application that simulates the Enigma machine.
+'Enigma2' is a JavaFX application that simulates the Enigma machine.
 
 ## Overview
 This project has been set up as a Maven project that uses JavaFX, FXML and 
@@ -15,7 +15,7 @@ Note: for the Commercial, Rocket and SwissK Rotors, the current turnover points
 are guesses and may be incorrect.
 
 ## Dependencies
-'Enigma' is dependent on the following:
+'Enigma2' is dependent on the following:
 
   * Java 15.0.1
   * Apache Maven 3.6.3
@@ -32,8 +32,8 @@ favourite IDE to be JavaFX compatible, however, Maven does not require this.
 ## Cloning
 The following commands clone the code:
 
-	git clone https://github.com/PhilLockett/Enigma.git
-	cd Enigma/
+	git clone https://github.com/PhilLockett/Enigma2.git
+	cd Enigma2/
 
 ## Running
 Once cloned the following command executes the code:
@@ -42,9 +42,9 @@ Once cloned the following command executes the code:
 
 ## User Guide
 Selected settings and states will be maintained from one session to the next.
-This means that whatever state Enigma is in (rotor settings, rotor offsets, 
+This means that whatever state Enigma2 is in (rotor settings, rotor offsets, 
 plugboard connections etc.) are saved to "Settings.dat" when the application 
-is shutdown. The next time Enigma is executed, these settings are loaded ready 
+is shutdown. The next time Enigma2 is executed, these settings are loaded ready 
 to continue from where it left off.
 
 ### Reflector Set-Up
@@ -56,7 +56,7 @@ considered valid. The thirteenth pair is assumed from the two remaining
 unused letters.
 
 ### Rotor Set-Up
-By default Enigma functions as a 3 Rotor machine, allowing the Left, Middle 
+By default Enigma2 functions as a 3 Rotor machine, allowing the Left, Middle 
 and Right Rotors to be defined. The 'Fourth Rotor' check box, when selected, 
 brings in the Fourth Rotor.
 
@@ -105,8 +105,9 @@ including clearing the text boxes.
 ## Points of interest
 This code has the following points of interest:
 
-  * Enigma is a Maven project that uses Maven, JavaFX, FXML and CSS.
-  * Enigma is derived from the [BaseFXML](https://github.com/PhilLockett/BaseFXML) 'framework'.
-  * Enigma simulates the behaviour of the [Enigma](https://en.wikipedia.org/wiki/Enigma_machine) machine.
+  * Enigma2 is an updated version of [Enigma](https://github.com/PhilLockett/Enigma).
+  * Enigma2 is a Maven project that uses Maven, JavaFX, MaterialFX, FXML and CSS.
+  * Enigma2 is derived from the [BaseFXML](https://github.com/PhilLockett/BaseFXML) 'framework'.
+  * Enigma2 simulates the behaviour of the [Enigma](https://en.wikipedia.org/wiki/Enigma_machine) machine.
   * Rotor combinations can be selected that may not be available on the real machine.
   * Data persistence is maintained from one session to the next.

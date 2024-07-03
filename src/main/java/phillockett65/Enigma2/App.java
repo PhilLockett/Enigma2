@@ -1,27 +1,27 @@
-/*  Enigma - a JavaFX based playing card image generator.
+/*  Enigma2 - a JavaFX based playing card image generator.
  *
  *  Copyright 2022 Philip Lockett.
  *
- *  This file is part of Enigma.
+ *  This file is part of Enigma2.
  *
- *  Enigma is free software: you can redistribute it and/or modify
+ *  Enigma2 is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  Enigma is distributed in the hope that it will be useful,
+ *  Enigma2 is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with Enigma.  If not, see <https://www.gnu.org/licenses/>.
+ *  along with Enigma2.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 /*
  * Boilerplate code responsible for launching the JavaFX application. 
  */
-package phillockett65.Enigma;
+package phillockett65.Enigma2;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -47,7 +47,7 @@ public class App extends Application {
 
         Scene scene = new Scene(root);
 
-        stage.setTitle("Enigma");
+        stage.setTitle("Enigma 2.0");
         stage.setOnCloseRequest(e -> Platform.exit());
         stage.resizableProperty().setValue(false);
         stage.setScene(scene);
