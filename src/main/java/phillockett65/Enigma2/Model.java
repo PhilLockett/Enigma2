@@ -71,29 +71,6 @@ public class Model {
         }
     }
 
-    /**
-     * Sets the items in the ObservableList to a sequence of either capital 
-     * letters or integers depending on the current value of useLetters.
-     * @param list of strings being updated.
-     */
-    private void setList(ObservableList<String> list) {
-        if (useLetters) {
-            for (int i = 0; i < 26; ++i)
-                list.set(i, Rotor.indexToString(i));
-        } else {
-            for (int i = 0; i < 26; ++i)
-                list.set(i, String.valueOf(i + 1));
-        }
-    }
-
-    /**
-     * Construct a list of 26 Strings.
-     * @param list
-     */
-    private void addList(ObservableList<String> list) {
-        for (int i = 0; i < 26; ++i)
-            list.add(Rotor.indexToString(i));
-    }
 
     /**
      * @return the file path of the settings data file.
@@ -444,8 +421,9 @@ public class Model {
      */
 
     private ObservableList<String> wheelList = FXCollections.observableArrayList();
-    private ObservableList<String> ringSettingsList = FXCollections.observableArrayList();
-    private ObservableList<String> rotorOffsetsList = FXCollections.observableArrayList();
+    private ObservableList<String> letters = FXCollections.observableArrayList();
+    private ObservableList<String> numbers = FXCollections.observableArrayList();
+    private ObservableList<String> ringList = FXCollections.observableArrayList();
 
     private ArrayList<RotorState> rotorStates = new ArrayList<RotorState>(ROTOR_COUNT);
 
@@ -469,9 +447,14 @@ public class Model {
      * @param state assigned to useLetters;
      */
     public void setUseLetters(boolean state) {
+        if (useLetters == state)
+            return;
+
         useLetters = state;
-        setList(ringSettingsList);
-        setList(rotorOffsetsList);
+        if (useLetters)
+            ringList.setAll(letters);
+        else
+            ringList.setAll(numbers);
     }
 
     public boolean isUseLetters() { return useLetters; }
@@ -489,10 +472,10 @@ public class Model {
         private ListSpinner ringSetting;
         private ListSpinner offset;
 
-        public RotorState(String wheelChoice, ObservableList<String> ringSettingsList, ObservableList<String> rotorOffsetsList) {
+        public RotorState(String wheelChoice, ObservableList<String> ringList) {
             this.wheelChoice = wheelChoice;
-            this.ringSetting = new ListSpinner(ringSettingsList); 
-            this.offset = new ListSpinner(rotorOffsetsList);;
+            this.ringSetting = new ListSpinner(ringList); 
+            this.offset = new ListSpinner(ringList);
         }
 
         public String getWheelChoice() { return wheelChoice; }
@@ -542,17 +525,20 @@ public class Model {
         for (Rotor rotor : rotors)
             wheelList.add(rotor.getId());
 
-        // Initialize "Ring Settings" panel.
-        addList(ringSettingsList);
+        // Initialize "Ring Settings" and "Rotor Offsets" panels (both use ringList).
+        for (int i = 0; i < 26; ++i) {
+            final String letter = Rotor.indexToString(i);
+            letters.add(letter);
+            ringList.add(letter);
 
-        // Initialize "Rotor Offsets" panel.
-        addList(rotorOffsetsList);
+            numbers.add(String.valueOf(i + 1));
+        }
 
         // Initialize "Rotor Set-Up".
         final String first = wheelList.get(0);
 
         for (int i = 0; i < ROTOR_COUNT; ++i)
-            rotorStates.add(new RotorState(first, ringSettingsList, rotorOffsetsList));
+            rotorStates.add(new RotorState(first, ringList));
     }
 
 
