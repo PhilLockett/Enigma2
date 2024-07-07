@@ -86,6 +86,28 @@
     -fx-background-color: black;
 }
 
+.key-text-field:readonly{
+    -fx-text-fill: silver;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-background-color: black;
+    -fx-border-color: silver;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.lamp-text-field:readonly{
+    -fx-text-fill: black;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-background-color: white;
+    -fx-border-color: silver;
+    -fx-background-radius: 26;
+    -fx-border-radius: 26;
+}
+
+
+/*
 .imageButton{
     -fx-background-color: null;
     -fx-text-fill: null;
@@ -103,7 +125,7 @@
     -fx-background-color: #9B4642;
     -fx-font-weight: bold;
 }
-/*
+
 .list-cell{
     -fx-font-weight: bold;
 }

@@ -28,6 +28,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -55,15 +56,17 @@ public class App extends Application {
         controller = fxmlLoader.getController();
 
         scene.setOnKeyPressed(event -> {
-            // System.out.println("scene.setOnKeyPressed(" + event.getCode() + ", " + event.getCharacter() + ").");
-            if (event.getCode().isLetterKey())
-                controller.keyPress(event.getCode());
+            final KeyCode keyCode = event.getCode();
+            // System.out.println("scene.setOnKeyPressed(" + keyCode + ", " + event.getCharacter() + ").");
+            if (keyCode.isLetterKey())
+                controller.keyPress(keyCode);
         });
 
         scene.setOnKeyReleased(event -> {
-            // System.out.println("scene.setOnKeyReleased(" + event.getCode() + ", " + event.getCharacter() + ").");
-            if (event.getCode().isLetterKey())
-                controller.keyRelease(event.getCode());
+            final KeyCode keyCode = event.getCode();
+            // System.out.println("scene.setOnKeyReleased(" + keyCode + ", " + event.getCharacter() + ").");
+            if (keyCode.isLetterKey())
+                controller.keyRelease(keyCode);
         });
 
         stage.show();

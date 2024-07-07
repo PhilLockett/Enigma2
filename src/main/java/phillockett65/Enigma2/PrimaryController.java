@@ -45,6 +45,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 
 public class PrimaryController {
 
@@ -590,7 +591,7 @@ public class PrimaryController {
         rotorSetUpTitledPane.setTooltip(new Tooltip("Select and set up the Rotors (wheels / drums)"));
         fourthWheelCheckbox.setTooltip(new Tooltip("Select to use a fourth Rotor"));
         useLettersCheckbox.setTooltip(new Tooltip("Select to use Letters instead of numbers on the Rotors"));
-        showStepsCheckbox.setTooltip(new Tooltip("Select to show individual translation steps"));
+        showStepsCheckbox.setTooltip(new Tooltip("Select to show each translation step on the command line"));
     }
 
 
@@ -737,7 +738,19 @@ public class PrimaryController {
     private Button resetButton;
 
     @FXML
+    private HBox mainIO;
+
+    @FXML
     private Label mainLabel;
+
+    @FXML
+    private TextField keyIO;
+
+    @FXML
+    private Label labelIO;
+
+    @FXML
+    private TextField lampIO;
 
     @FXML
     void encipherButtonActionPerformed(ActionEvent event) {
@@ -783,12 +796,15 @@ public class PrimaryController {
             encipherButton.setText("Press to Change Settings");
             encipherButton.setTooltip(new Tooltip("Press to resume changing settings"));
 
-            mainLabel.setText("");
+            mainLabel.setVisible(false);
+            mainIO.setVisible(true);
         } else {
             encipherButton.setText("Press to Start Translation");
             encipherButton.setTooltip(new Tooltip("Press to translate letters using the current settings"));
 
-            mainLabel.setText("Configure Settings");
+            mainLabel.setVisible(true);
+            mainIO.setVisible(false);
+            lampIO.setText("");
         }
 
         return encipher;
@@ -808,8 +824,24 @@ public class PrimaryController {
         syncEncipherButton();
         encipherButton.setSelected(updateGUIState());
         resetButton.setTooltip(new Tooltip("Click to return all settings to the default values"));
+
+        mainLabel.setText("Configure Settings");
+        final char arrow = '\u2799';
+        labelIO.setText("" + arrow);
     }
 
+
+    /**
+     * Used when focus is given to keyIO or lampIO. This is only necessary for 
+     * key presses and not key releases.
+     * @param event representing the key pressed.
+     */
+    @FXML
+    void IOKeyPress(KeyEvent event) {
+        final KeyCode keyCode = event.getCode();
+        if (keyCode.isLetterKey())
+            keyPress(keyCode);
+    }
 
     /**
      * Called by the Application when a new key is pressed.
@@ -823,7 +855,8 @@ public class PrimaryController {
                 currentKey = Mapper.stringToIndex(keyCode.getChar());
                 final int index = model.translate(currentKey);
 
-                mainLabel.setText(keyCode.getChar() + "->" + Rotor.indexToString(index));
+                keyIO.setText(keyCode.getChar());
+                lampIO.setText(Rotor.indexToString(index));
             }
         }
     }
@@ -837,8 +870,11 @@ public class PrimaryController {
 
         if (encipher) {
             final int index = Mapper.stringToIndex(keyCode.getChar());
-            if (currentKey == index)
+            if (currentKey == index) {
                 currentKey = -1;
+                
+                keyIO.setText("");
+            }
         }
     }
 
