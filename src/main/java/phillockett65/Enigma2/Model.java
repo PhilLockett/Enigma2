@@ -433,8 +433,6 @@ public class Model {
 
 
     public ObservableList<String> getWheelList() { return wheelList; }
-    public SpinnerValueFactory<String> getRingSettingSVF(int index) { return getState(index).getRingSettingSVF(); }
-    public SpinnerValueFactory<String> getRotorOffsetSVF(int index) { return getState(index).getRotorOffsetSVF(); }
 
     public int getRotorStateCount() { return rotorStates.size(); }
 
@@ -483,15 +481,12 @@ public class Model {
 
         public SpinnerValueFactory<String> getRingSettingSVF() { return ringSetting.getSVF(); }
 
-        public String getRingSetting() { return ringSetting.getCurrent(); }
         public int getRingIndex() { return ringSetting.getIndex(); }
         public void setRingSetting(String value) { ringSetting.setCurrent(value); }
         public void setRingIndex(int value) { ringSetting.setIndex(value); }
-        public void incrementRingSetting(int step) { ringSetting.increment(step); }
 
         public SpinnerValueFactory<String> getRotorOffsetSVF() { return offset.getSVF(); }
 
-        public String getRotorOffset() { return offset.getCurrent(); }
         public int getRotorIndex() { return offset.getIndex(); }
         public void setRotorOffset(String value) { offset.setCurrent(value); }
         public void setRotorIndex(int value) { offset.setIndex(value); }
@@ -501,20 +496,20 @@ public class Model {
 
     private RotorState getState(int index) { return rotorStates.get(index); }
 
+    public SpinnerValueFactory<String> getRingSettingSVF(int index) { return getState(index).getRingSettingSVF(); }
+    public SpinnerValueFactory<String> getRotorOffsetSVF(int index) { return getState(index).getRotorOffsetSVF(); }
+
     public String getWheelChoice(int index) { return getState(index).getWheelChoice(); }
     public void setWheelChoice(int index, String choice) { getState(index).setWheelChoice(choice); }
 
-    public String getRingSetting(int index) { return getState(index).getRingSetting(); }
     public int getRingIndex(int index) { return getState(index).getRingIndex(); }
     public void setRingSetting(int index, String value) { getState(index).setRingSetting(value); }
     public void setRingIndex(int index, int value) { getState(index).setRingIndex(value); }
-    public void incrementRingSetting(int index, int step) { getState(index).incrementRingSetting(step); }
 
-    public String getRotorOffset(int index) { return getState(index).getRotorOffset(); }
     public int getRotorIndex(int index) { return getState(index).getRotorIndex(); }
     public void setRotorOffset(int index, String value) { getState(index).setRotorOffset(value); }
     public void setRotorIndex(int index, int value) { getState(index).setRotorIndex(value); }
-    public void incrementRotorOffset(int index, int step) { getState(index).incrementRotorOffset(step); }
+    private void incrementRotorOffset(int index, int step) { getState(index).incrementRotorOffset(step); }
 
 
     /**
