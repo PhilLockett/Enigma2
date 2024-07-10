@@ -48,6 +48,8 @@ public class DataStore implements Serializable {
     private ArrayList<Integer> rotorOffsets = new ArrayList<Integer>();
 
     private ArrayList<String> plugs = new ArrayList<String>();
+    private Boolean extPlugboard;
+
     private Boolean encipher;
 
     public DataStore() {
@@ -83,6 +85,8 @@ public class DataStore implements Serializable {
         for (int i = 0; i < plugCount; ++i)
             plugs.add(model.getPlugText(i));
 
+        extPlugboard = model.isExtPlugboard();
+
         encipher = model.isEncipher();
 
         return success;
@@ -117,6 +121,8 @@ public class DataStore implements Serializable {
         final int plugCount = plugs.size();
         for (int i = 0; i < plugCount; ++i)
             model.setPlugText(i, plugs.get(i));
+
+        model.setExtPlugboard(extPlugboard);
 
         model.setEncipher(encipher);
 
