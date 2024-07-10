@@ -153,7 +153,7 @@ public class Rotor extends Mapper {
         output = (output + 26 - offset) % 26;
 
         if (show)
-            System.out.print(id + "[" + Rotor.indexToString(offset) + "](" + Rotor.indexToString(index) + "->" + Rotor.indexToString(output) + ")  ");
+            System.out.print(id + "[" + indexToLetter(offset) + "](" + indexToLetter(index) + "->" + indexToLetter(output) + ")  ");
 
         return output;
     }

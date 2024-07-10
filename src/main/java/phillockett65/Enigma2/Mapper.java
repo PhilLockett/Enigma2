@@ -51,13 +51,18 @@ public class Mapper {
 
     public static int charToUpper(int v) { return Character.toUpperCase(v); }
     public static int charToIndex(int v) { return charToUpper(v) - 'A'; }
-    public static int stringToIndex(String v) { return charToIndex(v.charAt(0)); }
+    public static int letterToIndex(String v) { return charToIndex(v.charAt(0)); }
     public static int indexToChar(int v) { return v + 'A'; }
-    public static String indexToString(int v) { return "" + (char)indexToChar(v); }
+    public static String indexToLetter(int v) { return "" + (char)indexToChar(v); }
 
     public static int charToInt(int v) { return charToIndex(v) + 1; }
     public static int intTochar(int v) { return indexToChar(v-1); }
     public static String intToString(int v) { return "" + (char)intTochar(v); }
+
+    public static String indexToNumber(int v) { return Integer.toString(v+1); }
+    public static int numberToIndex(String v) { return Integer.parseInt(v)-1; }
+
+    public static int stringToIndex(String s) { return Character.isDigit(s.charAt(0)) ? numberToIndex(s) : letterToIndex(s); }
 
 
     /************************************************************************
@@ -136,7 +141,7 @@ public class Mapper {
         final int output = (direction == RIGHT_TO_LEFT) ? rightToLeft(index) : leftToRight(index);
 
         if (show)
-            System.out.print(id + "(" + Rotor.indexToString(index) + "->" + Rotor.indexToString(output) + ")  ");
+            System.out.print(id + "(" + indexToLetter(index) + "->" + indexToLetter(output) + ")  ");
 
         return output;
     }
@@ -157,7 +162,7 @@ public class Mapper {
 
     protected void dumpMapping(int[] map) {
         for (int i = 0; i < map.length; ++i)
-            System.out.print(Rotor.indexToString(map[i]));
+            System.out.print(indexToLetter(map[i]));
 
         System.out.println();
     }

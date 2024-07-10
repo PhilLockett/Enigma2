@@ -804,6 +804,7 @@ public class PrimaryController {
 
             mainLabel.setVisible(true);
             mainIO.setVisible(false);
+            keyIO.setText("");
             lampIO.setText("");
         }
 
@@ -852,11 +853,11 @@ public class PrimaryController {
 
         if (encipher) {
             if (currentKey == -1) {
-                currentKey = Mapper.stringToIndex(keyCode.getChar());
+                currentKey = Mapper.letterToIndex(keyCode.getChar());
                 final int index = model.translate(currentKey);
 
                 keyIO.setText(keyCode.getChar());
-                lampIO.setText(Rotor.indexToString(index));
+                lampIO.setText(Mapper.indexToLetter(index));
             }
         }
     }
@@ -869,11 +870,12 @@ public class PrimaryController {
         final boolean encipher = model.isEncipher();
 
         if (encipher) {
-            final int index = Mapper.stringToIndex(keyCode.getChar());
+            final int index = Mapper.letterToIndex(keyCode.getChar());
             if (currentKey == index) {
                 currentKey = -1;
                 
-                keyIO.setText("");
+            // lampIO.setText("");
+            // keyIO.setText("");
             }
         }
     }

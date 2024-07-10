@@ -522,7 +522,7 @@ public class Model {
 
         // Initialize "Ring Settings" and "Rotor Offsets" panels (both use ringList).
         for (int i = 0; i < 26; ++i) {
-            final String letter = Rotor.indexToString(i);
+            final String letter = Mapper.indexToLetter(i);
             letters.add(letter);
             ringList.add(letter);
 
@@ -756,13 +756,13 @@ public class Model {
      */
     private int translatePipeline(int index) {
         if (isShow())
-            System.out.print("Key: " + Rotor.indexToString(index) + "  ");
+            System.out.print("Key: " + Mapper.indexToLetter(index) + "  ");
 
         for (Translation translator : pipeline)
             index = translator.translate(index);
 
         if (isShow())
-            System.out.println("Lamp: " + Rotor.indexToString(index));
+            System.out.println("Lamp: " + Mapper.indexToLetter(index));
 
         return index;
     }
