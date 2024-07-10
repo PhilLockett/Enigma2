@@ -26,14 +26,17 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-color: #808080;
+    -fx-border-color: black;
 }
 .text-field{
     -fx-text-fill: black;
     -fx-font-weight: bold;
     -fx-background-color: #c0c0c0;
+    -fx-border-color: black;
 }
 .error-text-field{
     -fx-text-fill: red;
+    -fx-border-color: red;
     -fx-font-weight: bold;
     -fx-background-color: white;
 }
