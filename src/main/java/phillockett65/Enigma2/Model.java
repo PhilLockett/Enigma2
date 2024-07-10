@@ -1,6 +1,6 @@
-/*  Enigma2 - a JavaFX based playing card image generator.
+/*  Enigma2 - a JavaFX based enigma machine simulator.
  *
- *  Copyright 2022 Philip Lockett.
+ *  Copyright 2024 Philip Lockett.
  *
  *  This file is part of Enigma2.
  *
