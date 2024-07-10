@@ -139,6 +139,7 @@ public class PrimaryController {
         wheel3Choicebox.setValue(model.getWheelChoice(3));
 
         fourthWheelCheckbox.setSelected(model.isFourthWheel());
+        plugboardCheckbox.setSelected(model.isExtPlugboard());
         useLettersCheckbox.setSelected(model.isUseLetters());
         showStepsCheckbox.setSelected(model.isShow());
 
@@ -239,8 +240,11 @@ public class PrimaryController {
     private void editablePairs(boolean editable) {
         // System.out.println("editablePairs(" + editable + ")");
 
-        for (TextField field : pairs)
+        final boolean reconfigurable = model.isReconfigurable();
+        for (TextField field : pairs) {
+            field.setDisable(!reconfigurable);
             field.setEditable(editable);
+        }
     }
 
     /**
@@ -353,6 +357,7 @@ public class PrimaryController {
         // System.out.println("editableReflector(" + editable + ")");
 
         fourthWheelCheckbox.setDisable(!editable);
+        plugboardCheckbox.setDisable(!editable);
 
         wheel1Choicebox.setDisable(!editable);
         wheel2Choicebox.setDisable(!editable);
@@ -568,7 +573,6 @@ public class PrimaryController {
     /**
      * Control whether it is possible to select and change the fourth rotor 
      * depending on the states of fourthWheelCheckbox and encipherButton.
-     * @param editable indicates if the ring settings are editable.
      */
     private void editableFourthWheel() {
         final boolean fourthWheel = model.isFourthWheel();
@@ -642,7 +646,10 @@ public class PrimaryController {
     @FXML
     private TextField plug12;
 
-    private ArrayList<TextField> plugs = new ArrayList<TextField>(Model.PLUG_COUNT);
+    @FXML
+    private CheckBox plugboardCheckbox;
+
+    private ArrayList<TextField> plugs = new ArrayList<TextField>(Model.FULL_COUNT);
 
     @FXML
     void plugBoardKeyTyped(KeyEvent event) {
@@ -653,6 +660,29 @@ public class PrimaryController {
         
         checkPlugboard();
         syncEncipherButton();
+    }
+
+    @FXML
+    void plugboardCheckboxActionPerformed(ActionEvent event) {
+        model.setExtPlugboard(plugboardCheckbox.isSelected());
+        editableExtPlugboard();
+    }
+
+    /**
+     * Control whether it is possible to change the extended plugboard 
+     * depending on the states of plugboardCheckbox and encipherButton.
+     */
+    private void editableExtPlugboard() {
+        final boolean extended = model.isExtPlugboard();
+        final boolean encipher = model.isEncipher();
+        final boolean disable = extended ? encipher : true;
+
+        plug10.setDisable(!extended);
+        plug11.setDisable(!extended);
+        plug12.setDisable(!extended);
+        plug10.setEditable(!disable);
+        plug11.setEditable(!disable);
+        plug12.setEditable(!disable);
     }
 
     /**
@@ -684,6 +714,7 @@ public class PrimaryController {
     private void initializePlugboardConnections() {
 
         plugboardConnectionsTitledPane.setTooltip(new Tooltip("Configure the Plugboard using unique wiring pairs"));
+        plugboardCheckbox.setTooltip(new Tooltip("Select to use all wiring pairs"));
 
         plugs.add(plug0);
         plugs.add(plug1);
@@ -789,6 +820,7 @@ public class PrimaryController {
         editableWheelOrder(!encipher);
         editableRingSettings(!encipher);
         editablePlugboard(!encipher);
+        editableExtPlugboard();
         editableFourthWheel();
         editableTranslation(!encipher);
 

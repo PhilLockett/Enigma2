@@ -35,7 +35,8 @@ public class Model {
     private final static String DATAFILE = "Settings.dat";
 
     public static final int ROTOR_COUNT = 4;
-    public final static int PLUG_COUNT = 13;
+    public final static int FULL_COUNT = 13;
+    public final static int PLUG_COUNT = 10;
     public final static int PAIR_COUNT = 12;
 
     private static final int OTHER = -1;
@@ -546,8 +547,11 @@ public class Model {
     private int[] plugboardMap;
     private Mapper plugboard;
 
-    private ArrayList<Pair> plugs = new ArrayList<Pair>(PLUG_COUNT);
+    private ArrayList<Pair> plugs = new ArrayList<Pair>(FULL_COUNT);
+    private boolean extPlugboard = false;
 
+    public void setExtPlugboard(boolean state) { extPlugboard = state; }
+    public boolean isExtPlugboard() { return extPlugboard; }
 
     /**
      * Update the indexed plug with new text String then count the letter 
@@ -561,6 +565,7 @@ public class Model {
     }
 
     public int getPlugCount() { return plugs.size(); }
+    public int getActivePlugCount() { return extPlugboard ? plugs.size() : PLUG_COUNT; }
     public String getPlugText(int index)	{ return plugs.get(index).get(); }
     public int getPlugCount(int index)		{ return plugs.get(index).count(); }
 
@@ -613,7 +618,11 @@ public class Model {
         for (int i = 0; i < plugboardMap.length; ++i)
             plugboardMap[i] = i;
 
+        int i = 0;
         for (Pair plug : plugs) {
+            if ((!extPlugboard) && (i == PLUG_COUNT))
+                break;
+
             if (plug.isEmpty())
                 continue;
 
@@ -621,6 +630,7 @@ public class Model {
             int b = plug.indexAt(1);
             plugboardMap[a] = b;
             plugboardMap[b] = a;
+            ++i;
         }
     }
 
@@ -638,7 +648,7 @@ public class Model {
         plugboardLetterCounts = new int[26];
         plugboardMap = new int[26];
 
-        for (int i = 0; i < PLUG_COUNT; ++i)
+        for (int i = 0; i < FULL_COUNT; ++i)
             plugs.add(new Pair());
     }
 

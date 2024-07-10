@@ -127,6 +127,7 @@
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -144,9 +145,10 @@
                   <TextField fx:id="plug7" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <TextField fx:id="plug8" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                   <TextField fx:id="plug9" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <TextField fx:id="plug10" onKeyTyped="#plugBoardKeyTyped" GridPane.rowIndex="2" />
-                  <TextField fx:id="plug11" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="plug12" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <TextField fx:id="plug10" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" />
+                  <TextField fx:id="plug11" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <TextField fx:id="plug12" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <CheckBox fx:id="plugboardCheckbox" mnemonicParsing="false" onAction="#plugboardCheckboxActionPerformed" text="Use All Plugboard Connections" GridPane.columnSpan="5" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </content>
