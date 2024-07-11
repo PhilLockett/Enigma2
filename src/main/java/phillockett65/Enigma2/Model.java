@@ -28,7 +28,6 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.SpinnerValueFactory;
 
 public class Model {
 
@@ -129,20 +128,16 @@ public class Model {
         for (Pair pair : pairs)
             pair.clear();
 
-        setWheelChoice(0, "Beta");
-        setWheelChoice(1, "I");
-        setWheelChoice(2, "II");
-        setWheelChoice(3, "III");
-
-        for (RotorState rotorState : rotorStates) {
-            rotorState.setRingIndex(0);
-            rotorState.setRotorIndex(0);
-        }
-
         setFourthWheel(false);
+        setRotorState(SLOW, "IV", 0, 0);
+        setRotorState(LEFT, "I", 1, 0);
+        setRotorState(MIDDLE, "II", 10, 20);
+        setRotorState(RIGHT, "III", 1, 25);
+
         setUseLetters(true);
         setShow(false);
 
+        setExtPlugboard(false);
         for (Pair pair : plugs)
             pair.clear();
 
@@ -422,11 +417,8 @@ public class Model {
      */
 
     private ObservableList<String> wheelList = FXCollections.observableArrayList();
-    private ObservableList<String> letters = FXCollections.observableArrayList();
-    private ObservableList<String> numbers = FXCollections.observableArrayList();
-    private ObservableList<String> ringList = FXCollections.observableArrayList();
 
-    private ArrayList<RotorState> rotorStates = new ArrayList<RotorState>(ROTOR_COUNT);
+    private ArrayList<RotorControl> rotorControls = new ArrayList<RotorControl>(ROTOR_COUNT);
 
     private boolean fourthWheel = false;
     private boolean useLetters = true;
@@ -435,9 +427,13 @@ public class Model {
 
     public ObservableList<String> getWheelList() { return wheelList; }
 
-    public int getRotorStateCount() { return rotorStates.size(); }
+    public ArrayList<RotorControl> getRotorControls() { return rotorControls; }
+    public int getRotorStateCount() { return rotorControls.size(); }
 
-    public void setFourthWheel(boolean state) { fourthWheel = state; }
+    public void setFourthWheel(boolean state) {
+        fourthWheel = state;
+        getState(SLOW).setDisable(!fourthWheel);
+    }
     public boolean isFourthWheel() { return fourthWheel; }
 
     /**
@@ -450,10 +446,8 @@ public class Model {
             return;
 
         useLetters = state;
-        if (useLetters)
-            ringList.setAll(letters);
-        else
-            ringList.setAll(numbers);
+        for (RotorControl rotor : rotorControls)
+            rotor.setUseLetters(useLetters);
     }
 
     public boolean isUseLetters() { return useLetters; }
@@ -462,79 +456,51 @@ public class Model {
     public void setShow(boolean state) { show = state; }
 
 
-    /**
-     * RotorState is a class that captures the choice of Rotor, the ring 
-     * setting and the rotor offset of a single Rotor.
-     */
-    private class RotorState {
-        private String wheelChoice;
-        private ListSpinner ringSetting;
-        private ListSpinner offset;
-
-        public RotorState(String wheelChoice, ObservableList<String> ringList) {
-            this.wheelChoice = wheelChoice;
-            this.ringSetting = new ListSpinner(ringList); 
-            this.offset = new ListSpinner(ringList);
-        }
-
-        public String getWheelChoice() { return wheelChoice; }
-        public void setWheelChoice(String choice) { wheelChoice = choice; }
-
-        public SpinnerValueFactory<String> getRingSettingSVF() { return ringSetting.getSVF(); }
-
-        public int getRingIndex() { return ringSetting.getIndex(); }
-        public void setRingSetting(String value) { ringSetting.setCurrent(value); }
-        public void setRingIndex(int value) { ringSetting.setIndex(value); }
-
-        public SpinnerValueFactory<String> getRotorOffsetSVF() { return offset.getSVF(); }
-
-        public int getRotorIndex() { return offset.getIndex(); }
-        public void setRotorOffset(String value) { offset.setCurrent(value); }
-        public void setRotorIndex(int value) { offset.setIndex(value); }
-        public void incrementRotorOffset(int step) { offset.increment(step); }
-        
+    public void setRotorState(int index, String wheelChoice, int ringIndex, int rotorIndex) { 
+        getState(index).set(wheelChoice, ringIndex, rotorIndex); 
     }
 
-    private RotorState getState(int index) { return rotorStates.get(index); }
+    public void setTranslate(boolean selected) {
+        for (RotorControl rotor : rotorControls)
+            rotor.setLockDown(selected);
+    }
 
-    public SpinnerValueFactory<String> getRingSettingSVF(int index) { return getState(index).getRingSettingSVF(); }
-    public SpinnerValueFactory<String> getRotorOffsetSVF(int index) { return getState(index).getRotorOffsetSVF(); }
+
+
+
+
+    private RotorControl getState(int index) { return rotorControls.get(index); }
+
+    // public SpinnerValueFactory<String> getRingSettingSVF(int index) { return getState(index).getRingSettingSVF(); }
+    // public SpinnerValueFactory<String> getRotorOffsetSVF(int index) { return getState(index).getRotorOffsetSVF(); }
 
     public String getWheelChoice(int index) { return getState(index).getWheelChoice(); }
     public void setWheelChoice(int index, String choice) { getState(index).setWheelChoice(choice); }
 
     public int getRingIndex(int index) { return getState(index).getRingIndex(); }
-    public void setRingSetting(int index, String value) { getState(index).setRingSetting(value); }
+    public void setRingSetting(int index, String value) { getState(index).setRingIndex(Mapper.stringToIndex(value)); }
     public void setRingIndex(int index, int value) { getState(index).setRingIndex(value); }
 
     public int getRotorIndex(int index) { return getState(index).getRotorIndex(); }
-    public void setRotorOffset(int index, String value) { getState(index).setRotorOffset(value); }
+    public void setRotorOffset(int index, String value) { getState(index).setRotorIndex(Mapper.stringToIndex(value)); }
     public void setRotorIndex(int index, int value) { getState(index).setRotorIndex(value); }
-    private void incrementRotorOffset(int index, int step) { getState(index).incrementRotorOffset(step); }
+    private void incrementRotorOffset(int index, int step) { getState(index).increment(step); }
 
 
     /**
      * Initialize "Rotor Set-Up".
      */
     private void initializeRotorSetup() {
-        // Initialize "Rotor Selection" panel.
+        // Initialize wheelList.
         for (Rotor rotor : rotors)
             wheelList.add(rotor.getId());
 
-        // Initialize "Ring Settings" and "Rotor Offsets" panels (both use ringList).
-        for (int i = 0; i < 26; ++i) {
-            final String letter = Mapper.indexToLetter(i);
-            letters.add(letter);
-            ringList.add(letter);
-
-            numbers.add(String.valueOf(i + 1));
+        // Initialize "Rotor Control Set-Up".
+        final String[] names = { "fourth", "left", "middle", "right" };
+        for (int i = 0; i < ROTOR_COUNT; ++i) {
+            rotorControls.add(new RotorControl());
+            getState(i).init(names[i], wheelList);
         }
-
-        // Initialize "Rotor Set-Up".
-        final String first = wheelList.get(0);
-
-        for (int i = 0; i < ROTOR_COUNT; ++i)
-            rotorStates.add(new RotorState(first, ringList));
     }
 
 

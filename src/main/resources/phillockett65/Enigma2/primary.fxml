@@ -5,10 +5,8 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -18,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="777.0" prefWidth="450.0" spacing="20.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.Enigma2.PrimaryController">
+<VBox alignment="CENTER" prefHeight="719.0" prefWidth="450.0" spacing="20.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.Enigma2.PrimaryController">
    <children>
       <TitledPane fx:id="reflectorSetUpTitledPane" collapsible="false" layoutX="30.0" layoutY="403.0" text="Reflector Set-Up">
          <content>
@@ -59,55 +57,21 @@
          <content>
             <VBox spacing="4.0">
                <children>
-                  <TitledPane fx:id="rotorSelectionTitledPane" collapsible="false" text="Rotor Selection">
-                     <content>
-                        <VBox spacing="10.0">
+                  <HBox fx:id="rotorSetUpHBox" prefHeight="100.0" prefWidth="200.0" spacing="4.0">
+                     <children>
+                        <VBox alignment="CENTER_RIGHT" minWidth="80.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
                            <children>
-                              <HBox spacing="10.0">
-                                 <children>
-                                    <ChoiceBox fx:id="wheel0Choicebox" disable="true" layoutX="10.0" layoutY="10.0" prefWidth="150.0" />
-                                    <ChoiceBox fx:id="wheel1Choicebox" prefWidth="150.0" />
-                                    <ChoiceBox fx:id="wheel2Choicebox" prefWidth="150.0" />
-                                    <ChoiceBox fx:id="wheel3Choicebox" prefWidth="150.0" />
-                                 </children>
-                              </HBox>
+                              <Label text="Rotor:" />
+                              <Label text="Ring Settings:" />
+                              <Label text="Offset:" />
                            </children>
                         </VBox>
-                     </content>
-                  </TitledPane>
-                  <TitledPane fx:id="ringSettingsTitledPane" collapsible="false" text="Ring Settings">
-                     <content>
-                        <VBox spacing="10.0">
-                           <children>
-                              <HBox spacing="10.0">
-                                 <children>
-                                    <Spinner fx:id="ringSetting0Spinner" disable="true" layoutX="10.0" layoutY="10.0" />
-                                    <Spinner fx:id="ringSetting1Spinner" />
-                                    <Spinner fx:id="ringSetting2Spinner" />
-                                    <Spinner fx:id="ringSetting3Spinner" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </content>
-                  </TitledPane>
-                  <TitledPane fx:id="rotorOffsetsTitledPane" collapsible="false" text="Rotor Offsets">
-                     <content>
-                        <VBox spacing="10.0">
-                           <children>
-                              <HBox spacing="10.0">
-                                 <children>
-                                    <Spinner fx:id="rotorOffset0Spinner" disable="true" layoutX="10.0" layoutY="10.0" />
-                                    <Spinner fx:id="rotorOffset1Spinner" />
-                                    <Spinner fx:id="rotorOffset2Spinner" />
-                                    <Spinner fx:id="rotorOffset3Spinner" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </content>
-                  </TitledPane>
-                  <HBox spacing="10.0">
+                     </children>
+                  </HBox>
+                  <HBox spacing="40.0">
                      <children>
                         <CheckBox fx:id="fourthWheelCheckbox" mnemonicParsing="false" onAction="#fourthWheelCheckboxActionPerformed" text="Fourth Rotor" />
                         <CheckBox fx:id="useLettersCheckbox" mnemonicParsing="false" onAction="#useLettersCheckboxActionPerformed" text="Use Letters" />
@@ -159,7 +123,7 @@
                <children>
                   <HBox>
                      <children>
-                        <ToggleButton fx:id="encipherButton" mnemonicParsing="false" onAction="#encipherButtonActionPerformed" text="Encipher" />
+                        <CheckBox fx:id="encipherCheckbox" mnemonicParsing="false" onAction="#encipherCheckboxActionPerformed" text="Encipher" />
                         <Region HBox.hgrow="ALWAYS" />
                         <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetButtonActionPerformed" text="Default Settings" />
                      </children>

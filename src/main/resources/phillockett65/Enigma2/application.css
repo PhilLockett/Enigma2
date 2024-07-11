@@ -3,8 +3,13 @@
 .root{
     -fx-background-color: #303030;
 }
-.label, .check-box, .radio-button{
-    -fx-text-fill: #e8e8e8;
+.label, .check-box:selected, .radio-button:selected{
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.check-box, .radio-button{
+    -fx-text-fill: #ffffffbb;
+    -fx-font-weight: bold;
 }
 
 .titled-pane{
@@ -51,18 +56,6 @@
 
 .choice-box, .button{
     -fx-background-color: #9B4642;
-    -fx-text-fill: #e8e8e8;
-    -fx-font-weight: bold;
-    -fx-background-radius: 12;
-}
-.toggle-button:selected{
-    -fx-background-color: green;
-    -fx-text-fill: #e8e8e8;
-    -fx-font-weight: bold;
-    -fx-background-radius: 12;
-}
-.toggle-button{
-    -fx-background-color: red;
     -fx-text-fill: #e8e8e8;
     -fx-font-weight: bold;
     -fx-background-radius: 12;

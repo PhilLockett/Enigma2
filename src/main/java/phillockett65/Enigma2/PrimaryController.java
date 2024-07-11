@@ -37,11 +37,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -133,10 +131,10 @@ public class PrimaryController {
             pair.setText(model.getPairText(i));
         }
 
-        wheel0Choicebox.setValue(model.getWheelChoice(0));
-        wheel1Choicebox.setValue(model.getWheelChoice(1));
-        wheel2Choicebox.setValue(model.getWheelChoice(2));
-        wheel3Choicebox.setValue(model.getWheelChoice(3));
+        // wheel0Choicebox.setValue(model.getWheelChoice(0));
+        // wheel1Choicebox.setValue(model.getWheelChoice(1));
+        // wheel2Choicebox.setValue(model.getWheelChoice(2));
+        // wheel3Choicebox.setValue(model.getWheelChoice(3));
 
         fourthWheelCheckbox.setSelected(model.isFourthWheel());
         plugboardCheckbox.setSelected(model.isExtPlugboard());
@@ -147,7 +145,7 @@ public class PrimaryController {
             TextField plug = plugs.get(i);
             plug.setText(model.getPlugText(i));
         }
-        encipherButton.setSelected(model.isEncipher());
+        encipherCheckbox.setSelected(model.isEncipher());
     }
 
 
@@ -333,21 +331,6 @@ public class PrimaryController {
      * Support code for "Rotor Selection" panel.
      */
 
-    @FXML
-    private TitledPane rotorSelectionTitledPane;
-
-    @FXML
-    private ChoiceBox<String> wheel0Choicebox;
-
-    @FXML
-    private ChoiceBox<String> wheel1Choicebox;
-
-    @FXML
-    private ChoiceBox<String> wheel2Choicebox;
-
-    @FXML
-    private ChoiceBox<String> wheel3Choicebox;
-
     /**
      * Control whether it is possible to change the rotor selection. Note 
      * wheel0Choicebox is controlled seperately in editableFourthWheel().
@@ -358,65 +341,17 @@ public class PrimaryController {
 
         fourthWheelCheckbox.setDisable(!editable);
         plugboardCheckbox.setDisable(!editable);
+        model.setTranslate(!editable);
 
-        wheel1Choicebox.setDisable(!editable);
-        wheel2Choicebox.setDisable(!editable);
-        wheel3Choicebox.setDisable(!editable);
+        // wheel1Choicebox.setDisable(!editable);
+        // wheel2Choicebox.setDisable(!editable);
+        // wheel3Choicebox.setDisable(!editable);
     }
-
-    /**
-     * Initialize "Rotor Selection" panel.
-     */
-    private void initializeWheelOrder() {
-        rotorSelectionTitledPane.setTooltip(new Tooltip("Select the Rotors to use"));
-
-        wheel0Choicebox.setItems(model.getWheelList());
-        wheel1Choicebox.setItems(model.getWheelList());
-        wheel2Choicebox.setItems(model.getWheelList());
-        wheel3Choicebox.setItems(model.getWheelList());
-
-        wheel0Choicebox.setTooltip(new Tooltip("Select the fourth Rotor"));
-        wheel1Choicebox.setTooltip(new Tooltip("Select the left Rotor"));
-        wheel2Choicebox.setTooltip(new Tooltip("Select the middle Rotor"));
-        wheel3Choicebox.setTooltip(new Tooltip("Select the right Rotor"));
-
-        wheel0Choicebox.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> {
-            model.setWheelChoice(0, newValue);
-        });
-
-        wheel1Choicebox.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> {
-            model.setWheelChoice(1, newValue);
-        });
-
-        wheel2Choicebox.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> {
-            model.setWheelChoice(2, newValue);
-        });
-
-        wheel3Choicebox.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> {
-            model.setWheelChoice(3, newValue);
-        });
-    }
-
 
 
     /************************************************************************
      * Support code for "Ring Settings" panel.
      */
-
-    @FXML
-    private TitledPane ringSettingsTitledPane;
-
-    @FXML
-    private Spinner<String> ringSetting0Spinner;
-
-    @FXML
-    private Spinner<String> ringSetting1Spinner;
-
-    @FXML
-    private Spinner<String> ringSetting2Spinner;
-
-    @FXML
-    private Spinner<String> ringSetting3Spinner;
 
 
     /**
@@ -427,115 +362,11 @@ public class PrimaryController {
     private void editableRingSettings(boolean editable) {
         // System.out.println("editableRingSettings(" + editable + ")");
 
-        ringSetting1Spinner.setDisable(!editable);
-        ringSetting2Spinner.setDisable(!editable);
-        ringSetting3Spinner.setDisable(!editable);
+        // ringSetting1Spinner.setDisable(!editable);
+        // ringSetting2Spinner.setDisable(!editable);
+        // ringSetting3Spinner.setDisable(!editable);
     }
 
-    /**
-     * Initialize "Ring Settings" panel.
-     */
-    private void initializeRingSettings() {
-        ringSettingsTitledPane.setTooltip(new Tooltip("Select Ring Setting (internal wiring offset) for the Rotors"));
-
-        ringSetting0Spinner.setValueFactory(model.getRingSettingSVF(0));
-        ringSetting1Spinner.setValueFactory(model.getRingSettingSVF(1));
-        ringSetting2Spinner.setValueFactory(model.getRingSettingSVF(2));
-        ringSetting3Spinner.setValueFactory(model.getRingSettingSVF(3));
-
-        ringSetting0Spinner.getValueFactory().wrapAroundProperty().set(true);
-        ringSetting1Spinner.getValueFactory().wrapAroundProperty().set(true);
-        ringSetting2Spinner.getValueFactory().wrapAroundProperty().set(true);
-        ringSetting3Spinner.getValueFactory().wrapAroundProperty().set(true);
-
-        ringSetting0Spinner.setTooltip(new Tooltip("Select Ring Setting for the fourth Rotor"));
-        ringSetting1Spinner.setTooltip(new Tooltip("Select Ring Setting for the left Rotor"));
-        ringSetting2Spinner.setTooltip(new Tooltip("Select Ring Setting for the middle Rotor"));
-        ringSetting3Spinner.setTooltip(new Tooltip("Select Ring Setting for the right Rotor"));
-
-        ringSetting0Spinner.valueProperty().addListener( (v, oldValue, newValue) -> {
-            // System.out.println("ringSetting0Spinner.valueProperty().Listener(" + newValue + "))");
-            model.setRingSetting(0, newValue);
-        });
-
-        ringSetting1Spinner.valueProperty().addListener( (v, oldValue, newValue) -> {
-            // System.out.println("ringSetting1Spinner.valueProperty().Listener(" + newValue + "))");
-            model.setRingSetting(1, newValue);
-        });
-
-        ringSetting2Spinner.valueProperty().addListener( (v, oldValue, newValue) -> {
-            // System.out.println("ringSetting2Spinner.valueProperty().Listener(" + newValue + "))");
-            model.setRingSetting(2, newValue);
-        });
-
-        ringSetting3Spinner.valueProperty().addListener( (v, oldValue, newValue) -> {
-            // System.out.println("ringSetting3Spinner.valueProperty().Listener(" + newValue + "))");
-            model.setRingSetting(3, newValue);
-        });
-    }
-
-
-
-    /************************************************************************
-     * Support code for "Rotor Offsets" panel.
-     */
-
-    @FXML
-    private TitledPane rotorOffsetsTitledPane;
-
-    @FXML
-    private Spinner<String> rotorOffset0Spinner;
-
-    @FXML
-    private Spinner<String> rotorOffset1Spinner;
-
-    @FXML
-    private Spinner<String> rotorOffset2Spinner;
-
-    @FXML
-    private Spinner<String> rotorOffset3Spinner;
-
-    /**
-     * Initialize "Rotor Offsets" panel.
-     */
-    private void initializeRotorOffsets() {
-        rotorOffsetsTitledPane.setTooltip(new Tooltip("Select initial starting position for the selected Rotors"));
-
-        rotorOffset0Spinner.setValueFactory(model.getRotorOffsetSVF(0));
-        rotorOffset1Spinner.setValueFactory(model.getRotorOffsetSVF(1));
-        rotorOffset2Spinner.setValueFactory(model.getRotorOffsetSVF(2));
-        rotorOffset3Spinner.setValueFactory(model.getRotorOffsetSVF(3));
-
-        rotorOffset0Spinner.getValueFactory().wrapAroundProperty().set(true);
-        rotorOffset1Spinner.getValueFactory().wrapAroundProperty().set(true);
-        rotorOffset2Spinner.getValueFactory().wrapAroundProperty().set(true);
-        rotorOffset3Spinner.getValueFactory().wrapAroundProperty().set(true);
-
-        rotorOffset0Spinner.setTooltip(new Tooltip("Select offset for the fourth Rotor"));
-        rotorOffset1Spinner.setTooltip(new Tooltip("Select offset for the left Rotor"));
-        rotorOffset2Spinner.setTooltip(new Tooltip("Select offset for the middle Rotor"));
-        rotorOffset3Spinner.setTooltip(new Tooltip("Select offset for the right Rotor"));
-        
-        rotorOffset0Spinner.valueProperty().addListener( (v, oldValue, newValue) -> {
-            // System.out.println("rotorOffset0Spinner.valueProperty().Listener(" + newValue + "))");
-            model.setRotorOffset(0, newValue);
-        });
-
-        rotorOffset1Spinner.valueProperty().addListener( (v, oldValue, newValue) -> {
-            // System.out.println("rotorOffset1Spinner.valueProperty().Listener(" + newValue + "))");
-            model.setRotorOffset(1, newValue);
-        });
-
-        rotorOffset2Spinner.valueProperty().addListener( (v, oldValue, newValue) -> {
-            // System.out.println("rotorOffset2Spinner.valueProperty().Listener(" + newValue + "))");
-            model.setRotorOffset(2, newValue);
-        });
-
-        rotorOffset3Spinner.valueProperty().addListener( (v, oldValue, newValue) -> {
-            // System.out.println("rotorOffset3Spinner.valueProperty().Listener(" + newValue + "))");
-            model.setRotorOffset(3, newValue);
-        });
-    }
 
 
 
@@ -546,6 +377,9 @@ public class PrimaryController {
     @FXML
     private TitledPane rotorSetUpTitledPane;
  
+    @FXML
+    private HBox rotorSetUpHBox;
+
     @FXML
     private CheckBox fourthWheelCheckbox;
 
@@ -575,12 +409,12 @@ public class PrimaryController {
      * depending on the states of fourthWheelCheckbox and encipherButton.
      */
     private void editableFourthWheel() {
-        final boolean fourthWheel = model.isFourthWheel();
-        final boolean disable = fourthWheel ? model.isEncipher() : true;
+        // final boolean fourthWheel = model.isFourthWheel();
+        // final boolean disable = fourthWheel ? model.isEncipher() : true;
 
-        wheel0Choicebox.setDisable(disable);
-        ringSetting0Spinner.setDisable(disable);
-        rotorOffset0Spinner.setDisable(!fourthWheel);
+        // wheel0Choicebox.setDisable(disable);
+        // ringSetting0Spinner.setDisable(disable);
+        // rotorOffset0Spinner.setDisable(!fourthWheel);
     }
 
     /**
@@ -588,9 +422,8 @@ public class PrimaryController {
      */
     private void initializeRotorSetup() {
 
-        initializeWheelOrder();
-        initializeRingSettings();
-        initializeRotorOffsets();
+
+        rotorSetUpHBox.getChildren().addAll(model.getRotorControls());
 
         rotorSetUpTitledPane.setTooltip(new Tooltip("Select and set up the Rotors (wheels / drums)"));
         fourthWheelCheckbox.setTooltip(new Tooltip("Select to use a fourth Rotor"));
@@ -763,7 +596,7 @@ public class PrimaryController {
     private int currentKey = -1;
 
     @FXML
-    private ToggleButton encipherButton;
+    private CheckBox encipherCheckbox;
 
     @FXML
     private Button resetButton;
@@ -784,8 +617,8 @@ public class PrimaryController {
     private TextField lampIO;
 
     @FXML
-    void encipherButtonActionPerformed(ActionEvent event) {
-        final boolean encipher = encipherButton.isSelected();
+    void encipherCheckboxActionPerformed(ActionEvent event) {
+        final boolean encipher = encipherCheckbox.isSelected();
         // System.out.println("encipherButtonActionPerformed(" + encipher + ")");
 
         model.setEncipher(encipher);
@@ -825,14 +658,14 @@ public class PrimaryController {
         editableTranslation(!encipher);
 
         if (encipher) {
-            encipherButton.setText("Press to Change Settings");
-            encipherButton.setTooltip(new Tooltip("Press to resume changing settings"));
+            // encipherCheckbox.setText("Press to Change Settings");
+            encipherCheckbox.setTooltip(new Tooltip("Un-select to resume changing settings"));
 
             mainLabel.setVisible(false);
             mainIO.setVisible(true);
         } else {
-            encipherButton.setText("Press to Start Translation");
-            encipherButton.setTooltip(new Tooltip("Press to translate letters using the current settings"));
+            // encipherCheckbox.setText("Press to Start Translation");
+            encipherCheckbox.setTooltip(new Tooltip("Select to translate letters using the current settings"));
 
             mainLabel.setVisible(true);
             mainIO.setVisible(false);
@@ -847,7 +680,7 @@ public class PrimaryController {
      * Only allow the encipherButton to be selected if the config is valid.
      */
     private void syncEncipherButton() {
-        encipherButton.setDisable(!model.isConfigValid());
+        encipherCheckbox.setDisable(!model.isConfigValid());
     }
 
     /**
@@ -855,7 +688,7 @@ public class PrimaryController {
      */
     private void initializeEncipher() {
         syncEncipherButton();
-        encipherButton.setSelected(updateGUIState());
+        encipherCheckbox.setSelected(updateGUIState());
         resetButton.setTooltip(new Tooltip("Click to return all settings to the default values"));
 
         mainLabel.setText("Configure Settings");
