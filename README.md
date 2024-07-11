@@ -88,21 +88,19 @@ and each letter can be used once at most for the plugboard configuration to be
 considered valid.
 
 ### Translation
-The toggle button is only available when the settings are valid. The toggle 
-button switches between allowing settings to be changed and translating key 
-presses.
+The 'Encipher' check box is only available when the settings are valid. 
+The check box switches between allowing settings to be changed and translating 
+key presses.
 
-While configuration settings are being selected the toggle button is red and 
-shows 'Press to Start Translation' and the text message 'Configure Settings' 
-is displayed.
+Un-select the check box to make configuration changes.
+Select the check box to translate key presses using the current configuration 
+settings.
+The majority of the settings become disabled so they cannot be changed during 
+the translation stage.
 
- When the button is pressed it toggles to green showing 'Press to Change 
- Settings'. The majority of the settings become disabled so they cannot be 
- changed during the translation stage. The 'Configure Settings' text message 
- is replaced with the key press translation with each key press.
-
+### Default Settings
 The 'Default Settings' button returns all settings to the original values 
-including clearing the text boxes.
+including clearing all the text boxes.
 
 ## Points of interest
 This code has the following points of interest:
