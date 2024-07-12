@@ -131,11 +131,6 @@ public class PrimaryController {
             pair.setText(model.getPairText(i));
         }
 
-        // wheel0Choicebox.setValue(model.getWheelChoice(0));
-        // wheel1Choicebox.setValue(model.getWheelChoice(1));
-        // wheel2Choicebox.setValue(model.getWheelChoice(2));
-        // wheel3Choicebox.setValue(model.getWheelChoice(3));
-
         fourthWheelCheckbox.setSelected(model.isFourthWheel());
         plugboardCheckbox.setSelected(model.isExtPlugboard());
         useLettersCheckbox.setSelected(model.isUseLetters());
@@ -342,32 +337,7 @@ public class PrimaryController {
         fourthWheelCheckbox.setDisable(!editable);
         plugboardCheckbox.setDisable(!editable);
         model.setTranslate(!editable);
-
-        // wheel1Choicebox.setDisable(!editable);
-        // wheel2Choicebox.setDisable(!editable);
-        // wheel3Choicebox.setDisable(!editable);
     }
-
-
-    /************************************************************************
-     * Support code for "Ring Settings" panel.
-     */
-
-
-    /**
-     * Control whether it is possible to change the ring settings. Note 
-     * ringSetting0Spinner is controlled seperately in editableFourthWheel().
-     * @param editable indicates if the ring settings are editable.
-     */
-    private void editableRingSettings(boolean editable) {
-        // System.out.println("editableRingSettings(" + editable + ")");
-
-        // ringSetting1Spinner.setDisable(!editable);
-        // ringSetting2Spinner.setDisable(!editable);
-        // ringSetting3Spinner.setDisable(!editable);
-    }
-
-
 
 
     /************************************************************************
@@ -392,7 +362,6 @@ public class PrimaryController {
     @FXML
     void fourthWheelCheckboxActionPerformed(ActionEvent event) {
         model.setFourthWheel(fourthWheelCheckbox.isSelected());
-        editableFourthWheel();
     }
 
     @FXML
@@ -402,19 +371,6 @@ public class PrimaryController {
     @FXML
     void showStepsCheckboxActionPerformed(ActionEvent event) {
         model.setShow(showStepsCheckbox.isSelected());
-    }
-
-    /**
-     * Control whether it is possible to select and change the fourth rotor 
-     * depending on the states of fourthWheelCheckbox and encipherButton.
-     */
-    private void editableFourthWheel() {
-        // final boolean fourthWheel = model.isFourthWheel();
-        // final boolean disable = fourthWheel ? model.isEncipher() : true;
-
-        // wheel0Choicebox.setDisable(disable);
-        // ringSetting0Spinner.setDisable(disable);
-        // rotorOffset0Spinner.setDisable(!fourthWheel);
     }
 
     /**
@@ -651,10 +607,8 @@ public class PrimaryController {
         // System.out.println("updateGUIState(" + encipher + ")");
         editableReflector(!encipher);
         editableWheelOrder(!encipher);
-        editableRingSettings(!encipher);
         editablePlugboard(!encipher);
         editableExtPlugboard();
-        editableFourthWheel();
         editableTranslation(!encipher);
 
         if (encipher) {

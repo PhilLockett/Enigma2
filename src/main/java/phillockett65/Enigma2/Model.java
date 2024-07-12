@@ -467,12 +467,7 @@ public class Model {
 
 
 
-
-
     private RotorControl getState(int index) { return rotorControls.get(index); }
-
-    // public SpinnerValueFactory<String> getRingSettingSVF(int index) { return getState(index).getRingSettingSVF(); }
-    // public SpinnerValueFactory<String> getRotorOffsetSVF(int index) { return getState(index).getRotorOffsetSVF(); }
 
     public String getWheelChoice(int index) { return getState(index).getWheelChoice(); }
     public void setWheelChoice(int index, String choice) { getState(index).setWheelChoice(choice); }
