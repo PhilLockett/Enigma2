@@ -75,9 +75,9 @@
     -fx-font-weight: bold;
 }
 .jfx-toggle-button {
-    -jfx-toggle-color: #40FFA8;
+    -jfx-toggle-color: #e8e8e8;
     -jfx-untoggle-color: #808080;
-    -jfx-toggle-line-color: #40FFA899;
+    -jfx-toggle-line-color: #e8e8e899;
     -jfx-untoggle-line-color: #80808099;
     -jfx-size: 10.0;
     -jfx-disable-visual-focus: true;
