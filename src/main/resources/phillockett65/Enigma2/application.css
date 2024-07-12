@@ -3,7 +3,7 @@
 .root{
     -fx-background-color: #303030;
 }
-.label, .check-box:selected, .radio-button:selected{
+.label, .label:selected, .check-box:selected, .radio-button:selected{
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
@@ -21,7 +21,7 @@
 }
 
 .tooltip{
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-font-style: italic;
     -fx-font-weight: normal;
     -fx-text-fill: black;
@@ -66,6 +66,23 @@
     -fx-font-weight: bold;
 }
 
+.toggle-button:selected{
+    -fx-text-fill: #e8e8e8;
+}
+.toggle-button{
+    -fx-background-color: transparent;
+    -fx-text-fill: #e8e8e89d;
+    -fx-font-weight: bold;
+}
+.jfx-toggle-button {
+    -jfx-toggle-color: #40FFA8;
+    -jfx-untoggle-color: #808080;
+    -jfx-toggle-line-color: #40FFA899;
+    -jfx-untoggle-line-color: #80808099;
+    -jfx-size: 10.0;
+    -jfx-disable-visual-focus: true;
+}
+
 .increment-arrow-button{
     -fx-background-radius: 0 12 0 0;
 }
@@ -80,6 +97,10 @@
 }
 .arrow{
     -fx-background-color: black;
+}
+
+.big-text-field{
+    -fx-font-size: 24px;
 }
 
 .key-text-field:readonly{

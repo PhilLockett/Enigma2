@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -14,9 +14,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="719.0" prefWidth="450.0" spacing="20.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.Enigma2.PrimaryController">
+<VBox alignment="CENTER" prefHeight="782.0" prefWidth="463.0" spacing="20.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.Enigma2.PrimaryController">
    <children>
       <TitledPane fx:id="reflectorSetUpTitledPane" collapsible="false" layoutX="30.0" layoutY="403.0" text="Reflector Set-Up">
          <content>
@@ -35,8 +34,8 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <ChoiceBox fx:id="reflectorChoicebox" GridPane.columnSpan="3" />
-                  <CheckBox fx:id="reconfigurableCheckbox" mnemonicParsing="false" onAction="#reconfigurableCheckboxActionPerformed" text="Use Reconfigurable Reflector" GridPane.columnIndex="3" GridPane.columnSpan="3" />
+                  <ChoiceBox fx:id="reflectorChoicebox" GridPane.columnSpan="2" />
+                  <JFXToggleButton fx:id="reconfigurableCheckbox" onAction="#reconfigurableCheckboxActionPerformed" text="Use Reconfigurable Reflector" GridPane.columnIndex="2" GridPane.columnSpan="4" />
                   <TextField fx:id="pair0" onKeyTyped="#reflectorKeyTyped" GridPane.rowIndex="1" />
                   <TextField fx:id="pair1" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="pair2" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="2" GridPane.rowIndex="1" />
@@ -71,11 +70,11 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox spacing="40.0">
+                  <HBox>
                      <children>
-                        <CheckBox fx:id="fourthWheelCheckbox" mnemonicParsing="false" onAction="#fourthWheelCheckboxActionPerformed" text="Fourth Rotor" />
-                        <CheckBox fx:id="useLettersCheckbox" mnemonicParsing="false" onAction="#useLettersCheckboxActionPerformed" text="Use Letters" />
-                        <CheckBox fx:id="showStepsCheckbox" mnemonicParsing="false" onAction="#showStepsCheckboxActionPerformed" text="Show Steps" />
+                        <JFXToggleButton fx:id="fourthWheelCheckbox" graphicTextGap="0.0" onAction="#fourthWheelCheckboxActionPerformed" text="Fourth Rotor" />
+                        <JFXToggleButton fx:id="useLettersCheckbox" graphicTextGap="0.0" onAction="#useLettersCheckboxActionPerformed" text="Use Letters" />
+                        <JFXToggleButton fx:id="showStepsCheckbox" graphicTextGap="0.0" onAction="#showStepsCheckboxActionPerformed" text="Show Steps" />
                      </children>
                   </HBox>
                </children>
@@ -112,7 +111,7 @@
                   <TextField fx:id="plug10" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" />
                   <TextField fx:id="plug11" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                   <TextField fx:id="plug12" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                  <CheckBox fx:id="plugboardCheckbox" mnemonicParsing="false" onAction="#plugboardCheckboxActionPerformed" text="Use All Plugboard Connections" GridPane.columnSpan="5" GridPane.rowIndex="2" />
+                  <JFXToggleButton fx:id="plugboardCheckbox" onAction="#plugboardCheckboxActionPerformed" text="Use All Plugboard Connections" GridPane.columnSpan="5" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </content>
@@ -121,29 +120,21 @@
          <content>
             <VBox spacing="8.0">
                <children>
-                  <HBox>
+                  <HBox alignment="CENTER">
                      <children>
-                        <CheckBox fx:id="encipherCheckbox" mnemonicParsing="false" onAction="#encipherCheckboxActionPerformed" text="Encipher" />
+                        <JFXToggleButton fx:id="encipherCheckbox" onAction="#encipherCheckboxActionPerformed" text="Encipher" />
                         <Region HBox.hgrow="ALWAYS" />
                         <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetButtonActionPerformed" text="Default Settings" />
                      </children>
                   </HBox>
                   <StackPane>
                      <children>
-                        <Label fx:id="mainLabel" text="Configure">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
+                        <Label fx:id="mainLabel" styleClass="big-text-field" text="Configure" />
                         <HBox fx:id="mainIO" prefWidth="200.0">
                            <children>
                               <Region prefWidth="200.0" />
                               <TextField fx:id="keyIO" alignment="CENTER" editable="false" onKeyPressed="#IOKeyPress" prefWidth="126.0" styleClass="key-text-field" />
-                              <Label fx:id="labelIO" alignment="CENTER" contentDisplay="CENTER" prefWidth="126.0" text="-&gt;">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Label>
+                              <Label fx:id="labelIO" alignment="CENTER" contentDisplay="CENTER" prefWidth="126.0" styleClass="big-text-field" text="-&gt;" />
                               <TextField fx:id="lampIO" alignment="CENTER" editable="false" onKeyPressed="#IOKeyPress" prefWidth="126.0" styleClass="lamp-text-field" />
                               <Region prefWidth="200.0" />
                            </children>

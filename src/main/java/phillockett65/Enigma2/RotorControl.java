@@ -52,7 +52,7 @@ public class RotorControl extends VBox {
         super();
         // System.out.println("CustomRotorControl()");
 
-        setSpacing(4);
+        setSpacing(8);
         wheelChoicebox = new ChoiceBox<String>();
         ringSettingSpinner = new Spinner<String>();
         rotorOffsetSpinner = new Spinner<String>();

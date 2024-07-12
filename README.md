@@ -106,7 +106,7 @@ including clearing all the text boxes.
 This code has the following points of interest:
 
   * Enigma2 is an updated version of [Enigma](https://github.com/PhilLockett/Enigma).
-  * Enigma2 is a Maven project that uses Maven, JavaFX, MaterialFX, FXML and CSS.
+  * Enigma2 is a Maven project that uses Maven, JavaFX, JFoeniX, FXML and CSS.
   * Enigma2 is derived from the [BaseFXML](https://github.com/PhilLockett/BaseFXML) 'framework'.
   * Enigma2 simulates the behaviour of the [Enigma](https://en.wikipedia.org/wiki/Enigma_machine) machine.
   * Rotor combinations can be selected that may not be available on the real machine.
