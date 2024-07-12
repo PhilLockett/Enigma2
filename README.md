@@ -5,12 +5,13 @@
 **USE AT OWN RISK.**
 
 ## Overview
-This project has been set up as a Maven project that uses JavaFX, FXML and 
-CSS to render the GUI. Maven can be run from the command line as shown below.
+This project is set up as a Maven project that uses JavaFX, JFoeniX, FXML and 
+CSS to render the GUI. 
+Maven can be run from the command line as shown below.
 Maven resolves dependencies and builds the application independently of an IDE.
 
-This application simulates the [Enigma](https://en.wikipedia.org/wiki/Enigma_machine)
-machine. There are no restrictions placed on the Rotor selection, as such some 
+This application simulates the [Enigma Machine](https://en.wikipedia.org/wiki/Enigma_machine). 
+There are no restrictions placed on the Rotor selection, as such some 
 Rotor combinations can be made that may not be available on the real machine.
 
 Note: for the Commercial, Rocket and SwissK Rotors, the current turnover points 
@@ -43,31 +44,30 @@ Once cloned the following command executes the code:
 	mvn clean javafx:run
 
 ## User Guide
-Selected settings and states will be maintained from one session to the next.
-This means that whatever state Enigma2 is in (rotor settings, rotor offsets, 
-plugboard connections etc.) are saved to "Settings.dat" when the application 
+Selected settings and states will be persisted from one session to the next.
+This means that all settings are saved to "Settings.dat" when the application 
 is shutdown. The next time Enigma2 is executed, these settings are loaded ready 
 to continue from where it left off.
 
 ### Reflector Set-Up
 The choice box allows standard pre-configured reflectors to be selected. 
-Alternatively the check box allows for a reconfigurable reflector to be used.
+Alternatively, the toggle allows for a reconfigurable reflector to be used.
 Twelve loop-back wired pairs must be defined using the text boxes. When all 
-Twelve are defined and each letter is used only once, the reflector is 
+Twelve pairs are defined using each letter only once, the reflector is 
 considered valid. The thirteenth pair is assumed from the two remaining 
 unused letters.
 
 ### Rotor Set-Up
-By default Enigma2 functions as a 3 Rotor machine, allowing the Left, Middle 
-and Right Rotors to be defined. The 'Fourth Rotor' check box, when selected, 
+By default, Enigma2 functions as a 3 Rotor machine, allowing the Left, Middle 
+and Right Rotors to be defined. The 'Fourth Rotor' toggle, when selected, 
 brings in the Fourth Rotor.
 
 Some machines use letters on the Rotors, whereas some use numbers. The 'Use 
-Letters' check box switches between these characters on the 'Ring Settings'
-and 'Rotor Offsets' spinners for convenience.
+Letters' toggle switches between these characters on the 'Ring Settings'
+and Rotor 'Offsets' spinners for convenience.
 
 To see all the individual translation steps displayed on the command line
-select the 'Show Steps' check box.
+select the 'Show Steps' toggle.
 
 #### Rotor Selection
 The choice boxes allow different Rotors to be selected for each of the 
@@ -78,25 +78,23 @@ can be selected that may not be available on the real machine.
 The spinners allow the ring settings for each rotor to be set.
 
 #### Rotor Offsets
-The spinners allow the initial rotor offsets for each rotor to be set. The
-Rotors advance in a predefined orderly manner with each key press before 
+The spinners set up the initial rotor offsets. 
+The Rotors advance in a predefined orderly manner with each key press before 
 translation.
 
 ### Plugboard Connections
 Zero or more swap-over pairs can be configured. The letters must be in pairs 
-and each letter can be used once at most for the plugboard configuration to be 
+and each letter can be used only once for the plugboard configuration to be 
 considered valid.
 
 ### Translation
-The 'Encipher' check box is only available when the settings are valid. 
-The check box switches between allowing settings to be changed and translating 
-key presses.
+The 'Encipher' toggle is only available when all settings are valid. 
 
-Un-select the check box to make configuration changes.
-Select the check box to translate key presses using the current configuration 
+Un-select the toggle to make configuration changes.
+
+Select the toggle to translate key presses using the current configuration 
 settings.
-The majority of the settings become disabled so they cannot be changed during 
-the translation stage.
+The majority of the settings become disabled while translating.
 
 ### Default Settings
 The 'Default Settings' button returns all settings to the original values 
@@ -106,8 +104,8 @@ including clearing all the text boxes.
 This code has the following points of interest:
 
   * Enigma2 is an updated version of [Enigma](https://github.com/PhilLockett/Enigma).
-  * Enigma2 is a Maven project that uses Maven, JavaFX, JFoeniX, FXML and CSS.
-  * Enigma2 is derived from the [BaseFXML](https://github.com/PhilLockett/BaseFXML) 'framework'.
+  * Enigma2 is a Maven project that uses JavaFX, JFoeniX, FXML and CSS.
+  * Enigma2 uses a custom controller, RotorController, to represent a rotor.
   * Enigma2 simulates the behaviour of the [Enigma](https://en.wikipedia.org/wiki/Enigma_machine) machine.
   * Rotor combinations can be selected that may not be available on the real machine.
-  * Data persistence is maintained from one session to the next.
+  * Data is persisted from one session to the next.
