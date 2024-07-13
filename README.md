@@ -51,6 +51,7 @@ to continue from where it left off.
 
 ### Reflector Set-Up
 The choice box allows standard pre-configured reflectors to be selected. 
+
 Alternatively, the toggle allows for a reconfigurable reflector to be used.
 Twelve loop-back wired pairs must be defined using the text boxes. When all 
 Twelve pairs are defined using each letter only once, the reflector is 
@@ -63,31 +64,37 @@ and Right Rotors to be defined. The 'Fourth Rotor' toggle, when selected,
 brings in the Fourth Rotor.
 
 Some machines use letters on the Rotors, whereas some use numbers. The 'Use 
-Letters' toggle switches between these characters on the 'Ring Settings'
+Numbers' toggle switches between these characters on the 'Ring Settings'
 and Rotor 'Offsets' spinners for convenience.
 
 To see all the individual translation steps displayed on the command line
 select the 'Show Steps' toggle.
 
 #### Rotor Selection
-The choice boxes allow different Rotors to be selected for each of the 
+These choice boxes allow different Rotors to be selected for each of the 
 positions. No restrictions are placed on the selection so combinations 
 can be selected that may not be available on the real machine.
 
 #### Ring Settings
-The spinners allow the ring settings for each rotor to be set.
+These spinners allow the ring settings for each rotor to be set.
 
 #### Rotor Offsets
-The spinners set up the initial rotor offsets. 
+These spinners set up the initial rotor offsets. 
+
 The Rotors advance in a predefined orderly manner with each key press before 
 translation.
 
 ### Plugboard Connections
-Zero or more swap-over pairs can be configured. The letters must be in pairs 
-and each letter can be used only once for the plugboard configuration to be 
-considered valid.
+Zero or more swap-over pairs can be configured (typically 10 are set). 
+The letters must be in pairs and each letter can be used only once for a valid 
+plugboard configuration.
+
+The toggle switch allows for up to 13 plugboard pairs to be configured.
 
 ### Translation
+This area shows the key presses and translated values.
+
+#### Encipher / Decipher
 The 'Encipher' toggle is only available when all settings are valid. 
 
 Un-select the toggle to make configuration changes.
@@ -96,7 +103,7 @@ Select the toggle to translate key presses using the current configuration
 settings.
 The majority of the settings become disabled while translating.
 
-### Default Settings
+#### Default Settings
 The 'Default Settings' button returns all settings to the original values 
 including clearing all the text boxes.
 
