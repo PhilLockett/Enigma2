@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXToggleButton?>
+<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="782.0" prefWidth="463.0" spacing="20.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.Enigma2.PrimaryController">
+<VBox alignment="CENTER" prefHeight="767.0" prefWidth="463.0" spacing="20.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.Enigma2.PrimaryController">
    <children>
       <TitledPane fx:id="reflectorSetUpTitledPane" collapsible="false" layoutX="30.0" layoutY="403.0" text="Reflector Set-Up">
          <content>
@@ -35,7 +35,7 @@
                </rowConstraints>
                <children>
                   <ChoiceBox fx:id="reflectorChoicebox" GridPane.columnSpan="2" />
-                  <JFXToggleButton fx:id="reconfigurableCheckbox" onAction="#reconfigurableCheckboxActionPerformed" text="Use Reconfigurable Reflector" GridPane.columnIndex="2" GridPane.columnSpan="4" />
+                  <MFXToggleButton fx:id="reconfigurableCheckbox" gap="4.0" onAction="#reconfigurableCheckboxActionPerformed" text="Use Reconfigurable Reflector" GridPane.columnIndex="2" GridPane.columnSpan="4" />
                   <TextField fx:id="pair0" onKeyTyped="#reflectorKeyTyped" GridPane.rowIndex="1" />
                   <TextField fx:id="pair1" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="pair2" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="2" GridPane.rowIndex="1" />
@@ -72,9 +72,9 @@
                   </HBox>
                   <HBox>
                      <children>
-                        <JFXToggleButton fx:id="fourthWheelCheckbox" graphicTextGap="0.0" onAction="#fourthWheelCheckboxActionPerformed" text="Fourth Rotor" />
-                        <JFXToggleButton fx:id="useLettersCheckbox" graphicTextGap="0.0" onAction="#useLettersCheckboxActionPerformed" text="Use Letters" />
-                        <JFXToggleButton fx:id="showStepsCheckbox" graphicTextGap="0.0" onAction="#showStepsCheckboxActionPerformed" text="Show Steps" />
+                        <MFXToggleButton fx:id="fourthWheelCheckbox" gap="4.0" graphicTextGap="0.0" onAction="#fourthWheelCheckboxActionPerformed" text="Fourth Rotor" />
+                        <MFXToggleButton fx:id="useLettersCheckbox" gap="4.0" graphicTextGap="0.0" onAction="#useLettersCheckboxActionPerformed" text="Use Letters" />
+                        <MFXToggleButton fx:id="showStepsCheckbox" gap="4.0" graphicTextGap="0.0" onAction="#showStepsCheckboxActionPerformed" text="Show Steps" />
                      </children>
                   </HBox>
                </children>
@@ -111,7 +111,7 @@
                   <TextField fx:id="plug10" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" />
                   <TextField fx:id="plug11" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                   <TextField fx:id="plug12" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                  <JFXToggleButton fx:id="plugboardCheckbox" onAction="#plugboardCheckboxActionPerformed" text="Use All Plugboard Connections" GridPane.columnSpan="5" GridPane.rowIndex="2" />
+                  <MFXToggleButton fx:id="plugboardCheckbox" gap="4.0" onAction="#plugboardCheckboxActionPerformed" text="Use All Plugboard Connections" GridPane.columnSpan="5" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </content>
@@ -122,7 +122,7 @@
                <children>
                   <HBox alignment="CENTER">
                      <children>
-                        <JFXToggleButton fx:id="encipherCheckbox" onAction="#encipherCheckboxActionPerformed" text="Encipher" />
+                        <MFXToggleButton fx:id="encipherCheckbox" gap="4.0" onAction="#encipherCheckboxActionPerformed" text="Encipher" />
                         <Region HBox.hgrow="ALWAYS" />
                         <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetButtonActionPerformed" text="Default Settings" />
                      </children>

@@ -5,7 +5,7 @@
 **USE AT OWN RISK.**
 
 ## Overview
-This project is set up as a Maven project that uses JavaFX, JFoeniX, FXML and 
+This project is set up as a Maven project that uses JavaFX, MaterialFX, FXML and 
 CSS to render the GUI. 
 Maven can be run from the command line as shown below.
 Maven resolves dependencies and builds the application independently of an IDE.
@@ -104,7 +104,7 @@ including clearing all the text boxes.
 This code has the following points of interest:
 
   * Enigma2 is an updated version of [Enigma](https://github.com/PhilLockett/Enigma).
-  * Enigma2 is a Maven project that uses JavaFX, JFoeniX, FXML and CSS.
+  * Enigma2 is a Maven project that uses JavaFX, MaterialFX, FXML and CSS.
   * Enigma2 uses a custom controller, RotorController, to represent a rotor.
   * Enigma2 simulates the behaviour of the [Enigma](https://en.wikipedia.org/wiki/Enigma_machine) machine.
   * Rotor combinations can be selected that may not be available on the real machine.

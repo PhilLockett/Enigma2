@@ -29,7 +29,7 @@
  */
 package phillockett65.Enigma2;
 
-import com.jfoenix.controls.JFXToggleButton;
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
 
 import java.util.ArrayList;
 
@@ -157,7 +157,7 @@ public class PrimaryController {
     private ChoiceBox<String> reflectorChoicebox;
 
     @FXML
-    private JFXToggleButton reconfigurableCheckbox;
+    private MFXToggleButton reconfigurableCheckbox;
 
     @FXML
     void reconfigurableCheckboxActionPerformed(ActionEvent event) {
@@ -352,13 +352,13 @@ public class PrimaryController {
     private HBox rotorSetUpHBox;
 
     @FXML
-    private JFXToggleButton fourthWheelCheckbox;
+    private MFXToggleButton fourthWheelCheckbox;
 
     @FXML
-    private JFXToggleButton useLettersCheckbox;
+    private MFXToggleButton useLettersCheckbox;
 
     @FXML
-    private JFXToggleButton showStepsCheckbox;
+    private MFXToggleButton showStepsCheckbox;
 
     @FXML
     void fourthWheelCheckboxActionPerformed(ActionEvent event) {
@@ -437,7 +437,7 @@ public class PrimaryController {
     private TextField plug12;
 
     @FXML
-    private JFXToggleButton plugboardCheckbox;
+    private MFXToggleButton plugboardCheckbox;
 
     private ArrayList<TextField> plugs = new ArrayList<TextField>(Model.FULL_COUNT);
 
@@ -553,7 +553,7 @@ public class PrimaryController {
     private int currentKey = -1;
 
     @FXML
-    private JFXToggleButton encipherCheckbox;
+    private MFXToggleButton encipherCheckbox;
 
     @FXML
     private Button resetButton;

@@ -74,14 +74,60 @@
     -fx-text-fill: #e8e8e89d;
     -fx-font-weight: bold;
 }
-.jfx-toggle-button {
-    -jfx-toggle-color: #e8e8e8;
-    -jfx-untoggle-color: #808080;
-    -jfx-toggle-line-color: #e8e8e899;
-    -jfx-untoggle-line-color: #80808099;
-    -jfx-size: 10.0;
-    -jfx-disable-visual-focus: true;
+
+.mfx-toggle-button {
+    -mfx-main: #e8e8e8;
+    -mfx-secondary: #e8e8e899;
+    -fx-text-fill: #e8e8e8bb;
+    -fx-font-weight: bold;
+
+    -fx-padding: 10;
 }
+
+.mfx-toggle-button:selected {
+    -fx-text-fill: #e8e8e8;
+}
+
+.mfx-toggle-button .mfx-ripple-generator {
+    -mfx-animation-speed: 1.5;
+    -mfx-ripple-radius: 10;
+    -mfx-ripple-color: transparent;
+    -mfx-ripple-opacity: 0.4;
+}
+
+.mfx-toggle-button .circle {
+    -fx-stroke: transparent;
+    -fx-fill: -mfx-secondary;
+}
+
+.mfx-toggle-button .line {
+    -fx-stroke-line-cap: ROUND;
+    -fx-stroke: -mfx-secondary;
+    -fx-opacity: 0.3;
+}
+
+.mfx-toggle-button:selected .mfx-ripple-generator {
+    -mfx-ripple-color: transparent;
+}
+
+.mfx-toggle-button:selected .circle {
+    -fx-fill: -mfx-main;
+}
+
+.mfx-toggle-button:selected .line {
+    -fx-stroke: -mfx-main;
+}
+
+.mfx-toggle-button:disabled .circle,
+.mfx-toggle-button:disabled:selected .circle {
+    -fx-fill: gray;
+}
+
+.mfx-toggle-button:disabled .line,
+.mfx-toggle-button:disabled:selected .line {
+    -fx-stroke: gray;
+}
+
 
 .increment-arrow-button{
     -fx-background-radius: 0 12 0 0;
