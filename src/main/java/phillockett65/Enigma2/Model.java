@@ -134,7 +134,7 @@ public class Model {
         setRotorState(MIDDLE, "II", 10, 20);
         setRotorState(RIGHT, "III", 1, 25);
 
-        setUseLetters(true);
+        setUseNumbers(false);
         setShow(false);
 
         setExtPlugboard(false);
@@ -421,7 +421,7 @@ public class Model {
     private ArrayList<RotorControl> rotorControls = new ArrayList<RotorControl>(ROTOR_COUNT);
 
     private boolean fourthWheel = false;
-    private boolean useLetters = true;
+    private boolean useNumbers = false;
     private boolean show = false;
 
 
@@ -441,16 +441,16 @@ public class Model {
      * Spinners.
      * @param state assigned to useLetters;
      */
-    public void setUseLetters(boolean state) {
-        if (useLetters == state)
+    public void setUseNumbers(boolean state) {
+        if (useNumbers == state)
             return;
 
-        useLetters = state;
+        useNumbers = state;
         for (RotorControl rotor : rotorControls)
-            rotor.setUseLetters(useLetters);
+            rotor.setUseNumbers(useNumbers);
     }
 
-    public boolean isUseLetters() { return useLetters; }
+    public boolean isUseNumbers() { return useNumbers; }
     
     public boolean isShow() { return show; }
     public void setShow(boolean state) { show = state; }

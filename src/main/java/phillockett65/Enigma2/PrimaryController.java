@@ -134,7 +134,7 @@ public class PrimaryController {
 
         fourthWheelCheckbox.setSelected(model.isFourthWheel());
         plugboardCheckbox.setSelected(model.isExtPlugboard());
-        useLettersCheckbox.setSelected(model.isUseLetters());
+        useNumbersCheckbox.setSelected(model.isUseNumbers());
         showStepsCheckbox.setSelected(model.isShow());
 
         for (int i = 0; i < plugs.size(); ++i) {
@@ -355,7 +355,7 @@ public class PrimaryController {
     private MFXToggleButton fourthWheelCheckbox;
 
     @FXML
-    private MFXToggleButton useLettersCheckbox;
+    private MFXToggleButton useNumbersCheckbox;
 
     @FXML
     private MFXToggleButton showStepsCheckbox;
@@ -366,8 +366,8 @@ public class PrimaryController {
     }
 
     @FXML
-    void useLettersCheckboxActionPerformed(ActionEvent event) {
-        model.setUseLetters(useLettersCheckbox.isSelected());
+    void useNumbersCheckboxActionPerformed(ActionEvent event) {
+        model.setUseNumbers(useNumbersCheckbox.isSelected());
     }
     @FXML
     void showStepsCheckboxActionPerformed(ActionEvent event) {
@@ -384,7 +384,7 @@ public class PrimaryController {
 
         rotorSetUpTitledPane.setTooltip(new Tooltip("Select and set up the Rotors (wheels / drums)"));
         fourthWheelCheckbox.setTooltip(new Tooltip("Select to use a fourth Rotor"));
-        useLettersCheckbox.setTooltip(new Tooltip("Select to use Letters instead of numbers on the Rotors"));
+        useNumbersCheckbox.setTooltip(new Tooltip("Select to use Numbers on the Rotors instead of Letters"));
         showStepsCheckbox.setTooltip(new Tooltip("Select to show each translation step on the command line"));
     }
 

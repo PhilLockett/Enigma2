@@ -43,7 +43,7 @@ public class RotorControl extends VBox {
     private ObservableList<String> letters = FXCollections.observableArrayList();
     private ObservableList<String> numbers = FXCollections.observableArrayList();
     private ObservableList<String> ringList = FXCollections.observableArrayList();
-    private boolean useLetters = true;
+    private boolean useNumbers = false;
 
     private SpinnerValueFactory<String> ringSettingSVF;
     private SpinnerValueFactory<String> rotorOffsetSVF;
@@ -92,7 +92,7 @@ public class RotorControl extends VBox {
         rotorOffsetSpinner.setTooltip(new Tooltip("Select offset for the " + name + " Rotor"));
     }
 
-    private int valueToIndex(String s) { return useLetters ? Mapper.letterToIndex(s) : Mapper.numberToIndex(s); }
+    private int valueToIndex(String s) { return useNumbers ? Mapper.numberToIndex(s) : Mapper.letterToIndex(s); }
 
     public ChoiceBox<String> getWheelChoicebox() { return wheelChoicebox; }
     
@@ -101,21 +101,21 @@ public class RotorControl extends VBox {
     public Spinner<String> getRingSettingSpinner() { return ringSettingSpinner; }
 
     /**
-     * Display Letters on rotor (spinner).
-     * @param state show letters if true, numbers if false.
+     * Display Numbers or Letters on rotor (spinner).
+     * @param state show numbers if true, letters if false.
      */
-    public void setUseLetters(boolean state) {
-        if (useLetters == state)
+    public void setUseNumbers(boolean state) {
+        if (useNumbers == state)
             return;
 
-        useLetters = state;
-        if (useLetters)
-            ringList.setAll(letters);
-        else
+        useNumbers = state;
+        if (useNumbers)
             ringList.setAll(numbers);
+        else
+            ringList.setAll(letters);
     }
 
-    public boolean isUseLetters() { return useLetters; }
+    public boolean isUseNumbers() { return useNumbers; }
 
     public String getWheelChoice() { return wheelChoicebox.getValue(); }
     public void setWheelChoice(String value) { wheelChoicebox.setValue(value); }

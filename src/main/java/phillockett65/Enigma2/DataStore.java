@@ -40,7 +40,7 @@ public class DataStore implements Serializable {
     private ArrayList<String> pairs = new ArrayList<String>();
 
     private Boolean fourthWheel;
-    private Boolean useLetters;
+    private Boolean useNumbers;
     private Boolean show;
 
     private ArrayList<String> wheels = new ArrayList<String>();
@@ -71,7 +71,7 @@ public class DataStore implements Serializable {
             pairs.add(model.getPairText(i));
 
         fourthWheel = model.isFourthWheel();
-        useLetters = model.isUseLetters();
+        useNumbers = model.isUseNumbers();
         show = model.isShow();
 
         final int rotorStateCount = model.getRotorStateCount();
@@ -108,7 +108,7 @@ public class DataStore implements Serializable {
             model.setPairText(i, pairs.get(i));
 
         model.setFourthWheel(fourthWheel);
-        model.setUseLetters(useLetters);
+        model.setUseNumbers(useNumbers);
         model.setShow(show);
 
         final int rotorStateCount = wheels.size();
