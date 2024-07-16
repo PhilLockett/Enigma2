@@ -116,6 +116,7 @@ public class Model {
      */
     public void init() {
         // System.out.println("Model init.");
+        setRotorControlsSpacing(8);
     }
 
     /**
@@ -468,6 +469,10 @@ public class Model {
             rotor.setLockDown(selected);
     }
 
+    public void setRotorControlsSpacing(double value) {
+        for (RotorControl rotor : rotorControls)
+            rotor.setSpacing(value);
+    }
 
 
     private RotorControl getState(int index) { return rotorControls.get(index); }
