@@ -8,7 +8,7 @@
     -fx-font-weight: bold;
 }
 .check-box, .radio-button{
-    -fx-text-fill: #ffffffbb;
+    -fx-text-fill: #bbbbbb;
     -fx-font-weight: bold;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .choice-box, .button{
-    -fx-background-color: #9B4642;
+    -fx-background-color: linear-gradient(to bottom, #BB6662, #7B2622);
     -fx-text-fill: #e8e8e8;
     -fx-font-weight: bold;
     -fx-background-radius: 12;
@@ -71,14 +71,14 @@
 }
 .toggle-button{
     -fx-background-color: transparent;
-    -fx-text-fill: #e8e8e89d;
+    -fx-text-fill: #8e8e8e;
     -fx-font-weight: bold;
 }
 
 .mfx-toggle-button {
-    -mfx-main: #e8e8e8;
-    -mfx-secondary: #e8e8e899;
-    -fx-text-fill: #e8e8e8bb;
+    -mfx-main: radial-gradient(center 50% 25%, radius 100%, #e8e8e8, #767676);
+    -mfx-secondary: radial-gradient(center 50% 25%, radius 100%, #888888, #4d4d4d);
+    -fx-text-fill: #aeaeae;
     -fx-font-weight: bold;
 
     -fx-padding: 10;
@@ -131,18 +131,14 @@
 
 .increment-arrow-button{
     -fx-background-radius: 0 12 0 0;
+    -fx-background-color: linear-gradient(to bottom, #BB6662, #9B4642);
 }
 .decrement-arrow-button{
     -fx-background-radius: 0 0 12 0;
+    -fx-background-color: linear-gradient(to bottom, #9B4642, #7B2622);
 }
-.increment-arrow-button, .decrement-arrow-button{
-    -fx-background-color: #9B4642;
-}
-.increment-arrow, .decrement-arrow{
+.increment-arrow, .decrement-arrow, .arrow{
     -fx-background-color: #e8e8e8;
-}
-.arrow{
-    -fx-background-color: black;
 }
 
 .big-text-field{
