@@ -151,8 +151,8 @@
     -fx-font-weight: bold;
     -fx-background-color: black;
     -fx-border-color: silver;
-    -fx-background-radius: 10;
-    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-shape: "M50 0 A1 1, 0, 0 0, 50 50 A1 1, 0, 0 0, 50 0";
 }
 
 .lamp-text-field:readonly{
@@ -161,8 +161,8 @@
     -fx-font-weight: bold;
     -fx-background-color: white;
     -fx-border-color: silver;
-    -fx-background-radius: 26;
-    -fx-border-radius: 26;
+    -fx-border-width: 2;
+    -fx-shape: "M50 0 A1 1, 0, 0 0, 50 50 A1 1, 0, 0 0, 50 0";
 }
 
 
