@@ -120,7 +120,7 @@
 
 .mfx-toggle-button:disabled .circle,
 .mfx-toggle-button:disabled:selected .circle {
-    -fx-fill: gray;
+    -fx-fill: radial-gradient(center 50% 25%, radius 100%, #666666, #222222);
 }
 
 .mfx-toggle-button:disabled .line,
