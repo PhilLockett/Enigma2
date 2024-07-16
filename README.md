@@ -110,9 +110,11 @@ including clearing all the text boxes.
 ## Points of interest
 This code has the following points of interest:
 
+  * Enigma2 simulates the behaviour of the [Enigma](https://en.wikipedia.org/wiki/Enigma_machine) machine.
   * Enigma2 is an updated version of [Enigma](https://github.com/PhilLockett/Enigma).
   * Enigma2 is a Maven project that uses JavaFX, MaterialFX, FXML and CSS.
-  * Enigma2 uses a custom controller, RotorController, to represent a rotor.
-  * Enigma2 simulates the behaviour of the [Enigma](https://en.wikipedia.org/wiki/Enigma_machine) machine.
+  * Uses a custom controller, "RotorControl", to represent rotor settings.
+  * Uses subtle linear and radial colour gradients on controls.
+  * Uses SVG paths to create circular text fields.
   * Rotor combinations can be selected that may not be available on the real machine.
   * Data is persisted from one session to the next.
