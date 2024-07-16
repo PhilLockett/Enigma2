@@ -276,6 +276,9 @@ public class Model {
      * @return true if the pair is valid, false otherwise.
      */
     public boolean isPairValid(int index) {
+        if (!reconfigurable)
+            return true;
+
         Pair pair = pairs.get(index);
 
         if (!pair.isValid())

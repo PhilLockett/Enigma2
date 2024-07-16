@@ -164,6 +164,7 @@ public class PrimaryController {
         model.setReconfigurable(reconfigurableCheckbox.isSelected());
         setReconfigurable();
         syncEncipherButton();
+        checkReflector();
     }
 
     @FXML
