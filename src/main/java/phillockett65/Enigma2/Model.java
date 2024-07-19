@@ -593,11 +593,7 @@ public class Model {
         for (int i = 0; i < plugboardMap.length; ++i)
             plugboardMap[i] = i;
 
-        int i = 0;
         for (Pair plug : plugs) {
-            if ((!extPlugboard) && (i == PLUG_COUNT))
-                break;
-
             if (plug.isEmpty())
                 continue;
 
@@ -605,7 +601,6 @@ public class Model {
             int b = plug.indexAt(1);
             plugboardMap[a] = b;
             plugboardMap[b] = a;
-            ++i;
         }
     }
 
