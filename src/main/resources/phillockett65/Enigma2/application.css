@@ -16,7 +16,7 @@
     -fx-text-fill: black;
 }
 .title{
-    -fx-background-color: #e8e8e8;
+    -fx-background-color: linear-gradient(to bottom, #e8e8e8, #8e8e8e);
     -fx-font-weight: bold;
 }
 
