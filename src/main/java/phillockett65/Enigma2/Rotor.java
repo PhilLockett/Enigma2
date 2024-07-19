@@ -68,17 +68,17 @@ public class Rotor extends Mapper {
      * @return array of flags indicating turnover points.
      */
     private boolean[] buildTurnover(String turnovers) {
-        boolean [] turing = new boolean[26];
+        boolean [] mathison = new boolean[26];
 
-        for (int i = 0; i < turing.length; ++i)
-            turing[i] = false;
+        for (int i = 0; i < mathison.length; ++i)
+            mathison[i] = false;
 
         for (int i = 0; i < turnovers.length(); ++i) {
             final int c = charToIndex(turnovers.charAt(i));
-            turing[c] = true;
+            mathison[c] = true;
         }
 
-        return turing;
+        return mathison;
     }
 
     /**
