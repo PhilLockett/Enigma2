@@ -468,12 +468,10 @@ public class PrimaryController {
         final boolean encipher = model.isEncipher();
         final boolean disable = extended ? encipher : true;
 
-        plug10.setDisable(!extended);
-        plug11.setDisable(!extended);
-        plug12.setDisable(!extended);
-        plug10.setEditable(!disable);
-        plug11.setEditable(!disable);
-        plug12.setEditable(!disable);
+        for (int i = Model.PLUG_COUNT; i < Model.FULL_COUNT; ++i) {
+            plugs.get(i).setDisable(!extended);
+            plugs.get(i).setEditable(!disable);
+        }
     }
 
     /**
