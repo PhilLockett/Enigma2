@@ -25,17 +25,21 @@ package phillockett65.Enigma2;
 
 public class Pair {
     private String letters = "";
+    private boolean enabled = true;
 
     public void set(String text) { letters = text; }
     public void clear() { letters = ""; }
 
     public String get() { return letters; }
-    public int count() { return letters.length(); }
+    public int count() { return enabled ? letters.length() : 0; }
     public char charAt(int index) { return letters.charAt(index); }
     public int indexAt(int index) { return Rotor.charToIndex(charAt(index)); }
     
     public boolean isEmpty() { return count() == 0; }
     public boolean isCharAt(int index) { return Character.isAlphabetic(charAt(index)); }
+
+    public boolean isEnabled() { return enabled; }
+    public void setEnabled(boolean state) { enabled = state; }
 
     /**
      * Check the validity of the Pair.

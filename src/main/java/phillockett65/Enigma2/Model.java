@@ -519,7 +519,13 @@ public class Model {
     private ArrayList<Pair> plugs = new ArrayList<Pair>(FULL_COUNT);
     private boolean extPlugboard = false;
 
-    public void setExtPlugboard(boolean state) { extPlugboard = state; }
+    public void setExtPlugboard(boolean state) { 
+        extPlugboard = state;
+        for (int i = PLUG_COUNT; i < FULL_COUNT; ++i)
+            plugs.get(i).setEnabled(state);
+
+        countLetterUsage(plugboardLetterCounts, plugs);
+    }
     public boolean isExtPlugboard() { return extPlugboard; }
 
     /**

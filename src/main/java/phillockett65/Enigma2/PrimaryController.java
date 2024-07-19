@@ -456,7 +456,9 @@ public class PrimaryController {
     @FXML
     void plugboardCheckboxActionPerformed(ActionEvent event) {
         model.setExtPlugboard(plugboardCheckbox.isSelected());
+        checkPlugboard();
         editableExtPlugboard();
+        syncEncipherButton();
     }
 
     /**
