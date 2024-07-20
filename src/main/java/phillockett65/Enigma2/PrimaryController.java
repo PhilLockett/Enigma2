@@ -582,6 +582,7 @@ public class PrimaryController {
         model.setEncipher(encipher);
         updateGUIState();
         syncUI();
+        keyIO.requestFocus();
     }
 
     @FXML
