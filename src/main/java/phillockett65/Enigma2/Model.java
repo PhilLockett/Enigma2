@@ -52,27 +52,6 @@ public class Model {
     private int idToIndex(String id) { return Integer.valueOf(id); }
 
     /**
-     * Counts the letter frequency in the given list.
-     * @param counts of letter frequency (count[0] -> 'A')
-     * @param list of letter pairs for counting.
-     */
-    private void countLetterUsage(int[] counts, ArrayList<Pair> list) {
-
-        for (int i = 0; i < counts.length; ++i) 
-            counts[i] = 0;
-
-        for (Pair pair : list) {
-            for (int i = 0; i < pair.count(); ++i) {
-                if (pair.isCharAt(i)) {
-                    final int index = pair.indexAt(i);
-                    counts[index]++;
-                }
-            }
-        }
-    }
-
-
-    /**
      * @return the file path of the settings data file.
      */
     public String getSettingsFile() {
@@ -126,8 +105,7 @@ public class Model {
         setReflectorChoice("Reflector B");
 
         setReconfigurable(false);
-        for (Pair pair : pairs)
-            pair.clear();
+        pairs.clear();
 
         setFourthWheel(false);
         setRotorState(SLOW, "IV", 0, 0);
@@ -139,8 +117,7 @@ public class Model {
         setShow(false);
 
         setExtPlugboard(false);
-        for (Pair pair : plugs)
-            pair.clear();
+        plugs.clear();
 
         setEncipher(false);
     }
@@ -239,13 +216,10 @@ public class Model {
     ObservableList<String> reflectorList = FXCollections.observableArrayList();
     private String reflectorChoice;
     private boolean reconfigurable = false;
-
-    private int[] reflectorLetterCounts;
-    private int[] reconfigurableReflectorMap;
+    
     private int[] reflectorMap;
+    private Pairs pairs;
     private Mapper reflector;
-
-    private ArrayList<Pair> pairs = new ArrayList<Pair>(PAIR_COUNT);
 
 
     public ObservableList<String> getReflectorList()   { return reflectorList; }
@@ -255,21 +229,11 @@ public class Model {
     public void setReconfigurable(boolean state) { reconfigurable = state; }
     public boolean isReconfigurable() { return reconfigurable; }
 
-
-    /**
-     * Update the indexed pair with new text String then count the letter 
-     * usage of all pairs.
-     * @param index of targeted pair.
-     * @param text to use.
-     */
-    public void setPairText(int index, String text) {
-        pairs.get(index).set(text);
-        countLetterUsage(reflectorLetterCounts, pairs);
-    }
+    public void setPairText(int index, String text) { pairs.setText(index, text); }
 
     public int getPairCount() { return pairs.size(); }
-    public String getPairText(int index)	{ return pairs.get(index).get(); }
-    public int getPairCount(int index)		{ return pairs.get(index).count(); }
+    public String getPairText(int index)	{ return pairs.getText(index); }
+    public int getPairCount(int index)		{ return pairs.getCount(index); }
 
     /**
      * Determine if the indexed pair is valid.
@@ -280,16 +244,7 @@ public class Model {
         if (!reconfigurable)
             return true;
 
-        Pair pair = pairs.get(index);
-
-        if (!pair.isValid())
-            return false;
-
-        for (int i = 0; i < 2; ++i)
-            if (reflectorLetterCounts[pair.indexAt(i)] != 1)
-                return false;
-
-        return true;
+        return pairs.isValid(index);
     }
 
     public void setPairText(String id, String text) { setPairText(idToIndex(id), text); }
@@ -298,71 +253,14 @@ public class Model {
     public boolean isPairValid(String id)	{ return isPairValid(idToIndex(id)); }
 
     /**
-     * Determine if the reconfigurable reflector is valid.
-     * @return true if the reconfigurable reflector is valid, false otherwise.
-     */
-    private boolean isReconfigurableReflectorValid() {
-        for (Pair pair : pairs)
-            if (!pair.isValid())
-                return false;
-
-        int empty = 0;
-        for (int i = 0; i < reflectorLetterCounts.length; ++i) {
-            if (reflectorLetterCounts[i] == 0)
-                empty++;
-
-            if (reflectorLetterCounts[i] > 1)
-                return false;
-        }
-
-        // Check we have only 1 unconfigured pair.
-        if (empty != 2)
-            return false;
-
-        return true;
-    }
-
-    /**
      * Determine if the reflector is valid.
      * @return true if the reflector is valid, false otherwise.
      */
     public boolean isReflectorValid() {
         if (reconfigurable)
-            return isReconfigurableReflectorValid();
+            return pairs.isValid();
 
         return true;
-    }
-
-    /**
-     * Only called if isReconfigurableReflectorValid() is true.
-     */
-    private void setReconfigurableReflectorMap() {
-        for (int i = 0; i < reconfigurableReflectorMap.length; ++i)
-            reconfigurableReflectorMap[i] = 0;
-
-        for (Pair pair : pairs) {
-            final int a = pair.indexAt(0);
-            final int b = pair.indexAt(1);
-            reconfigurableReflectorMap[a] = b;
-            reconfigurableReflectorMap[b] = a;
-        }
-
-        // Set up unconfigured pair.
-        int x = -1;
-        int y = -1;
-
-        for (int i = 0; i < reflectorLetterCounts.length; ++i)
-            if (reflectorLetterCounts[i] == 0) {
-                if (x == -1)
-                    x = i;
-                else
-                    y = i;
-            }
-
-        if ((x != -1) && (y != -1)) {
-            reconfigurableReflectorMap[x] = y;
-            reconfigurableReflectorMap[y] = x;
-        }
     }
 
     /**
@@ -371,9 +269,9 @@ public class Model {
     private int[] getReflectorMap() {
         
         if (reconfigurable) {
-            setReconfigurableReflectorMap();
+            pairs.buildMap();
 
-            return reconfigurableReflectorMap;
+            return pairs.getMap();
         } else {
             Rotor rotor = getRotor(reflectors, reflectorChoice);
             if (rotor != null)
@@ -391,7 +289,6 @@ public class Model {
         reflectorMap = getReflectorMap();
     }
 
-
     /**
      * Construct the list of reflector names.
      */
@@ -406,12 +303,8 @@ public class Model {
      * Initialize "Reflector Set-Up" panel.
      */
     private void initializeReflector() {
-        reflectorLetterCounts = new int[26];
-        reconfigurableReflectorMap = new int[26];
+        pairs = new Pairs(false);
         fillReflectorList();
-
-        for (int i = 0; i < PAIR_COUNT; ++i)
-            pairs.add(new Pair());
     }
 
 
@@ -512,114 +405,52 @@ public class Model {
      * Support code for "Plugboard Connections" panel.
      */
     
-    private int[] plugboardLetterCounts;
     private int[] plugboardMap;
+    private Pairs plugs;
     private Mapper plugboard;
 
-    private ArrayList<Pair> plugs = new ArrayList<Pair>(FULL_COUNT);
     private boolean extPlugboard = false;
+
 
     public void setExtPlugboard(boolean state) { 
         extPlugboard = state;
         for (int i = PLUG_COUNT; i < FULL_COUNT; ++i)
-            plugs.get(i).setEnabled(state);
+            plugs.setEnabled(i, state);
 
-        countLetterUsage(plugboardLetterCounts, plugs);
+        plugs.countLetterUsage();
     }
     public boolean isExtPlugboard() { return extPlugboard; }
 
-    /**
-     * Update the indexed plug with new text String then count the letter 
-     * usage of all plugs.
-     * @param index of targeted plug.
-     * @param text to use.
-     */
-    public void setPlugText(int index, String text) {
-        plugs.get(index).set(text);
-        countLetterUsage(plugboardLetterCounts, plugs);
-    }
+    public void setPlugText(int index, String text) { plugs.setText(index, text); }
 
     public int getPlugCount() { return plugs.size(); }
     public int getActivePlugCount() { return extPlugboard ? plugs.size() : PLUG_COUNT; }
-    public String getPlugText(int index)	{ return plugs.get(index).get(); }
-    public int getPlugCount(int index)		{ return plugs.get(index).count(); }
+    public String getPlugText(int index)	{ return plugs.getText(index); }
+    public int getPlugCount(int index)		{ return plugs.getCount(index); }
 
-    /**
-     * Determine if the indexed plug is valid.
-     * @param index of targeted plug.
-     * @return true if the plug is valid, false otherwise.
-     */
-    public boolean isPlugValid(int index) {
-        Pair plug = plugs.get(index);
-
-        if (plug.isEmpty())
-            return true;
-
-        if (!plug.isValid())
-            return false;
-
-        for (int i = 0; i < 2; ++i)
-            if (plugboardLetterCounts[plug.indexAt(i)] > 1)
-                return false;
-
-        return true;
-    }
+    public boolean isPlugValid(int index) { return plugs.isValid(index); }
 
     public void setPlugText(String id, String text) { setPlugText(idToIndex(id), text); }
     public String getPlugText(String id)	{ return getPlugText(idToIndex(id)); }
     public int getPlugCount(String id)		{ return getPlugCount(idToIndex(id)); }
     public boolean isPlugValid(String id)	{ return isPlugValid(idToIndex(id)); }
 
-    /**
-     * Determine if the plugboard is valid.
-     * @return true if the plugboard is valid, false otherwise.
-     */
-    public boolean isPlugboardValid() {
-        for (Pair pair : plugs)
-        if ((!pair.isEmpty()) && (!pair.isValid()))
-                return false;
+    public boolean isPlugboardValid() { return plugs.isValid(); }
 
-        for (int i = 0; i < plugboardLetterCounts.length; ++i)
-            if (plugboardLetterCounts[i] > 1)
-                return false;
-
-        return true;
-    }
-
-    /**
-     * Only called if isPlugboardValid() is true.
-     */
-    private void setPlugboardMap() {
-        for (int i = 0; i < plugboardMap.length; ++i)
-            plugboardMap[i] = i;
-
-        for (Pair plug : plugs) {
-            if (plug.isEmpty())
-                continue;
-
-            int a = plug.indexAt(0);
-            int b = plug.indexAt(1);
-            plugboardMap[a] = b;
-            plugboardMap[b] = a;
-        }
-    }
 
     /**
      * Lockdown the plugboardMap.
      */
     private void lockdownPlugboard() {
-        setPlugboardMap();
+        plugs.buildMap();
+        plugboardMap = plugs.getMap();
     }
 
     /**
      * Initialize "Plugboard Connections" panel.
      */
     private void initializePlugboardConnections() {
-        plugboardLetterCounts = new int[26];
-        plugboardMap = new int[26];
-
-        for (int i = 0; i < FULL_COUNT; ++i)
-            plugs.add(new Pair());
+        plugs = new Pairs(true);
     }
 
 
@@ -896,7 +727,6 @@ public class Model {
         return test1('A');
         // return test5();
     }
-
 
 
 }

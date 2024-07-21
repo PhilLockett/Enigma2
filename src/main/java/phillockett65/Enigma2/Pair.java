@@ -34,7 +34,9 @@ public class Pair {
     public int count() { return enabled ? letters.length() : 0; }
     public char charAt(int index) { return letters.charAt(index); }
     public int indexAt(int index) { return Rotor.charToIndex(charAt(index)); }
-    
+    public int first() { return count() > 0 ? indexAt(0) : -1; }
+    public int second() { return count() > 1 ? indexAt(1) : -1; }
+
     public boolean isEmpty() { return count() == 0; }
     public boolean isCharAt(int index) { return Character.isAlphabetic(charAt(index)); }
 
