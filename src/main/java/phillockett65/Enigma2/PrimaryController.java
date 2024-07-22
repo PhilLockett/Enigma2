@@ -497,6 +497,8 @@ public class PrimaryController {
 
         for (TextField field : plugs)
             field.setEditable(editable);
+
+        editableExtPlugboard();
     }
 
     /**
@@ -611,7 +613,6 @@ public class PrimaryController {
         editableReflector(!encipher);
         editableWheelOrder(!encipher);
         editablePlugboard(!encipher);
-        editableExtPlugboard();
         editableTranslation(!encipher);
 
         if (encipher) {
