@@ -656,18 +656,6 @@ public class PrimaryController {
 
 
     /**
-     * Used when focus is given to keyIO or lampIO. This is only necessary for 
-     * key presses and not key releases.
-     * @param event representing the key pressed.
-     */
-    @FXML
-    void IOKeyPress(KeyEvent event) {
-        final KeyCode keyCode = event.getCode();
-        if (keyCode.isLetterKey())
-            keyPress(keyCode);
-    }
-
-    /**
      * Called by the Application when a new key is pressed.
      * @param keyCode key to be processed
      */

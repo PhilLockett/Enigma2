@@ -25,10 +25,12 @@ package phillockett65.Enigma2;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -55,18 +57,24 @@ public class App extends Application {
 
         controller = fxmlLoader.getController();
 
-        scene.setOnKeyPressed(event -> {
-            final KeyCode keyCode = event.getCode();
-            // System.out.println("scene.setOnKeyPressed(" + keyCode + ", " + event.getCharacter() + ").");
-            if (keyCode.isLetterKey())
-                controller.keyPress(keyCode);
+        stage.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                final KeyCode keyCode = event.getCode();
+                // System.out.println("stage.addEventFilter(KeyEvent.KEY_PRESSED, " + keyCode + ", " + event.getCharacter() + ").");
+                if (keyCode.isLetterKey())
+                    controller.keyPress(keyCode);
+            }
         });
 
-        scene.setOnKeyReleased(event -> {
-            final KeyCode keyCode = event.getCode();
-            // System.out.println("scene.setOnKeyReleased(" + keyCode + ", " + event.getCharacter() + ").");
-            if (keyCode.isLetterKey())
-                controller.keyRelease(keyCode);
+        stage.addEventFilter(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                final KeyCode keyCode = event.getCode();
+                // System.out.println("stage.addEventFilter(KeyEvent.KEY_RELEASED, " + keyCode + ", " + event.getCharacter() + ").");
+                if (keyCode.isLetterKey())
+                    controller.keyRelease(keyCode);
+            }
         });
 
         stage.show();
