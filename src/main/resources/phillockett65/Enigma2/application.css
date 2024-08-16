@@ -76,8 +76,10 @@
 }
 
 .mfx-toggle-button {
-    -mfx-main: radial-gradient(center 50% 25%, radius 100%, #e8e8e8, #767676);
-    -mfx-secondary: radial-gradient(center 50% 25%, radius 100%, #888888, #4d4d4d);
+    -mfx-main: #b8b8b8;
+    -mfx-secondary: #6a6a6a;
+    -mfx-main-circle: radial-gradient(center 50% 25%, radius 100%, #e8e8e8, #767676);
+    -mfx-secondary-circle: radial-gradient(center 50% 25%, radius 100%, #888888, #4d4d4d);
     -fx-text-fill: #aeaeae;
     -fx-font-weight: bold;
 
@@ -97,13 +99,13 @@
 
 .mfx-toggle-button .circle {
     -fx-stroke: transparent;
-    -fx-fill: -mfx-secondary;
+    -fx-fill: -mfx-secondary-circle;
 }
 
 .mfx-toggle-button .line {
     -fx-stroke-line-cap: ROUND;
     -fx-stroke: -mfx-secondary;
-    -fx-opacity: 0.3;
+    -fx-opacity: 1;
 }
 
 .mfx-toggle-button:selected .mfx-ripple-generator {
@@ -111,7 +113,7 @@
 }
 
 .mfx-toggle-button:selected .circle {
-    -fx-fill: -mfx-main;
+    -fx-fill: -mfx-main-circle;
 }
 
 .mfx-toggle-button:selected .line {
