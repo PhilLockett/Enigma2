@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="737.0" prefWidth="463.0" spacing="10.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.Enigma2.PrimaryController">
+<VBox alignment="CENTER" prefHeight="770.0" prefWidth="463.0" spacing="10.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.Enigma2.PrimaryController">
    <children>
       <TitledPane fx:id="reflectorSetUpTitledPane" collapsible="false" layoutX="30.0" layoutY="403.0" text="Reflector Set-Up">
          <content>

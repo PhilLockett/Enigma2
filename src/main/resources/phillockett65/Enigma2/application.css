@@ -17,12 +17,12 @@
 }
 .title{
     -fx-background-color: #303030;
-    -fx-font-size: 14px;
+    -fx-font-size: 15;
     -fx-font-weight: bold;
 }
 
 .tooltip{
-    -fx-font-size: 14px;
+    -fx-font-size: 14;
     -fx-font-style: italic;
     -fx-font-weight: normal;
     -fx-text-fill: black;
@@ -144,7 +144,7 @@
 }
 
 .big-text-field{
-    -fx-font-size: 24px;
+    -fx-font-size: 24;
 }
 
 .key-text-field:readonly{
