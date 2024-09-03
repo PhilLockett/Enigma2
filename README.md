@@ -5,7 +5,7 @@
 **USE AT OWN RISK.**
 
 ## Overview
-This project is set up as a Maven project that uses JavaFX, MaterialFX, FXML and 
+'Enigma2' is set up as a Maven project that uses JavaFX, MaterialFX, FXML and 
 CSS to render the GUI. 
 Maven can be run from the command line as shown below.
 Maven resolves dependencies and builds the application independently of an IDE.
@@ -14,8 +14,8 @@ This application simulates the [Enigma Machine](https://en.wikipedia.org/wiki/En
 There are no restrictions placed on the Rotor selection, as such some 
 Rotor combinations can be made that may not be available on the real machine.
 
-Note: for the Commercial, Rocket and SwissK Rotors, the current turnover points 
-are guesses and may be incorrect.
+Note: the turnover points for the Commercial, Rocket and SwissK Rotors are 
+guesses and may be incorrect.
 
 ## Dependencies
 'Enigma2' is dependent on the following:
