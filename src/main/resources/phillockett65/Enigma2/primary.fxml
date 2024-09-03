@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox stylesheets="@application.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.Enigma2.PrimaryController">
    <children>
       <HBox fx:id="topBar" onMouseDragged="#topBarOnMouseDragged" onMousePressed="#topBarOnMousePressed" prefHeight="28.0" styleClass="top-bar">
@@ -88,9 +87,8 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <MFXToggleButton fx:id="fourthWheelCheckbox" gap="4.0" graphicTextGap="0.0" onAction="#fourthWheelCheckboxActionPerformed" text="Fourth Rotor" />
+                              <MFXToggleButton fx:id="fourthWheelCheckbox" gap="4.0" graphicTextGap="0.0" onAction="#fourthWheelCheckboxActionPerformed" text="Use Fourth Rotor" />
                               <MFXToggleButton fx:id="useNumbersCheckbox" gap="4.0" graphicTextGap="0.0" onAction="#useNumbersCheckboxActionPerformed" text="Use Numbers" />
-                              <MFXToggleButton fx:id="showStepsCheckbox" gap="4.0" graphicTextGap="0.0" onAction="#showStepsCheckboxActionPerformed" text="Show Steps" />
                            </children>
                         </HBox>
                      </children>
@@ -139,6 +137,7 @@
                         <HBox alignment="CENTER">
                            <children>
                               <MFXToggleButton fx:id="encipherCheckbox" gap="4.0" onAction="#encipherCheckboxActionPerformed" text="Encipher" />
+                              <MFXToggleButton fx:id="showStepsCheckbox" gap="4.0" graphicTextGap="0.0" onAction="#showStepsCheckboxActionPerformed" text="Show Translation" />
                               <Region HBox.hgrow="ALWAYS" />
                               <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetButtonActionPerformed" text="Default Settings" />
                            </children>
