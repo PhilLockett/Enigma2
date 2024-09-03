@@ -12,6 +12,10 @@
     -fx-background-color: linear-gradient(to bottom, #707070, #505050);
 }
 
+.top-bar-icon{
+    -fx-stroke: white;
+}
+
 .top-bar-icon:hover{
     -fx-background-color: red;
 }

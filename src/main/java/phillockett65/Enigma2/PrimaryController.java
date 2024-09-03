@@ -48,6 +48,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Stage;
@@ -161,8 +162,10 @@ public class PrimaryController {
      * Support code for "Top Bar" panel.
      */
 
+    private final double iconSize = 28.0;
     private double x = 0.0;
     private double y = 0.0;
+    private Pane cancel;
 
     @FXML
     private HBox topBar;
@@ -182,9 +185,7 @@ public class PrimaryController {
         stage.setY(event.getScreenY() - y);
     }
  
-    private Pane cancel;
-    private double cancelPadding = 0.3;
-    private double iconSize = 28.0;
+    private final double cancelStroke = 2.5;
  
     private void buildCancel() {
         cancel = new Pane();
@@ -192,19 +193,23 @@ public class PrimaryController {
         cancel.setPrefHeight(iconSize);
         cancel.getStyleClass().add("top-bar-icon");
 
-        double a = iconSize * cancelPadding;
-        double b = iconSize - a;
-        Line cancelLine1 = new Line(a, a, b, b);
-        cancelLine1.setStroke(Color.WHITE);
-        cancelLine1.setStrokeWidth(4.0);
-        cancelLine1.setStrokeLineCap(StrokeLineCap.ROUND);
+        double centre = iconSize / 2;
+        double radius = centre * 0.7;
 
-        Line cancelLine2 = new Line(a, b, b, a);
-        cancelLine2.setStroke(Color.WHITE);
-        cancelLine2.setStrokeWidth(4.0);
-        cancelLine2.setStrokeLineCap(StrokeLineCap.ROUND);
+        Circle cancelCircle = new Circle(centre, centre, radius);
+        cancelCircle.setFill(Color.TRANSPARENT);
+        cancelCircle.getStyleClass().add("top-bar-icon");
+        cancelCircle.setStrokeWidth(cancelStroke);
 
-        cancel.getChildren().addAll(cancelLine1, cancelLine2);
+        double length = radius * 0.6;
+        double a = centre + length;
+        double b = centre - length;
+        Line cancelLine = new Line(centre, a, centre, b);
+        cancelLine.getStyleClass().add("top-bar-icon");
+        cancelLine.setStrokeWidth(cancelStroke);
+        cancelLine.setStrokeLineCap(StrokeLineCap.ROUND);
+
+        cancel.getChildren().addAll(cancelCircle, cancelLine);
 
         cancel.setOnMouseClicked(event -> {
             stage.close();
