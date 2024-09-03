@@ -44,7 +44,13 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.StrokeLineCap;
+import javafx.stage.Stage;
 
 public class PrimaryController {
 
@@ -80,6 +86,9 @@ public class PrimaryController {
      * Support code for the Initialization of the Controller.
      */
 
+    private Stage stage;
+
+
     /**
      * Responsible for constructing the Model and any local objects. Called by 
      * the FXMLLoader().
@@ -97,6 +106,7 @@ public class PrimaryController {
         // System.out.println("PrimaryController initialized.");
         model.initialize();
 
+        initializeTopBar();
         initializeReflector();
         initializeRotorSetup();
         initializePlugboardConnections();
@@ -107,8 +117,9 @@ public class PrimaryController {
      * Called by Application after the stage has been set. Completes any 
      * initialization dependent on other components being initialized.
      */
-    public void init() {
+    public void init(Stage stage) {
         // System.out.println("PrimaryController init.");
+        this.stage = stage;
         model.init();
         syncUI();
     }
@@ -147,6 +158,71 @@ public class PrimaryController {
 
 
     /************************************************************************
+     * Support code for "Top Bar" panel.
+     */
+
+    private double x = 0.0;
+    private double y = 0.0;
+
+    @FXML
+    private HBox topBar;
+
+    @FXML
+    private Label headingLabel;
+
+    @FXML
+    void topBarOnMousePressed(MouseEvent event) {
+        x = event.getSceneX();
+        y = event.getSceneY();
+    }
+
+    @FXML
+    void topBarOnMouseDragged(MouseEvent event) {
+        stage.setX(event.getScreenX() - x);
+        stage.setY(event.getScreenY() - y);
+    }
+ 
+    private Pane cancel;
+    private double cancelPadding = 0.3;
+    private double iconSize = 28.0;
+ 
+    private void buildCancel() {
+        cancel = new Pane();
+        cancel.setPrefWidth(iconSize);
+        cancel.setPrefHeight(iconSize);
+        cancel.getStyleClass().add("top-bar-icon");
+
+        double a = iconSize * cancelPadding;
+        double b = iconSize - a;
+        Line cancelLine1 = new Line(a, a, b, b);
+        cancelLine1.setStroke(Color.WHITE);
+        cancelLine1.setStrokeWidth(4.0);
+        cancelLine1.setStrokeLineCap(StrokeLineCap.ROUND);
+
+        Line cancelLine2 = new Line(a, b, b, a);
+        cancelLine2.setStroke(Color.WHITE);
+        cancelLine2.setStrokeWidth(4.0);
+        cancelLine2.setStrokeLineCap(StrokeLineCap.ROUND);
+
+        cancel.getChildren().addAll(cancelLine1, cancelLine2);
+
+        cancel.setOnMouseClicked(event -> {
+            stage.close();
+        });
+
+    }
+
+
+    /**
+     * Initialize "Reflector" panel.
+     */
+    private void initializeTopBar() {
+        buildCancel();
+        topBar.getChildren().add(cancel);
+    }
+  
+
+     /************************************************************************
      * Support code for "Reflector Set-Up" panel.
      */
 

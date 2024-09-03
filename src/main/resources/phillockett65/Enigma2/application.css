@@ -2,7 +2,26 @@
 
 .root{
     -fx-background-color: #303030;
+    -fx-border-color: silver;
 }
+
+.top-bar{
+    -fx-background-color: linear-gradient(to bottom, #505050, #303030);
+}
+.top-bar:hover{
+    -fx-background-color: linear-gradient(to bottom, #707070, #505050);
+}
+
+.top-bar-icon:hover{
+    -fx-background-color: red;
+}
+
+.heading{
+    -fx-text-fill: #e8e8e8;
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+}
+
 .label, .label:selected, .check-box:selected, .radio-button:selected{
     -fx-text-fill: #e8e8e8;
     -fx-font-weight: bold;

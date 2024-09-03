@@ -32,6 +32,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -53,6 +54,8 @@ public class App extends Application {
         stage.setTitle("Enigma 2.0");
         stage.setOnCloseRequest(e -> Platform.exit());
         stage.resizableProperty().setValue(false);
+        stage.initStyle(StageStyle.UNDECORATED);
+
         stage.setScene(scene);
 
         controller = fxmlLoader.getController();
@@ -79,7 +82,7 @@ public class App extends Application {
 
         stage.show();
 
-        controller.init();
+        controller.init(stage);
     }
 
     @Override

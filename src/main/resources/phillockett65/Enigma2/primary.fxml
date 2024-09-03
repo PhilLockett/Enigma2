@@ -15,138 +15,156 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="770.0" prefWidth="463.0" spacing="10.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.Enigma2.PrimaryController">
+
+<VBox stylesheets="@application.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.Enigma2.PrimaryController">
    <children>
-      <TitledPane fx:id="reflectorSetUpTitledPane" collapsible="false" layoutX="30.0" layoutY="403.0" text="Reflector Set-Up">
-         <content>
-            <GridPane hgap="10.0" vgap="10.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <ChoiceBox fx:id="reflectorChoicebox" GridPane.columnSpan="2" />
-                  <MFXToggleButton fx:id="reconfigurableCheckbox" gap="4.0" onAction="#reconfigurableCheckboxActionPerformed" text="Use Reconfigurable Reflector" GridPane.columnIndex="2" GridPane.columnSpan="4" />
-                  <TextField fx:id="pair0" onKeyTyped="#reflectorKeyTyped" GridPane.rowIndex="1" />
-                  <TextField fx:id="pair1" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="pair2" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <TextField fx:id="pair3" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField fx:id="pair4" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <TextField fx:id="pair5" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                  <TextField fx:id="pair6" onKeyTyped="#reflectorKeyTyped" GridPane.rowIndex="2" />
-                  <TextField fx:id="pair7" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="pair8" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <TextField fx:id="pair9" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <TextField fx:id="pair10" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                  <TextField fx:id="pair11" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-               </children>
-            </GridPane>
-         </content>
-      </TitledPane>
-      <TitledPane fx:id="rotorSetUpTitledPane" collapsible="false" text="Rotor Set-Up">
-         <content>
-            <VBox spacing="4.0">
-               <children>
-                  <HBox fx:id="rotorSetUpHBox" prefHeight="100.0" prefWidth="200.0" spacing="4.0">
+      <HBox fx:id="topBar" onMouseDragged="#topBarOnMouseDragged" onMousePressed="#topBarOnMousePressed" prefHeight="28.0" styleClass="top-bar">
+         <children>
+            <Label fx:id="headingLabel" styleClass="heading" text="Enigma 2.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="8.0" top="3.0" />
+               </padding>
+            </Label>
+            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <VBox alignment="CENTER" prefHeight="770.0" prefWidth="463.0" spacing="10.0">
+         <children>
+            <TitledPane fx:id="reflectorSetUpTitledPane" collapsible="false" layoutX="30.0" layoutY="403.0" text="Reflector Set-Up">
+               <content>
+                  <GridPane hgap="10.0" vgap="10.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
                      <children>
-                        <VBox alignment="CENTER_RIGHT" minWidth="80.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
+                        <ChoiceBox fx:id="reflectorChoicebox" GridPane.columnSpan="2" />
+                        <MFXToggleButton fx:id="reconfigurableCheckbox" gap="4.0" onAction="#reconfigurableCheckboxActionPerformed" text="Use Reconfigurable Reflector" GridPane.columnIndex="2" GridPane.columnSpan="4" />
+                        <TextField fx:id="pair0" onKeyTyped="#reflectorKeyTyped" GridPane.rowIndex="1" />
+                        <TextField fx:id="pair1" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="pair2" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <TextField fx:id="pair3" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <TextField fx:id="pair4" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <TextField fx:id="pair5" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                        <TextField fx:id="pair6" onKeyTyped="#reflectorKeyTyped" GridPane.rowIndex="2" />
+                        <TextField fx:id="pair7" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="pair8" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <TextField fx:id="pair9" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <TextField fx:id="pair10" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                        <TextField fx:id="pair11" onKeyTyped="#reflectorKeyTyped" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+               </content>
+            </TitledPane>
+            <TitledPane fx:id="rotorSetUpTitledPane" collapsible="false" text="Rotor Set-Up">
+               <content>
+                  <VBox spacing="4.0">
+                     <children>
+                        <HBox fx:id="rotorSetUpHBox" prefHeight="100.0" prefWidth="200.0" spacing="4.0">
                            <children>
-                              <Label text="Rotor:" />
-                              <Label text="Ring Setting:" />
-                              <Label text="Offset:" />
+                              <VBox alignment="CENTER_RIGHT" minWidth="80.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <children>
+                                    <Label text="Rotor:" />
+                                    <Label text="Ring Setting:" />
+                                    <Label text="Offset:" />
+                                 </children>
+                              </VBox>
                            </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <HBox>
-                     <children>
-                        <MFXToggleButton fx:id="fourthWheelCheckbox" gap="4.0" graphicTextGap="0.0" onAction="#fourthWheelCheckboxActionPerformed" text="Fourth Rotor" />
-                        <MFXToggleButton fx:id="useNumbersCheckbox" gap="4.0" graphicTextGap="0.0" onAction="#useNumbersCheckboxActionPerformed" text="Use Numbers" />
-                        <MFXToggleButton fx:id="showStepsCheckbox" gap="4.0" graphicTextGap="0.0" onAction="#showStepsCheckboxActionPerformed" text="Show Steps" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </content>
-      </TitledPane>
-      <TitledPane fx:id="plugboardConnectionsTitledPane" collapsible="false" text="Plugboard Connections">
-         <content>
-            <GridPane hgap="10.0" vgap="10.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <TextField fx:id="plug0" onKeyTyped="#plugBoardKeyTyped" />
-                  <TextField fx:id="plug1" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="1" />
-                  <TextField fx:id="plug2" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="2" />
-                  <TextField fx:id="plug3" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="3" />
-                  <TextField fx:id="plug4" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="4" />
-                  <TextField fx:id="plug5" onKeyTyped="#plugBoardKeyTyped" GridPane.rowIndex="1" />
-                  <TextField fx:id="plug6" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="plug7" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <TextField fx:id="plug8" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <TextField fx:id="plug9" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <TextField fx:id="plug10" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" />
-                  <TextField fx:id="plug11" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                  <TextField fx:id="plug12" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                  <MFXToggleButton fx:id="plugboardCheckbox" gap="4.0" onAction="#plugboardCheckboxActionPerformed" text="Use All Plugboard Connections" GridPane.columnSpan="5" GridPane.rowIndex="2" />
-               </children>
-            </GridPane>
-         </content>
-      </TitledPane>
-      <TitledPane collapsible="false" text="Translation">
-         <content>
-            <VBox spacing="8.0">
-               <children>
-                  <HBox alignment="CENTER">
-                     <children>
-                        <MFXToggleButton fx:id="encipherCheckbox" gap="4.0" onAction="#encipherCheckboxActionPerformed" text="Encipher" />
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetButtonActionPerformed" text="Default Settings" />
-                     </children>
-                  </HBox>
-                  <StackPane>
-                     <children>
-                        <Label fx:id="mainLabel" styleClass="big-text-field" text="Configure" />
-                        <HBox fx:id="mainIO" prefWidth="200.0">
+                        </HBox>
+                        <HBox>
                            <children>
-                              <Region prefWidth="200.0" />
-                              <TextField fx:id="keyIO" alignment="CENTER" editable="false" prefHeight="50.0" prefWidth="126.0" styleClass="key-text-field" />
-                              <Label fx:id="labelIO" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="126.0" styleClass="big-text-field" text="-&gt;" />
-                              <TextField fx:id="lampIO" alignment="CENTER" editable="false" prefHeight="50.0" prefWidth="126.0" styleClass="lamp-text-field" />
-                              <Region prefWidth="200.0" />
+                              <MFXToggleButton fx:id="fourthWheelCheckbox" gap="4.0" graphicTextGap="0.0" onAction="#fourthWheelCheckboxActionPerformed" text="Fourth Rotor" />
+                              <MFXToggleButton fx:id="useNumbersCheckbox" gap="4.0" graphicTextGap="0.0" onAction="#useNumbersCheckboxActionPerformed" text="Use Numbers" />
+                              <MFXToggleButton fx:id="showStepsCheckbox" gap="4.0" graphicTextGap="0.0" onAction="#showStepsCheckboxActionPerformed" text="Show Steps" />
                            </children>
                         </HBox>
                      </children>
-                  </StackPane>
-               </children>
-            </VBox>
-         </content>
-      </TitledPane>
+                  </VBox>
+               </content>
+            </TitledPane>
+            <TitledPane fx:id="plugboardConnectionsTitledPane" collapsible="false" text="Plugboard Connections">
+               <content>
+                  <GridPane hgap="10.0" vgap="10.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TextField fx:id="plug0" onKeyTyped="#plugBoardKeyTyped" />
+                        <TextField fx:id="plug1" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="1" />
+                        <TextField fx:id="plug2" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="2" />
+                        <TextField fx:id="plug3" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="3" />
+                        <TextField fx:id="plug4" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="4" />
+                        <TextField fx:id="plug5" onKeyTyped="#plugBoardKeyTyped" GridPane.rowIndex="1" />
+                        <TextField fx:id="plug6" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="plug7" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <TextField fx:id="plug8" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <TextField fx:id="plug9" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <TextField fx:id="plug10" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" />
+                        <TextField fx:id="plug11" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                        <TextField fx:id="plug12" editable="false" onKeyTyped="#plugBoardKeyTyped" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                        <MFXToggleButton fx:id="plugboardCheckbox" gap="4.0" onAction="#plugboardCheckboxActionPerformed" text="Use All Plugboard Connections" GridPane.columnSpan="5" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+               </content>
+            </TitledPane>
+            <TitledPane collapsible="false" text="Translation">
+               <content>
+                  <VBox spacing="8.0">
+                     <children>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <MFXToggleButton fx:id="encipherCheckbox" gap="4.0" onAction="#encipherCheckboxActionPerformed" text="Encipher" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetButtonActionPerformed" text="Default Settings" />
+                           </children>
+                        </HBox>
+                        <StackPane>
+                           <children>
+                              <Label fx:id="mainLabel" styleClass="big-text-field" text="Configure" />
+                              <HBox fx:id="mainIO" prefWidth="200.0">
+                                 <children>
+                                    <Region prefWidth="200.0" />
+                                    <TextField fx:id="keyIO" alignment="CENTER" editable="false" prefHeight="50.0" prefWidth="126.0" styleClass="key-text-field" />
+                                    <Label fx:id="labelIO" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="126.0" styleClass="big-text-field" text="-&gt;" />
+                                    <TextField fx:id="lampIO" alignment="CENTER" editable="false" prefHeight="50.0" prefWidth="126.0" styleClass="lamp-text-field" />
+                                    <Region prefWidth="200.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
    </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
 </VBox>
