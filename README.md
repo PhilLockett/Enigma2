@@ -11,11 +11,12 @@ Maven can be run from the command line as shown below.
 Maven resolves dependencies and builds the application independently of an IDE.
 
 This application simulates the [Enigma Machine](https://en.wikipedia.org/wiki/Enigma_machine). 
-There are no restrictions placed on the Rotor selection, as such some 
-Rotor combinations can be made that may not be available on the real machine.
 
-Note: the turnover points for the Commercial, Rocket and SwissK Rotors are 
-guesses and may be incorrect.
+**Note: there are no restrictions placed on the Rotor selection, as such some 
+Rotor combinations can be made that may not be available on the real machine.**
+
+**Note: the turnover points for the Commercial, Rocket and SwissK Rotors are 
+guesses and may be incorrect.**
 
 ## Dependencies
 'Enigma2' is dependent on the following:
@@ -67,9 +68,6 @@ Some machines use letters on the Rotors, whereas some use numbers. The 'Use
 Numbers' toggle switches between these characters on the 'Ring Settings'
 and Rotor 'Offsets' spinners for convenience.
 
-To see all the individual translation steps displayed on the command line
-select the 'Show Steps' toggle.
-
 #### Rotor Selection
 These choice boxes allow different Rotors to be selected for each of the 
 positions. No restrictions are placed on the selection so combinations 
@@ -103,6 +101,10 @@ Select the toggle to translate key presses using the current configuration
 settings.
 The majority of the settings become disabled while translating.
 
+#### Show Translation
+Select the 'Show Translation' toggle to see all the individual translation 
+steps displayed on the command line.
+
 #### Default Settings
 The 'Default Settings' button returns all settings to the original values 
 including clearing all the text boxes.
@@ -116,5 +118,6 @@ This code has the following points of interest:
   * Uses a custom controller, "RotorControl", to represent rotor settings.
   * Uses subtle linear and radial colour gradients on controls.
   * Uses SVG paths to create circular text fields.
+  * Uses a custom top-bar on the main window.
   * Rotor combinations can be selected that may not be available on the real machine.
   * Data is persisted from one session to the next.
