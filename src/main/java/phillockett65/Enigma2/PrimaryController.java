@@ -153,7 +153,8 @@ public class PrimaryController {
             TextField plug = plugs.get(i);
             plug.setText(model.getPlugText(i));
         }
-        encipherCheckbox.setSelected(model.isEncipher());
+
+        encipherCheckbox.setSelected(updateGUIState());
     }
 
 
