@@ -128,14 +128,47 @@ public class Model {
      * Support code for Rotor definitions.
      */
 
-    ObservableList<Rotor> commercial = FXCollections.observableArrayList();
-    ObservableList<Rotor> rocket = FXCollections.observableArrayList();
-    ObservableList<Rotor> swissK = FXCollections.observableArrayList();
-    ObservableList<Rotor> m3 = FXCollections.observableArrayList();
-    ObservableList<Rotor> m4 = FXCollections.observableArrayList();
+    ObservableList<RotorData> rotors = FXCollections.observableArrayList();
+    ObservableList<RotorData> reflectors = FXCollections.observableArrayList();
+    ObservableList<Rotor> activeRotors = FXCollections.observableArrayList();
 
-    ObservableList<Rotor> rotors = FXCollections.observableArrayList();
-    ObservableList<Rotor> reflectors = FXCollections.observableArrayList();
+    private static final RotorData[] rotorData = {
+
+        new RotorData("IC",     "DMTWSILRUYQNKFEJCAZBPGXOHV",	"1924",	"Commercial Enigma A, B", "R"),
+        new RotorData("IIC",    "HQZGPJTMOBLNCIFDYAWVEUSRKX",	"1924",	"Commercial Enigma A, B", "F"),
+        new RotorData("IIIC",   "UQNTLSZFMREHDPXKIBVYGJCWOA",	"1924",	"Commercial Enigma A, B", "W"),
+
+        new RotorData("I-R",    "JGDQOXUSCAMIFRVTPNEWKBLZYH",	"7 February 1941",	"German Railway (Rocket)", "R"),
+        new RotorData("II-R",   "NTZPSFBOKMWRCJDIVLAEYUXHGQ",	"7 February 1941",	"German Railway (Rocket)", "F"),
+        new RotorData("III-R",  "JVIUBHTCDYAKEQZPOSGXNRMWFL",	"7 February 1941",	"German Railway (Rocket)", "W"),
+        new RotorData("UKW-R",  "QYHOGNECVPUZTFDJAXWMKISRBL",	"7 February 1941",	"German Railway (Rocket)", ""),
+        new RotorData("ETW-R",  "QWERTZUIOASDFGHJKPYXCVBNML",	"7 February 1941",	"German Railway (Rocket)", ""),
+
+        new RotorData("I-K",    "PEZUOHXSCVFMTBGLRINQJWAYDK",	"February 1939",	"Swiss K", "R"),
+        new RotorData("II-K",   "ZOUESYDKFWPCIQXHMVBLGNJRAT",	"February 1939",	"Swiss K", "F"),
+        new RotorData("III-K",  "EHRVXGAOBQUSIMZFLYNWKTPDJC",	"February 1939",	"Swiss K", "W"),
+        new RotorData("UKW-K",  "IMETCGFRAYSQBZXWLHKDVUPOJN",	"February 1939",	"Swiss K", ""),
+        new RotorData("ETW-K",  "QWERTZUIOASDFGHJKPYXCVBNML",	"February 1939",	"Swiss K", ""),
+
+        new RotorData("I",      "EKMFLGDQVZNTOWYHXUSPAIBRCJ",	"1930",	"Enigma I", "R"),
+        new RotorData("II",     "AJDKSIRUXBLHWTMCQGZNPYFVOE",	"1930",	"Enigma I", "F"),
+        new RotorData("III",    "BDFHJLCPRTXVZNYEIWGAKMUSQO",	"1930",	"Enigma I", "W"),
+        new RotorData("IV",     "ESOVPZJAYQUIRHXLNFTGKDCMWB",	"December 1938",	"M3 Army", "K"),
+        new RotorData("V",      "VZBRGITYUPSDNHLXAWMJQOFECK",	"December 1938",	"M3 Army", "A"),
+        new RotorData("VI",     "JPGVOUMFYQBENHZRDKASXLICTW",	"1939",	"M3 & M4 Naval (FEB 1942)", "AN"),
+        new RotorData("VII",    "NZJHGRCXMYSWBOUFAIVLPEKQDT",	"1939",	"M3 & M4 Naval (FEB 1942)", "AN"),
+        new RotorData("VIII",   "FKQHTLXOCBJSPDZRAMEWNIUYGV",	"1939",	"M3 & M4 Naval (FEB 1942)", "AN"),
+
+        new RotorData("Beta",               "LEYJVCNIXWPBQMDRTAKZGFUHOS",	"Spring 1941",	"M4 R2", ""),
+        new RotorData("Gamma",              "FSOKANUERHMBTIYCWLQPZXVGJD",	"Spring 1942",	"M4 R2", ""),
+        new RotorData("Reflector A",        "EJMZALYXVBWFCRQUONTSPIKHGD",	"",	"", ""),
+        new RotorData("Reflector B",        "YRUHQSLDPXNGOKMIEBFZCWVJAT",	"",	"", ""),
+        new RotorData("Reflector C",        "FVPJIAOYEDRZXWGCTKUQSBNMHL",	"",	"", ""),
+        new RotorData("Reflector B Thin",   "ENKQAUYWJICOPBLMDXZVFTHRGS",	"1940",	"M4 R1 (M3 + Thin)", ""),
+        new RotorData("Reflector C Thin",   "RDOBJNTKVEHMLFCWZAXGYIPSUQ",	"1940",	"M4 R1 (M3 + Thin)", ""),
+        new RotorData("ETW",                "ABCDEFGHIJKLMNOPQRSTUVWXYZ",	"",	"Enigma I", ""),
+
+    };
 
     /**
      * Construct all the Rotor collections.
@@ -145,66 +178,13 @@ public class Model {
      */
     private void initRotorWiring() {
 
-        commercial.add(new Rotor("IC",	"DMTWSILRUYQNKFEJCAZBPGXOHV",	"1924",	"Commercial Enigma A, B", "R"));
-        commercial.add(new Rotor("IIC",	"HQZGPJTMOBLNCIFDYAWVEUSRKX",	"1924",	"Commercial Enigma A, B", "F"));
-        commercial.add(new Rotor("IIIC","UQNTLSZFMREHDPXKIBVYGJCWOA",	"1924",	"Commercial Enigma A, B", "W"));
-
-        rocket.add(new Rotor("I-R", 	"JGDQOXUSCAMIFRVTPNEWKBLZYH",	"7 February 1941",	"German Railway (Rocket)", "R"));
-        rocket.add(new Rotor("II-R",	"NTZPSFBOKMWRCJDIVLAEYUXHGQ",	"7 February 1941",	"German Railway (Rocket)", "F"));
-        rocket.add(new Rotor("III-R",	"JVIUBHTCDYAKEQZPOSGXNRMWFL",	"7 February 1941",	"German Railway (Rocket)", "W"));
-        rocket.add(new Rotor("UKW-R",	"QYHOGNECVPUZTFDJAXWMKISRBL",	"7 February 1941",	"German Railway (Rocket)", ""));
-        rocket.add(new Rotor("ETW-R",	"QWERTZUIOASDFGHJKPYXCVBNML",	"7 February 1941",	"German Railway (Rocket)", ""));
-
-        swissK.add(new Rotor("I-K",		"PEZUOHXSCVFMTBGLRINQJWAYDK",	"February 1939",	"Swiss K", "R"));
-        swissK.add(new Rotor("II-K",	"ZOUESYDKFWPCIQXHMVBLGNJRAT",	"February 1939",	"Swiss K", "F"));
-        swissK.add(new Rotor("III-K",	"EHRVXGAOBQUSIMZFLYNWKTPDJC",	"February 1939",	"Swiss K", "W"));
-        swissK.add(new Rotor("UKW-K",	"IMETCGFRAYSQBZXWLHKDVUPOJN",	"February 1939",	"Swiss K", ""));
-        swissK.add(new Rotor("ETW-K",	"QWERTZUIOASDFGHJKPYXCVBNML",	"February 1939",	"Swiss K", ""));
-
-        m3.add(new Rotor("I",		"EKMFLGDQVZNTOWYHXUSPAIBRCJ",	"1930",	"Enigma I", "R"));
-        m3.add(new Rotor("II",		"AJDKSIRUXBLHWTMCQGZNPYFVOE",	"1930",	"Enigma I", "F"));
-        m3.add(new Rotor("III",		"BDFHJLCPRTXVZNYEIWGAKMUSQO",	"1930",	"Enigma I", "W"));
-        m3.add(new Rotor("IV",		"ESOVPZJAYQUIRHXLNFTGKDCMWB",	"December 1938",	"M3 Army", "K"));
-        m3.add(new Rotor("V",		"VZBRGITYUPSDNHLXAWMJQOFECK",	"December 1938",	"M3 Army", "A"));
-        m3.add(new Rotor("VI",		"JPGVOUMFYQBENHZRDKASXLICTW",	"1939",	"M3 & M4 Naval (FEB 1942)", "AN"));
-        m3.add(new Rotor("VII",		"NZJHGRCXMYSWBOUFAIVLPEKQDT",	"1939",	"M3 & M4 Naval (FEB 1942)", "AN"));
-        m3.add(new Rotor("VIII",	"FKQHTLXOCBJSPDZRAMEWNIUYGV",	"1939",	"M3 & M4 Naval (FEB 1942)", "AN"));
-
-        m4.add(new Rotor("Beta",				"LEYJVCNIXWPBQMDRTAKZGFUHOS",	"Spring 1941",	"M4 R2", ""));
-        m4.add(new Rotor("Gamma",				"FSOKANUERHMBTIYCWLQPZXVGJD",	"Spring 1942",	"M4 R2", ""));
-        m4.add(new Rotor("Reflector A",			"EJMZALYXVBWFCRQUONTSPIKHGD",	"",	"", ""));
-        m4.add(new Rotor("Reflector B",			"YRUHQSLDPXNGOKMIEBFZCWVJAT",	"",	"", ""));
-        m4.add(new Rotor("Reflector C",			"FVPJIAOYEDRZXWGCTKUQSBNMHL",	"",	"", ""));
-        m4.add(new Rotor("Reflector B Thin",	"ENKQAUYWJICOPBLMDXZVFTHRGS",	"1940",	"M4 R1 (M3 + Thin)", ""));
-        m4.add(new Rotor("Reflector C Thin",	"RDOBJNTKVEHMLFCWZAXGYIPSUQ",	"1940",	"M4 R1 (M3 + Thin)", ""));
-        m4.add(new Rotor("ETW",					"ABCDEFGHIJKLMNOPQRSTUVWXYZ",	"",	"Enigma I", ""));
-
         // Build list of rotors and list of reflectors that can be selected.
-        for (Rotor rotor : m3)
-            if (!rotor.isReflector())
-                rotors.add(rotor);
-
-        for (Rotor rotor : m4)
-            if (!rotor.isReflector())
-                rotors.add(rotor);
-            else
+        for (RotorData rotor : rotorData)
+            if (rotor.isReflector())
                 reflectors.add(rotor);
-
-        for (Rotor rotor : rocket)
-            if (!rotor.isReflector())
-                rotors.add(rotor);
             else
-                reflectors.add(rotor);
-
-        for (Rotor rotor : swissK)
-            if (!rotor.isReflector())
                 rotors.add(rotor);
-            else
-                reflectors.add(rotor);
 
-        for (Rotor rotor : commercial)
-            if (!rotor.isReflector())
-                rotors.add(rotor);
     }
 
 
@@ -272,13 +252,10 @@ public class Model {
             pairs.buildMap();
 
             return pairs.getMap();
-        } else {
-            Rotor rotor = getRotor(reflectors, reflectorChoice);
-            if (rotor != null)
-                return rotor.getMap();
         }
-
-        return null;
+        
+        RotorData rotor = getRotorData(reflectors, reflectorChoice);
+        return rotor.getMap();
     }
 
     /**
@@ -295,7 +272,7 @@ public class Model {
     private void fillReflectorList() {
         reflectorList.clear();
 
-        for (Rotor rotor : reflectors)
+        for (RotorData rotor : reflectors)
             reflectorList.add(rotor.getId());
     }
 
@@ -388,7 +365,7 @@ public class Model {
      */
     private void initializeRotorSetup() {
         // Initialize wheelList.
-        for (Rotor rotor : rotors)
+        for (RotorData rotor : rotors)
             wheelList.add(rotor.getId());
 
         // Initialize "Rotor Control Set-Up".
@@ -475,17 +452,17 @@ public class Model {
     public boolean isEncipher() { return encipher; }
 
     /**
-     * Find a Rotor with the given id in the given list,
+     * Find a RotorData with the given id in the given list,
      * @param list of Rotors to search.
      * @param target id of Rotor.
      * @return Rotor with matching id if found, null otherwise.
      */
-    private Rotor getRotor(ObservableList<Rotor> list, String target) {
-        for (Rotor rotor : list)
+    private RotorData getRotorData(ObservableList<RotorData> list, String target) {
+        for (RotorData rotor : list)
              if (rotor.is(target))
                 return rotor;
 
-        return null;
+        return list.get(0);
     }
 
 
@@ -499,7 +476,7 @@ public class Model {
         // Normal step of the spinner of the right rotor.
         incrementRotorOffset(RIGHT, 1);
 
-        Rotor rotor = getRotor(rotors, getWheelChoice(MIDDLE));
+        Rotor rotor = activeRotors.get(MIDDLE);
         if (rotor.isNotchPoint(getRotorIndex(MIDDLE))) {
             // Double step of the spinner of the middle rotor, normal step of 
             // the spinner of the left rotor.
@@ -507,7 +484,7 @@ public class Model {
             incrementRotorOffset(LEFT, 1);
         }
 
-        rotor = getRotor(rotors, getWheelChoice(RIGHT));
+        rotor = activeRotors.get(RIGHT);
         if (rotor.isTurnoverPoint(getRotorIndex(RIGHT))) {
             // The right rotor takes the spinner of the middle rotor one step 
             // further.
@@ -611,11 +588,11 @@ public class Model {
 
         pipeline.clear();
 
-        Rotor slow = getRotor(rotors, getWheelChoice(SLOW));
+        Rotor slow = activeRotors.get(SLOW);
 
-        Rotor left = getRotor(rotors, getWheelChoice(LEFT));
-        Rotor middle = getRotor(rotors, getWheelChoice(MIDDLE));
-        Rotor right = getRotor(rotors, getWheelChoice(RIGHT));
+        Rotor left = activeRotors.get(LEFT);
+        Rotor middle = activeRotors.get(MIDDLE);
+        Rotor right = activeRotors.get(RIGHT);
 
         pipeline.add(new Translation(OTHER, plugboard, Mapper.RIGHT_TO_LEFT));
 
@@ -650,10 +627,11 @@ public class Model {
         plugboard = new Mapper("Plugboard", plugboardMap);
         reflector = new Mapper("Reflector", reflectorMap);
 
-        Rotor rotor;
+        activeRotors.clear();
         for (int i = 0; i < ROTOR_COUNT; ++i) {
-            rotor = getRotor(rotors, getWheelChoice(i));
+            Rotor rotor = new Rotor(getRotorData(rotors, getWheelChoice(i)));
             rotor.setRingSetting(getRingIndex(i));
+            activeRotors.add(rotor);
 
             // rotor.dumpRightMap();
             // rotor.dumpLeftMap();
@@ -687,19 +665,7 @@ public class Model {
      */
 
     public void dumpRotorWiring() {
-        for (Rotor rotor : commercial)
-            System.out.println(rotor.toString());
-        System.out.println();
-        for (Rotor rotor : rocket)
-            System.out.println(rotor.toString());
-        System.out.println();
-        for (Rotor rotor : swissK)
-            System.out.println(rotor.toString());
-        System.out.println();
-        for (Rotor rotor : m3)
-            System.out.println(rotor.toString());
-        System.out.println();
-        for (Rotor rotor : m4)
+        for (RotorData rotor : rotorData)
             System.out.println(rotor.toString());
         System.out.println();
     }

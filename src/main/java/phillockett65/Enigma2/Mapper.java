@@ -34,15 +34,12 @@ public class Mapper {
     public final static int RIGHT_TO_LEFT = 1;
     public final static int LEFT_TO_RIGHT = 2;
 
-    public final int R2L = RIGHT_TO_LEFT;
-    public final int L2R = LEFT_TO_RIGHT;
+    private final String id;
+    private final int[] map;
+    private final boolean reflect;
 
-    protected final String id;
-    protected final int[] map;
-    protected final boolean reflect;
-
-    protected int[] leftMap;
-    protected int[] rightMap;
+    private final int[] leftMap;
+    private final int[] rightMap;
 
 
     /************************************************************************
@@ -114,13 +111,15 @@ public class Mapper {
 
     public String getId() { return id; }
     public int[] getMap() { return map; }
+    public int getMapItem(int index) { return map[index]; }
+    public int getMapLength() { return map.length; }
     public boolean isReflector() { return reflect; }
 
     public int[] getLeftMap()	{ return leftMap; }
     public int[] getRightMap()	{ return rightMap; }
 
-    public int leftToRight(int index) { return leftMap[index]; }
-    public int rightToLeft(int index) { return rightMap[index]; }
+    private int leftToRight(int index) { return leftMap[index]; }
+    private int rightToLeft(int index) { return rightMap[index]; }
 
 
     /************************************************************************
@@ -134,11 +133,25 @@ public class Mapper {
      * another using the map.
      * @param direction of mapping.
      * @param index to translate.
+     * @return the translated index.
+     */
+    private int swap(int direction, int index) {
+        if (direction == RIGHT_TO_LEFT) 
+            return rightToLeft(index);
+
+        return leftToRight(index);
+    }
+
+    /**
+     * Translates (swaps) an index (numerical equivalent of the letter) to 
+     * another using the map.
+     * @param direction of mapping.
+     * @param index to translate.
      * @param show the translation step on the command line.
      * @return the translated index.
      */
     public int swap(int direction, int index, boolean show) {
-        final int output = (direction == RIGHT_TO_LEFT) ? rightToLeft(index) : leftToRight(index);
+        final int output = swap(direction, index);
 
         if (show)
             System.out.print(id + "(" + indexToLetter(index) + "->" + indexToLetter(output) + ")  ");
