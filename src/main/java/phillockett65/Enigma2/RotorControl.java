@@ -35,6 +35,8 @@ import javafx.scene.layout.VBox;
 
 public class RotorControl extends VBox {
 
+    private final static String[] names = { "fourth", "left", "middle", "right" };
+
     private ChoiceBox<String> wheelChoicebox;
     private Spinner<String> ringSettingSpinner;
     private Spinner<String> rotorOffsetSpinner;
@@ -44,6 +46,7 @@ public class RotorControl extends VBox {
     private ObservableList<String> numbers = FXCollections.observableArrayList();
     private ObservableList<String> ringList = FXCollections.observableArrayList();
     private boolean useNumbers = false;
+    private int id = 0;
 
     private SpinnerValueFactory<String> ringSettingSVF;
     private SpinnerValueFactory<String> rotorOffsetSVF;
@@ -69,9 +72,11 @@ public class RotorControl extends VBox {
         }
     }
 
-    public void init(String name, ObservableList<String> wheelList) {
+    public void init(int i, ObservableList<String> wheelList) {
         // System.out.println("init()");
 
+        id = i;
+        String name = names[id];
         this.wheelList.setAll(wheelList);
 
         // Initialize "Rotor Selection" choice box.

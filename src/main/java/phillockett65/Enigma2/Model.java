@@ -369,10 +369,11 @@ public class Model {
             wheelList.add(rotor.getId());
 
         // Initialize "Rotor Control Set-Up".
-        final String[] names = { "fourth", "left", "middle", "right" };
         for (int i = 0; i < ROTOR_COUNT; ++i) {
-            rotorControls.add(new RotorControl());
-            getState(i).init(names[i], wheelList);
+            RotorControl rotorControl = new RotorControl();
+            rotorControl.init(i, wheelList);
+
+            rotorControls.add(rotorControl);
         }
     }
 
