@@ -358,7 +358,6 @@ public class PrimaryController {
         reflectorSetUpTitledPane.setTooltip(new Tooltip("Select which Reflector (reversing drum) to use"));
         reconfigurableCheckbox.setSelected(model.isReconfigurable());
         reconfigurableCheckbox.setTooltip(new Tooltip("Select to set up and use a reconfigurable Reflector"));
-        setReconfigurable();
 
         reflectorChoicebox.setItems(model.getReflectorList());
         reflectorChoicebox.setTooltip(new Tooltip("Select a Reflector"));
@@ -402,26 +401,10 @@ public class PrimaryController {
                 return change;
             }));
         }
+
+        setReconfigurable();
     }
 
-
-
-     /************************************************************************
-     * Support code for "Rotor Selection" panel.
-     */
-
-    /**
-     * Control whether it is possible to change the rotor selection. Note 
-     * wheel0Choicebox is controlled seperately in editableFourthWheel().
-     * @param editable indicates if the rotor selections are editable.
-     */
-    private void editableWheelOrder(boolean editable) {
-        // System.out.println("editableReflector(" + editable + ")");
-
-        fourthWheelCheckbox.setDisable(!editable);
-        plugboardCheckbox.setDisable(!editable);
-        model.setTranslate(!editable);
-    }
 
 
     /************************************************************************
@@ -455,6 +438,19 @@ public class PrimaryController {
     @FXML
     void showStepsCheckboxActionPerformed(ActionEvent event) {
         model.setShow(showStepsCheckbox.isSelected());
+    }
+
+    /**
+     * Control whether it is possible to change the rotor selection. Note 
+     * wheel0Choicebox is controlled seperately in editableFourthWheel().
+     * @param editable indicates if the rotor selections are editable.
+     */
+    private void editableWheelOrder(boolean editable) {
+        // System.out.println("editableReflector(" + editable + ")");
+
+        fourthWheelCheckbox.setDisable(!editable);
+        plugboardCheckbox.setDisable(!editable);
+        model.setTranslate(!editable);
     }
 
     /**
