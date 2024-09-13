@@ -70,6 +70,11 @@ public class Model {
      */
     public Model() {
         initRotorWiring();
+
+        initializeReflector();
+        initializeRotorSetup();
+        initializePlugboardConnections();
+        initializeEncipher();
     }
 
 
@@ -80,13 +85,10 @@ public class Model {
     public void initialize() {
         // System.out.println("Model initialized.");
 
-        initializeReflector();
-        initializeRotorSetup();
-        initializePlugboardConnections();
-        initializeEncipher();
-
         if (!DataStore.readData(this))
             defaultSettings();
+
+        setRotorControlsSpacing(8);
     }
 
     /**
@@ -95,7 +97,6 @@ public class Model {
      */
     public void init() {
         // System.out.println("Model init.");
-        setRotorControlsSpacing(8);
     }
 
     /**
@@ -180,10 +181,13 @@ public class Model {
 
         // Build list of rotors and list of reflectors that can be selected.
         for (RotorData rotor : rotorData)
-            if (rotor.isReflector())
+            if (rotor.isReflector()) {
                 reflectors.add(rotor);
-            else
+                reflectorList.add(rotor.getId());
+            } else {
                 rotors.add(rotor);
+                wheelList.add(rotor.getId());
+            }
 
     }
 
@@ -267,21 +271,10 @@ public class Model {
     }
 
     /**
-     * Construct the list of reflector names.
-     */
-    private void fillReflectorList() {
-        reflectorList.clear();
-
-        for (RotorData rotor : reflectors)
-            reflectorList.add(rotor.getId());
-    }
-
-    /**
      * Initialize "Reflector Set-Up" panel.
      */
     private void initializeReflector() {
         pairs = new Pairs(false);
-        fillReflectorList();
     }
 
 
@@ -364,10 +357,6 @@ public class Model {
      * Initialize "Rotor Set-Up".
      */
     private void initializeRotorSetup() {
-        // Initialize wheelList.
-        for (RotorData rotor : rotors)
-            wheelList.add(rotor.getId());
-
         // Initialize "Rotor Control Set-Up".
         for (int i = 0; i < ROTOR_COUNT; ++i) {
             RotorControl rotorControl = new RotorControl();
