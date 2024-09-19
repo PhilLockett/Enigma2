@@ -35,6 +35,9 @@ import java.util.ArrayList;
 public class DataStore implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private double mainX;
+    private double mainY;
+
     private String reflectorChoice;
     private Boolean reconfigurable;
     private ArrayList<String> pairs = new ArrayList<String>();
@@ -62,6 +65,9 @@ public class DataStore implements Serializable {
      */
     public boolean pull(Model model) {
         boolean success = true;
+
+        mainX = model.getMainXPos();
+        mainY = model.getMainYPos();
 
         reflectorChoice = model.getReflectorChoice();
         reconfigurable = model.isReconfigurable();
@@ -99,6 +105,8 @@ public class DataStore implements Serializable {
      */
     public boolean push(Model model) {
         boolean success = true;
+
+        model.setMainPos(mainX, mainY);
 
         model.setReflectorChoice(reflectorChoice);
         model.setReconfigurable(reconfigurable);

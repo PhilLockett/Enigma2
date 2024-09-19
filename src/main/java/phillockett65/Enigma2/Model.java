@@ -44,6 +44,18 @@ public class Model {
     private static final int MIDDLE = 2;
     private static final int RIGHT = 3;
 
+    private boolean defaulted = false;
+
+    public boolean isDefaulted() { return defaulted; }
+
+    private static final double ERRPOS = -200.0;
+    private double mainX = ERRPOS;
+    private double mainY = ERRPOS;
+
+    public void setMainPos(double x, double y) { mainX = x; mainY = y; }
+    public double getMainXPos() { return mainX; }
+    public double getMainYPos() { return mainY; }
+
 
     /************************************************************************
      * General support code.
@@ -103,6 +115,8 @@ public class Model {
      * Set all attributes to the default values.
      */
     public void defaultSettings() {
+        defaulted = true;
+
         setReflectorChoice("Reflector B");
 
         setReconfigurable(false);

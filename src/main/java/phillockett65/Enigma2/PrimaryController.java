@@ -123,6 +123,12 @@ public class PrimaryController {
         this.stage = stage;
         model.init();
         syncUI();
+        if (model.isDefaulted()) {
+            model.setMainPos(stage.getX(), stage.getY());
+        } else {
+            stage.setX(model.getMainXPos());
+            stage.setY(model.getMainYPos());
+        }
     }
 
     /**
@@ -184,6 +190,7 @@ public class PrimaryController {
     void topBarOnMouseDragged(MouseEvent event) {
         stage.setX(event.getScreenX() - x);
         stage.setY(event.getScreenY() - y);
+        model.setMainPos(stage.getX(), stage.getY());
     }
  
     private final double cancelStroke = 2.5;
