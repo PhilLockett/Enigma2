@@ -32,7 +32,6 @@ public class Pairs {
     private boolean multiUseError = false;
     private int letterCount = 0;
     private int[] letterCounts;
-    private int[] map;
 
     private ArrayList<Pair> list;
     private boolean allowingEmpty = false;
@@ -145,7 +144,9 @@ public class Pairs {
     /**
      * Only called if isPlugboardValid() is true.
      */
-    public void buildMap() {
+    public int[] getMap() {
+        int[] map = new int[26];
+
         for (int i = 0; i < map.length; ++i)
             map[i] = i;
 
@@ -175,16 +176,10 @@ public class Pairs {
                 }
             }
         }
+
+        return map;
     }
 
-    public int[] getMap() { return map; }
-
-    /**
-     * Lockdown the plugboardMap.
-     */
-    public void lockdownPairs() {
-        buildMap();
-    }
 
     public void clear() {
         for (Pair pair : list)
@@ -200,7 +195,6 @@ public class Pairs {
         letterUsed = new boolean[26];
         multiUseErrors = new boolean[26];
         letterCounts = new int[26];
-        map = new int[26];
 
         final int size = allow ? Model.FULL_COUNT : Model.PAIR_COUNT;
         list = new ArrayList<Pair>(size);

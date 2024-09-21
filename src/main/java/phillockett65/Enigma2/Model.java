@@ -215,9 +215,7 @@ public class Model {
     private String reflectorChoice;
     private boolean reconfigurable = false;
     
-    private int[] reflectorMap;
     private Pairs pairs;
-    private Mapper reflector;
 
 
     public ObservableList<String> getReflectorList()   { return reflectorList; }
@@ -261,27 +259,18 @@ public class Model {
         return true;
     }
 
+
     /**
      * @return a reference to the active reflector map.
      */
     private int[] getReflectorMap() {
         
         if (reconfigurable) {
-            pairs.buildMap();
-
             return pairs.getMap();
         }
         
         RotorData rotor = getRotorData(reflectors, reflectorChoice);
         return rotor.getMap();
-    }
-
-    /**
-     * Ascertain the active reflector map and assign to the global variable 
-     * reflectorMap.
-     */
-    private void lockdownReflector() {
-        reflectorMap = getReflectorMap();
     }
 
     /**
@@ -386,11 +375,9 @@ public class Model {
      * Support code for "Plugboard Connections" panel.
      */
     
-    private int[] plugboardMap;
-    private Pairs plugs;
-    private Mapper plugboard;
-
     private boolean extPlugboard = false;
+
+    private Pairs plugs;
 
 
     public void setExtPlugboard(boolean state) { 
@@ -422,9 +409,8 @@ public class Model {
     /**
      * Lockdown the plugboardMap.
      */
-    private void lockdownPlugboard() {
-        plugs.buildMap();
-        plugboardMap = plugs.getMap();
+    private int[] getPlugboardMap() {
+        return plugs.getMap();
     }
 
     /**
@@ -592,6 +578,9 @@ public class Model {
 
         pipeline.clear();
 
+        Mapper plugboard = new Mapper("Plugboard", getPlugboardMap());
+        Mapper reflector = new Mapper("Reflector", getReflectorMap());
+
         Rotor slow = activeRotors.get(SLOW);
 
         Rotor left = activeRotors.get(LEFT);
@@ -625,11 +614,6 @@ public class Model {
      * ring settings and building the pipeline.
      */
     private void lockdownSettings() {
-        lockdownPlugboard();
-        lockdownReflector();
-
-        plugboard = new Mapper("Plugboard", plugboardMap);
-        reflector = new Mapper("Reflector", reflectorMap);
 
         activeRotors.clear();
         for (int i = 0; i < ROTOR_COUNT; ++i) {
