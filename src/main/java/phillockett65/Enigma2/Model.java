@@ -143,9 +143,8 @@ public class Model {
      * Support code for Rotor definitions.
      */
 
-    ObservableList<RotorData> rotors = FXCollections.observableArrayList();
-    ObservableList<RotorData> reflectors = FXCollections.observableArrayList();
-    ObservableList<Rotor> activeRotors = FXCollections.observableArrayList();
+    private ObservableList<RotorData> rotors = FXCollections.observableArrayList();
+    private ObservableList<RotorData> reflectors = FXCollections.observableArrayList();
 
     private static final RotorData[] rotorData = {
 
@@ -211,7 +210,7 @@ public class Model {
      * Support code for "Reflector Set-Up" panel.
      */
 
-    ObservableList<String> reflectorList = FXCollections.observableArrayList();
+    private ObservableList<String> reflectorList = FXCollections.observableArrayList();
     private String reflectorChoice;
     private boolean reconfigurable = false;
     
@@ -428,7 +427,9 @@ public class Model {
 
     private boolean encipher = false;
 
-    private ArrayList<Translation> pipeline = new ArrayList<Translation>(9);
+    private ArrayList<Rotor> activeRotors = new ArrayList<Rotor>();
+    private ArrayList<Translation> pipeline = new ArrayList<Translation>();
+
 
     /**
      * Determine if all settings are valid which requires checking the 
