@@ -121,7 +121,7 @@ public class PrimaryController {
     public void init(Stage stage) {
         // System.out.println("PrimaryController init.");
         this.stage = stage;
-        model.init();
+        model.init(stage);
         syncUI();
         if (!model.isDefaulted()) {
             stage.setX(model.getMainXPos());

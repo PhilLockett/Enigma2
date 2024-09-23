@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.Stage;
 
 public class Model {
 
@@ -45,16 +46,13 @@ public class Model {
     private static final int RIGHT = 3;
 
     private boolean defaulted = false;
-
     public boolean isDefaulted() { return defaulted; }
+    
+    private Stage stage;
+    public void setMainPos(double x, double y) { stage.setX(x); stage.setY(y); }
+    public double getMainXPos() { return stage.getX(); }
+    public double getMainYPos() { return stage.getY(); }
 
-    private static final double ERRPOS = -200.0;
-    private double mainX = ERRPOS;
-    private double mainY = ERRPOS;
-
-    public void setMainPos(double x, double y) { mainX = x; mainY = y; }
-    public double getMainXPos() { return mainX; }
-    public double getMainYPos() { return mainY; }
 
 
     /************************************************************************
@@ -87,6 +85,7 @@ public class Model {
         initializeRotorSetup();
         initializePlugboardConnections();
         initializeEncipher();
+        setRotorControlsSpacing(8);
     }
 
 
@@ -96,19 +95,17 @@ public class Model {
      */
     public void initialize() {
         // System.out.println("Model initialized.");
-
-        if (!DataStore.readData(this))
-            defaultSettings();
-
-        setRotorControlsSpacing(8);
     }
 
     /**
      * Called by the controller after the stage has been set. Completes any 
      * initialization dependent on other components being initialized.
      */
-    public void init() {
+    public void init(Stage stage) {
         // System.out.println("Model init.");
+        this.stage = stage;
+        if (!DataStore.readData(this))
+            defaultSettings();
     }
 
     /**
