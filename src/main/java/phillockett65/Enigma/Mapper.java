@@ -181,7 +181,7 @@ public class Mapper {
     }
 
     public void dumpMap() { dumpMapping(map); }
-    public void dumpLeftMap() { dumpMapping(map); }
-    public void dumpRightMap() { dumpMapping(map); }
+    public void dumpLeftMap() { dumpMapping(leftMap); }
+    public void dumpRightMap() { dumpMapping(rightMap); }
 
 }

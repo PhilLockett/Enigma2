@@ -121,9 +121,7 @@ public class DataStore implements Serializable {
 
         final int rotorStateCount = wheels.size();
         for (int i = 0; i < rotorStateCount; ++i) {
-            model.setWheelChoice(i, wheels.get(i));
-            model.setRingIndex(i, ringSettings.get(i));
-            model.setRotorIndex(i, rotorOffsets.get(i));
+            model.setRotorState(i, wheels.get(i), ringSettings.get(i), rotorOffsets.get(i));
         }
 
         final int plugCount = plugs.size();

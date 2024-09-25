@@ -55,17 +55,17 @@ public class Rotor extends RotorData {
         rightMap = new int[26];
         leftMap = new int[26];
 
-        ringSetting = 0;
+        setRingSetting(0);
         offset = 0;
     }
 
-    public Rotor(RotorData rhs) {
+    public Rotor(RotorData rhs, int ring) {
         super(rhs.getId(), rhs.getCipher(), rhs.getDate(), rhs.getName(), rhs.getTurnovers());
 
         rightMap = new int[26];
         leftMap = new int[26];
 
-        ringSetting = 0;
+        setRingSetting(ring);
         offset = 0;
     }
 
@@ -161,5 +161,8 @@ public class Rotor extends RotorData {
             // ", date=" + date + 
             "]";
     }
+
+    public void dumpLeftMap() { dumpMapping(leftMap); }
+    public void dumpRightMap() { dumpMapping(rightMap); }
 
 }

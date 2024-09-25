@@ -63,6 +63,7 @@ public class PrimaryController {
      * General support code.
      */
 
+    private static final String TOPBARICON = "top-bar-icon";
     private static final String ERROR = "error-text-field";
 
     /**
@@ -169,10 +170,8 @@ public class PrimaryController {
      * Support code for "Top Bar" panel.
      */
 
-    private final double iconSize = 28.0;
     private double x = 0.0;
     private double y = 0.0;
-    private Pane cancel;
 
     @FXML
     private HBox topBar;
@@ -192,27 +191,29 @@ public class PrimaryController {
         stage.setY(event.getScreenY() - y);
     }
  
-    private final double cancelStroke = 2.5;
  
-    private void buildCancel() {
-        cancel = new Pane();
+    private Pane buildCancel() {
+        final double iconSize = 28.0;
+        final double cancelStroke = 2.5;
+
+        Pane cancel = new Pane();
         cancel.setPrefWidth(iconSize);
         cancel.setPrefHeight(iconSize);
-        cancel.getStyleClass().add("top-bar-icon");
+        cancel.getStyleClass().add(TOPBARICON);
 
         double centre = iconSize / 2;
         double radius = centre * 0.7;
 
         Circle cancelCircle = new Circle(centre, centre, radius);
         cancelCircle.setFill(Color.TRANSPARENT);
-        cancelCircle.getStyleClass().add("top-bar-icon");
+        cancelCircle.getStyleClass().add(TOPBARICON);
         cancelCircle.setStrokeWidth(cancelStroke);
 
         double length = radius * 0.6;
         double a = centre + length;
         double b = centre - length;
         Line cancelLine = new Line(centre, a, centre, b);
-        cancelLine.getStyleClass().add("top-bar-icon");
+        cancelLine.getStyleClass().add(TOPBARICON);
         cancelLine.setStrokeWidth(cancelStroke);
         cancelLine.setStrokeLineCap(StrokeLineCap.ROUND);
 
@@ -222,6 +223,7 @@ public class PrimaryController {
             stage.close();
         });
 
+        return cancel;
     }
 
 
@@ -229,8 +231,7 @@ public class PrimaryController {
      * Initialize "Reflector" panel.
      */
     private void initializeTopBar() {
-        buildCancel();
-        topBar.getChildren().add(cancel);
+        topBar.getChildren().add(buildCancel());
     }
   
 

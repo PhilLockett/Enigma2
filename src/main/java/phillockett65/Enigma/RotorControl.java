@@ -127,12 +127,12 @@ public class RotorControl extends VBox {
 
     private String getRingValue() { return ringSettingSVF.getValue(); }
     public int getRingIndex() { return valueToIndex(getRingValue()); }
-    public void setRingValue(String value) { ringSettingSVF.setValue(value); }
+    private void setRingValue(String value) { ringSettingSVF.setValue(value); }
     public void setRingIndex(int index) { setRingValue(ringList.get(index % 26)); }
 
     private String getRotorValue() { return rotorOffsetSVF.getValue(); }
     public int getRotorIndex() { return valueToIndex(getRotorValue()); }
-    public void setRotorValue(String value) { rotorOffsetSVF.setValue(value); }
+    private void setRotorValue(String value) { rotorOffsetSVF.setValue(value); }
     public void setRotorIndex(int index) { setRotorValue(ringList.get(index % 26)); }
     public void increment(int steps) { rotorOffsetSVF.increment(steps); }
     

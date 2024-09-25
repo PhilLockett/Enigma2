@@ -85,7 +85,6 @@ public class Model {
         initializeRotorSetup();
         initializePlugboardConnections();
         initializeEncipher();
-        setRotorControlsSpacing(8);
     }
 
 
@@ -190,7 +189,8 @@ public class Model {
     private void initRotorWiring() {
 
         // Build list of rotors and list of reflectors that can be selected.
-        for (RotorData rotor : rotorData)
+        for (RotorData rotor : rotorData) {
+
             if (rotor.isReflector()) {
                 reflectors.add(rotor);
                 reflectorList.add(rotor.getId());
@@ -198,6 +198,7 @@ public class Model {
                 rotors.add(rotor);
                 wheelList.add(rotor.getId());
             }
+        }
 
     }
 
@@ -331,24 +332,14 @@ public class Model {
             rotor.setLockDown(selected);
     }
 
-    public void setRotorControlsSpacing(double value) {
-        for (RotorControl rotor : rotorControls)
-            rotor.setSpacing(value);
-    }
-
 
     private RotorControl getState(int index) { return rotorControls.get(index); }
 
     public String getWheelChoice(int index) { return getState(index).getWheelChoice(); }
-    public void setWheelChoice(int index, String choice) { getState(index).setWheelChoice(choice); }
 
     public int getRingIndex(int index) { return getState(index).getRingIndex(); }
-    public void setRingSetting(int index, String value) { getState(index).setRingIndex(Mapper.stringToIndex(value)); }
-    public void setRingIndex(int index, int value) { getState(index).setRingIndex(value); }
 
     public int getRotorIndex(int index) { return getState(index).getRotorIndex(); }
-    public void setRotorOffset(int index, String value) { getState(index).setRotorIndex(Mapper.stringToIndex(value)); }
-    public void setRotorIndex(int index, int value) { getState(index).setRotorIndex(value); }
     private void incrementRotorOffset(int index, int step) { getState(index).increment(step); }
 
 
@@ -360,6 +351,7 @@ public class Model {
         for (int i = 0; i < ROTOR_COUNT; ++i) {
             RotorControl rotorControl = new RotorControl();
             rotorControl.init(i, wheelList);
+            rotorControl.setSpacing(8);
 
             rotorControls.add(rotorControl);
         }
@@ -550,7 +542,7 @@ public class Model {
         advanceRotors();
 
         for (int i = 0; i < ROTOR_COUNT; ++i) {
-            int offset = getRotorIndex(i);
+            final int offset = getRotorIndex(i);
 
             for (Translation translator : pipeline)
                 translator.conditionallyUpdate(i, offset);
@@ -615,8 +607,7 @@ public class Model {
 
         activeRotors.clear();
         for (int i = 0; i < ROTOR_COUNT; ++i) {
-            Rotor rotor = new Rotor(getRotorData(rotors, getWheelChoice(i)));
-            rotor.setRingSetting(getRingIndex(i));
+            Rotor rotor = new Rotor(getRotorData(rotors, getWheelChoice(i)), getRingIndex(i));
             activeRotors.add(rotor);
 
             // rotor.dumpRightMap();
