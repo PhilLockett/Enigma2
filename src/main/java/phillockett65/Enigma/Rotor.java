@@ -24,7 +24,7 @@
  * (offset) which is dynamically updated in normal use. Note, the turnover point
  * immediately follows the notch point.
  */
-package phillockett65.Enigma2;
+package phillockett65.Enigma;
 
 import java.util.Arrays;
 

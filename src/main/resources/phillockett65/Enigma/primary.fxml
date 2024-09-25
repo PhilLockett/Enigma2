@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox stylesheets="@application.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.Enigma2.PrimaryController">
+<VBox stylesheets="@application.css" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="phillockett65.Enigma.PrimaryController">
    <children>
       <HBox fx:id="topBar" onMouseDragged="#topBarOnMouseDragged" onMousePressed="#topBarOnMousePressed" prefHeight="28.0" styleClass="top-bar">
          <children>

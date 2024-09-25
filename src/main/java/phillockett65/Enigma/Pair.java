@@ -21,7 +21,7 @@
 /*
  * Pair is a class that captures a connection between two letters.
  */
-package phillockett65.Enigma2;
+package phillockett65.Enigma;
 
 public class Pair {
     private String letters = "";

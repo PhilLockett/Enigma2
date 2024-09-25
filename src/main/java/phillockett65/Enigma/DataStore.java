@@ -22,7 +22,7 @@
  * DataStore is a class that serializes the settings data for saving and 
  * restoring to and from disc.
  */
-package phillockett65.Enigma2;
+package phillockett65.Enigma;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

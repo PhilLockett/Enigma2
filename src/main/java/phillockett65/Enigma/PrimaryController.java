@@ -27,7 +27,7 @@
  * 
  * The order of the code should match the order of the layout when possible.
  */
-package phillockett65.Enigma2;
+package phillockett65.Enigma;
 
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
 

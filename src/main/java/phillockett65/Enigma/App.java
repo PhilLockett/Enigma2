@@ -21,7 +21,7 @@
 /*
  * Boilerplate code responsible for launching the JavaFX application. 
  */
-package phillockett65.Enigma2;
+package phillockett65.Enigma;
 
 import javafx.application.Application;
 import javafx.application.Platform;

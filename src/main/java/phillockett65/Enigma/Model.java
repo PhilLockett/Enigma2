@@ -22,7 +22,7 @@
  * Model is the class that captures the dynamic shared data plus some 
  * supporting constants and provides access via getters and setters.
  */
-package phillockett65.Enigma2;
+package phillockett65.Enigma;
 
 import java.util.ArrayList;
 

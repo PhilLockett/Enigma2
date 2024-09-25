@@ -21,7 +21,7 @@
 /*
  * Pairs is a class that captures a collection letter pairs.
  */
-package phillockett65.Enigma2;
+package phillockett65.Enigma;
 
 import java.util.ArrayList;
 

@@ -25,7 +25,7 @@
  * LEFT_TO_RIGHT mapping. If these are the same then it is a Reflector mapping 
  * and isReflector() returns true.
  */
-package phillockett65.Enigma2;
+package phillockett65.Enigma;
 
 import java.util.Arrays;
 
