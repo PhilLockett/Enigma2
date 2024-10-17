@@ -75,8 +75,7 @@ public class Model {
      */
 
     /**
-     * Responsible for constructing the Model and any local objects. Called by 
-     * the controller.
+     * Constructor.
      */
     public Model() {
         initRotorWiring();
@@ -304,9 +303,9 @@ public class Model {
     public boolean isFourthWheel() { return fourthWheel; }
 
     /**
-     * Update useLetters and synchronise the ring setting and rotor offset 
+     * Update useNumbers and synchronise the ring setting and rotor offset 
      * Spinners.
-     * @param state assigned to useLetters;
+     * @param state assigned to useNumbers;
      */
     public void setUseNumbers(boolean state) {
         if (useNumbers == state)
@@ -336,9 +335,7 @@ public class Model {
     private RotorControl getState(int index) { return rotorControls.get(index); }
 
     public String getWheelChoice(int index) { return getState(index).getWheelChoice(); }
-
     public int getRingIndex(int index) { return getState(index).getRingIndex(); }
-
     public int getRotorIndex(int index) { return getState(index).getRotorIndex(); }
     private void incrementRotorOffset(int index, int step) { getState(index).increment(step); }
 

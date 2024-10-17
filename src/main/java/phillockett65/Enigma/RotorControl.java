@@ -51,6 +51,9 @@ public class RotorControl extends VBox {
     private SpinnerValueFactory<String> ringSettingSVF;
     private SpinnerValueFactory<String> rotorOffsetSVF;
 
+    /**
+     * Constructor.
+     */
     public RotorControl() {
         super();
         // System.out.println("CustomRotorControl()");
@@ -72,6 +75,11 @@ public class RotorControl extends VBox {
         }
     }
 
+    /**
+     * Initialise the rotor.
+     * @param i rotor identifier.
+     * @param wheelList list of rotor names.
+     */
     public void init(int i, ObservableList<String> wheelList) {
         // System.out.println("init()");
 
@@ -99,11 +107,6 @@ public class RotorControl extends VBox {
 
     private int valueToIndex(String s) { return useNumbers ? Mapper.numberToIndex(s) : Mapper.letterToIndex(s); }
 
-    public ChoiceBox<String> getWheelChoicebox() { return wheelChoicebox; }
-    
-    public Spinner<String> getRotorOffsetSpinner() { return rotorOffsetSpinner; };
-    
-    public Spinner<String> getRingSettingSpinner() { return ringSettingSpinner; }
 
     /**
      * Display Numbers or Letters on rotor (spinner).
