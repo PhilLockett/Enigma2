@@ -12,11 +12,11 @@ Maven resolves dependencies and builds the application independently of an IDE.
 
 This application simulates the [Enigma Machine](https://en.wikipedia.org/wiki/Enigma_machine). 
 
-**Note: there are no restrictions placed on the Rotor selection, as such some 
-Rotor combinations can be made that may not be available on the real machine.**
+**Note:** _there are no restrictions placed on the Rotor selection, as such some 
+Rotor combinations can be made that may not be available on the real machine._
 
-**Note: the turnover points for the Commercial, Rocket and SwissK Rotors are 
-guesses and may be incorrect.**
+**Note:** _the turnover points for the Commercial, Rocket and SwissK Rotors are 
+guesses and may be incorrect._
 
 ## Dependencies
 'Enigma2' is dependent on the following:
