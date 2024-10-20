@@ -288,7 +288,6 @@ public class Model {
 
     private boolean fourthWheel = false;
     private boolean useNumbers = false;
-    private boolean show = false;
 
 
     public ObservableList<String> getWheelList() { return wheelList; }
@@ -318,9 +317,6 @@ public class Model {
 
     public boolean isUseNumbers() { return useNumbers; }
     
-    public boolean isShow() { return show; }
-    public void setShow(boolean state) { show = state; }
-
 
     public void setRotorState(int index, String wheelChoice, int ringIndex, int rotorIndex) { 
         getState(index).set(wheelChoice, ringIndex, rotorIndex); 
@@ -412,9 +408,13 @@ public class Model {
      */
 
     private boolean encipher = false;
+    private boolean show = false;
 
     private ArrayList<Rotor> activeRotors = new ArrayList<Rotor>();
     private ArrayList<Translation> pipeline = new ArrayList<Translation>();
+
+    public boolean isShow() { return show; }
+    public void setShow(boolean state) { show = state; }
 
 
     /**
