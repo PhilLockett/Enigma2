@@ -28,8 +28,9 @@ package phillockett65.Enigma;
 
 import java.util.Arrays;
 
-public class Rotor extends RotorData {
+public class Rotor extends Mapper {
 
+    private final RotorData data;
     private int[] leftMap;
     private int[] rightMap;
     
@@ -45,34 +46,25 @@ public class Rotor extends RotorData {
      * Constructor.
      * @param id of this mapping.
      * @param cipher String representation of the mapping.
-     * @param date rotor was introduced (for reference purposes).
-     * @param name of rotor group (for reference purposes).
-     * @param turnover list of letters
      */
-    public Rotor(String id, String cipher, String date, String name, String turnover) {
-        super(id, cipher, date, name, turnover);
+    public Rotor(RotorData rd, int ring) {
+        super(rd.getId(), rd.getCipher());
 
-        rightMap = new int[26];
-        leftMap = new int[26];
-
-        setRingSetting(0);
-        offset = 0;
-    }
-
-    public Rotor(RotorData rhs, int ring) {
-        super(rhs.getId(), rhs.getCipher(), rhs.getDate(), rhs.getName(), rhs.getTurnovers());
-
+        data = rd;
         rightMap = new int[26];
         leftMap = new int[26];
 
         setRingSetting(ring);
-        offset = 0;
+        setOffset(0);
     }
 
 
     /************************************************************************
      * Getters support code.
      */
+
+    public boolean isTurnoverPoint(int index) { return data.isTurnoverPoint(index); }
+    public boolean isNotchPoint(int index) { return data.isNotchPoint(index); }
 
     public int getRingSetting()	{ return ringSetting; }
 
@@ -86,7 +78,10 @@ public class Rotor extends RotorData {
      * Setters support code.
      */
 
-    public void setOffset(int value) { offset = value; }
+    public void setOffset(int value) { 
+        // System.out.println("setOffset(" + getId() + " " + value + ")");
+        offset = value; 
+    }
 
     /**
      * Translates (swaps) an index (numerical equivalent of the letter) to 
@@ -155,7 +150,7 @@ public class Rotor extends RotorData {
             "id=" + getId() + 
             ", map=" + Arrays.toString(getMap()) + 
             // ", cipher=" + cipher + 
-            ", name=" + getName() + 
+            ", name=" + data.getName() + 
             ", reflect=" + isReflector() + 
             ", offset=" + offset + 
             // ", date=" + date + 

@@ -43,23 +43,6 @@ public class RotorData extends Mapper {
      */
 
     /**
-     * Convert a String representation of the map to an integer array of 
-     * indices (numerical equivalent of the letter).
-     * @param cipher String representation of the mapping.
-     * @return array of indices.
-     */
-    private static int[] buildIndices(String cipher) {
-        int [] alan = new int[26];
-
-        for (int i = 0; i < cipher.length(); ++i) {
-            final int c = charToIndex(cipher.charAt(i));
-            alan[i] = c;
-        }
-
-        return alan;
-    }
-
-    /**
      * Convert a String representing 1 or more turnover points into an array 
      * of flags.
      * @param turnovers String representation of the turnover points.
@@ -104,7 +87,7 @@ public class RotorData extends Mapper {
      * @param turnover list of letters
      */
     public RotorData(String id, String cipher, String date, String name, String turnover) {
-        super(id, buildIndices(cipher));
+        super(id, cipher);
         this.cipher = cipher;
         this.date = date;
         this.name = name;

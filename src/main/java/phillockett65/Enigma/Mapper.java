@@ -67,6 +67,23 @@ public class Mapper {
      */
 
     /**
+     * Convert a String representation of the map to an integer array of 
+     * indices (numerical equivalent of the letter).
+     * @param cipher String representation of the mapping.
+     * @return array of indices.
+     */
+    private static int[] buildIndices(String cipher) {
+        int [] alan = new int[26];
+
+        for (int i = 0; i < cipher.length(); ++i) {
+            final int c = charToIndex(cipher.charAt(i));
+            alan[i] = c;
+        }
+
+        return alan;
+    }
+
+    /**
      * Calculate if this is a reflector mapping.
      * @return true if the mapping is bi-directional.
      */
@@ -83,6 +100,26 @@ public class Mapper {
         return true;
     }
 
+    private int[] initRightMap() {
+        int[] newMap = new int[map.length];
+
+        for (int i = 0; i < map.length; ++i) {
+            newMap[i] = map[i];
+        }
+
+        return newMap;
+    }
+
+    private int[] initLeftMap() {
+        int[] newMap = new int[map.length];
+
+        for (int i = 0; i < map.length; ++i) {
+            newMap[map[i]] = i;
+        }
+
+        return newMap;
+    }
+
     /**
      * Constructor.
      * @param id of this mapping.
@@ -93,13 +130,22 @@ public class Mapper {
         this.map = map;
         reflect = isReflect();
 
-        rightMap = new int[26];
-        leftMap = new int[26];
-
-        for (int i = 0; i < map.length; ++i) {
-            rightMap[i] = map[i];
-            leftMap[map[i]] = i;
+        rightMap = initRightMap();
+        leftMap = initLeftMap();
         }
+
+    /**
+     * Constructor.
+     * @param id of this mapping.
+     * @param cipher String representation of the mapping.
+     */
+    public Mapper(String id, String cipher) {
+        this.id = id;
+        this.map = buildIndices(cipher);
+        reflect = isReflect();
+
+        rightMap = initRightMap();
+        leftMap = initLeftMap();
     }
 
 
