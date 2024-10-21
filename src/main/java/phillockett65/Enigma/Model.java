@@ -335,6 +335,13 @@ public class Model {
     public int getRotorIndex(int index) { return getState(index).getRotorIndex(); }
     private void incrementRotorOffset(int index, int step) { getState(index).increment(step); }
 
+    private Rotor buildNewRotor(int id) {
+        return new Rotor(getRotorData(rotors, getWheelChoice(id)), getRingIndex(id));
+    }
+    
+    private Rotor getActiveRotor(int id) { return activeRotors.get(id); }
+    
+    private void setActiveRotorOffset(int id) { getActiveRotor(id).setOffset(getRotorIndex(id)); }
 
     /**
      * Initialize "Rotor Set-Up".
@@ -453,7 +460,7 @@ public class Model {
         // Normal step of the spinner of the right rotor.
         incrementRotorOffset(RIGHT, 1);
 
-        Rotor rotor = activeRotors.get(MIDDLE);
+        Rotor rotor = getActiveRotor(MIDDLE);
         if (rotor.isNotchPoint(getRotorIndex(MIDDLE))) {
             // Double step of the spinner of the middle rotor, normal step of 
             // the spinner of the left rotor.
@@ -461,7 +468,7 @@ public class Model {
             incrementRotorOffset(LEFT, 1);
         }
 
-        rotor = activeRotors.get(RIGHT);
+        rotor = getActiveRotor(RIGHT);
         if (rotor.isTurnoverPoint(getRotorIndex(RIGHT))) {
             // The right rotor takes the spinner of the middle rotor one step 
             // further.
@@ -475,31 +482,14 @@ public class Model {
      * to maintain direction and helps manage the offsets of the Rotors.
      */
     private class Translation {
-        private final int pos;
         private final Mapper mapper;
         private final int dir;
 
-        public Translation(int id, Mapper mapper, int dir) {
-            this.pos = id;
+        public Translation(Mapper mapper, int dir) {
             this.mapper = mapper;
             this.dir = dir;
         }
 
-        /**
-         * Update the offset of this mapper only if target matches pos.
-         * @param target position to match with this pos.
-         * @param offset to set this offset to.
-         * @return true if the offset is updated, false otherwise.
-         */
-        public boolean conditionallyUpdate(int target, int offset) {
-            if (target == pos) {
-                mapper.setOffset(offset);
-
-                return true;
-            }
-
-            return false;
-        }
     
         /**
          * Translates an index (numerical equivalent of the letter) to another 
@@ -539,10 +529,7 @@ public class Model {
         advanceRotors();
 
         for (int i = 0; i < ROTOR_COUNT; ++i) {
-            final int offset = getRotorIndex(i);
-
-            for (Translation translator : pipeline)
-                translator.conditionallyUpdate(i, offset);
+            setActiveRotorOffset(i);
         }
     }
 
@@ -568,31 +555,31 @@ public class Model {
         Mapper plugboard = new Mapper("Plugboard", getPlugboardMap());
         Mapper reflector = new Mapper("Reflector", getReflectorMap());
 
-        Rotor slow = activeRotors.get(SLOW);
+        Rotor slow = getActiveRotor(SLOW);
 
-        Rotor left = activeRotors.get(LEFT);
-        Rotor middle = activeRotors.get(MIDDLE);
-        Rotor right = activeRotors.get(RIGHT);
+        Rotor left = getActiveRotor(LEFT);
+        Rotor middle = getActiveRotor(MIDDLE);
+        Rotor right = getActiveRotor(RIGHT);
 
-        pipeline.add(new Translation(OTHER, plugboard, Mapper.RIGHT_TO_LEFT));
+        pipeline.add(new Translation(plugboard, Mapper.RIGHT_TO_LEFT));
 
-        pipeline.add(new Translation(RIGHT, right, Mapper.RIGHT_TO_LEFT));
-        pipeline.add(new Translation(MIDDLE, middle, Mapper.RIGHT_TO_LEFT));
-        pipeline.add(new Translation(LEFT, left, Mapper.RIGHT_TO_LEFT));
-
-        if (fourthWheel)
-            pipeline.add(new Translation(SLOW, slow, Mapper.RIGHT_TO_LEFT));
-
-        pipeline.add(new Translation(OTHER, reflector, Mapper.RIGHT_TO_LEFT));
+        pipeline.add(new Translation(right, Mapper.RIGHT_TO_LEFT));
+        pipeline.add(new Translation(middle, Mapper.RIGHT_TO_LEFT));
+        pipeline.add(new Translation(left, Mapper.RIGHT_TO_LEFT));
 
         if (fourthWheel)
-            pipeline.add(new Translation(SLOW, slow, Mapper.LEFT_TO_RIGHT));
+            pipeline.add(new Translation(slow, Mapper.RIGHT_TO_LEFT));
 
-        pipeline.add(new Translation(LEFT, left, Mapper.LEFT_TO_RIGHT));
-        pipeline.add(new Translation(MIDDLE, middle, Mapper.LEFT_TO_RIGHT));
-        pipeline.add(new Translation(RIGHT, right, Mapper.LEFT_TO_RIGHT));
+        pipeline.add(new Translation(reflector, Mapper.RIGHT_TO_LEFT));
 
-        pipeline.add(new Translation(OTHER, plugboard, Mapper.LEFT_TO_RIGHT));
+        if (fourthWheel)
+            pipeline.add(new Translation(slow, Mapper.LEFT_TO_RIGHT));
+
+        pipeline.add(new Translation(left, Mapper.LEFT_TO_RIGHT));
+        pipeline.add(new Translation(middle, Mapper.LEFT_TO_RIGHT));
+        pipeline.add(new Translation(right, Mapper.LEFT_TO_RIGHT));
+
+        pipeline.add(new Translation(plugboard, Mapper.LEFT_TO_RIGHT));
     }
 
     /**
@@ -604,7 +591,7 @@ public class Model {
 
         activeRotors.clear();
         for (int i = 0; i < ROTOR_COUNT; ++i) {
-            Rotor rotor = new Rotor(getRotorData(rotors, getWheelChoice(i)), getRingIndex(i));
+            Rotor rotor = buildNewRotor(i);
             activeRotors.add(rotor);
 
             // rotor.dumpRightMap();
