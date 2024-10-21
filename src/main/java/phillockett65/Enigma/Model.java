@@ -39,7 +39,6 @@ public class Model {
     public final static int PLUG_COUNT = 10;
     public final static int PAIR_COUNT = 12;
 
-    private static final int OTHER = -1;
     private static final int SLOW = 0;
     private static final int LEFT = 1;
     private static final int MIDDLE = 2;
@@ -212,6 +211,7 @@ public class Model {
     private boolean reconfigurable = false;
     
     private Pairs pairs;
+    private Mapper reflector;
 
 
     public ObservableList<String> getReflectorList()   { return reflectorList; }
@@ -255,19 +255,19 @@ public class Model {
         return true;
     }
 
+    private void buildNewReflector() {
+        int[] reflectorMap;
 
-    /**
-     * @return a reference to the active reflector map.
-     */
-    private int[] getReflectorMap() {
-        
         if (reconfigurable) {
-            return pairs.getMap();
+            reflectorMap = pairs.getMap();
+        } else {
+            RotorData rotor = getRotorData(reflectors, reflectorChoice);
+            reflectorMap = rotor.getMap();
         }
-        
-        RotorData rotor = getRotorData(reflectors, reflectorChoice);
-        return rotor.getMap();
+
+        reflector = new Mapper("Reflector", reflectorMap);
     }
+
 
     /**
      * Initialize "Reflector Set-Up" panel.
@@ -341,6 +341,8 @@ public class Model {
     
     private Rotor getActiveRotor(int id) { return activeRotors.get(id); }
     
+    private void addActiveRotorEntry(int id) { activeRotors.add(id, buildNewRotor(id)); }
+    private void updateActiveRotorEntry(int id) { activeRotors.set(id, buildNewRotor(id)); }
     private void setActiveRotorOffset(int id) { getActiveRotor(id).setOffset(getRotorIndex(id)); }
 
     /**
@@ -362,10 +364,11 @@ public class Model {
     /************************************************************************
      * Support code for "Plugboard Connections" panel.
      */
-    
+
     private boolean extPlugboard = false;
 
     private Pairs plugs;
+    private Mapper plugboard;
 
 
     public void setExtPlugboard(boolean state) { 
@@ -393,13 +396,10 @@ public class Model {
 
     public boolean isPlugboardValid() { return plugs.isValid(); }
 
-
-    /**
-     * Lockdown the plugboardMap.
-     */
-    private int[] getPlugboardMap() {
-        return plugs.getMap();
+    private void buildNewPlugboard() {
+        plugboard = new Mapper("Plugboard", plugs.getMap());
     }
+
 
     /**
      * Initialize "Plugboard Connections" panel.
@@ -552,8 +552,8 @@ public class Model {
 
         pipeline.clear();
 
-        Mapper plugboard = new Mapper("Plugboard", getPlugboardMap());
-        Mapper reflector = new Mapper("Reflector", getReflectorMap());
+        buildNewPlugboard();
+        buildNewReflector();
 
         Rotor slow = getActiveRotor(SLOW);
 
@@ -589,13 +589,8 @@ public class Model {
      */
     private void lockdownSettings() {
 
-        activeRotors.clear();
         for (int i = 0; i < ROTOR_COUNT; ++i) {
-            Rotor rotor = buildNewRotor(i);
-            activeRotors.add(rotor);
-
-            // rotor.dumpRightMap();
-            // rotor.dumpLeftMap();
+            updateActiveRotorEntry(i);
         }
 
         buildPipeline();
@@ -613,10 +608,18 @@ public class Model {
             lockdownSettings();
     }
 
+    private void buildTheMappers() {
+        for (int i = 0; i < ROTOR_COUNT; ++i) {
+            addActiveRotorEntry(i);
+            setActiveRotorOffset(i);
+        }
+    }
+
     /**
      * Initialize "Translation" panel.
      */
     private void initializeEncipher() {
+        buildTheMappers();
     }
 
 
