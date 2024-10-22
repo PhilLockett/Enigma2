@@ -33,7 +33,7 @@ public class Rotor extends Mapper {
     private final RotorData data;
     private int[] leftMap;
     private int[] rightMap;
-    
+
     private int ringSetting;
     private int offset;
 
@@ -44,8 +44,8 @@ public class Rotor extends Mapper {
 
     /**
      * Constructor.
-     * @param id of this mapping.
-     * @param cipher String representation of the mapping.
+     * @param rd RotorData for this Rotor.
+     * @param ring setting for this instance of a Rotor.
      */
     public Rotor(RotorData rd, int ring) {
         super(rd.getId(), rd.getCipher());
@@ -123,7 +123,7 @@ public class Rotor extends Mapper {
      * @param index of the required ring setting.
      */
     public void setRingSetting(int index) {
-        // System.out.println("setRingSetting(" + index + ")");
+        // System.out.println("setRingSetting(" + getId() + " " + index + ")");
 
         ringSetting = index;
 

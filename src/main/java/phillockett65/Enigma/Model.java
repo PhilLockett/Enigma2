@@ -318,6 +318,8 @@ public class Model {
     public boolean isUseNumbers() { return useNumbers; }
     
 
+    private RotorControl getState(int index) { return rotorControls.get(index); }
+
     public void setRotorState(int index, String wheelChoice, int ringIndex, int rotorIndex) { 
         getState(index).set(wheelChoice, ringIndex, rotorIndex); 
     }
@@ -327,8 +329,6 @@ public class Model {
             rotor.setLockDown(selected);
     }
 
-
-    private RotorControl getState(int index) { return rotorControls.get(index); }
 
     public String getWheelChoice(int index) { return getState(index).getWheelChoice(); }
     public int getRingIndex(int index) { return getState(index).getRingIndex(); }
@@ -438,7 +438,7 @@ public class Model {
      * Find a RotorData with the given id in the given list,
      * @param list of Rotors to search.
      * @param target id of Rotor.
-     * @return Rotor with matching id if found, null otherwise.
+     * @return RotorData with matching id if found, entry 0 otherwise.
      */
     private RotorData getRotorData(ObservableList<RotorData> list, String target) {
         for (RotorData rotor : list)
@@ -475,6 +475,15 @@ public class Model {
         }
     }
 
+    /**
+     * Update the Rotor Offsets.
+     */
+    private void updateRotorOffsets() {
+        for (int i = 0; i < ROTOR_COUNT; ++i) {
+            setActiveRotorOffset(i);
+        }
+    }
+
 
     private int mapperTranslate(int index, Mapper mapper, int dir) {
         return mapper.swap(dir, index, isShow());
@@ -485,7 +494,7 @@ public class Model {
 
     /**
      * Translates an index (numerical equivalent of the letter) to another for 
-     * every Mapper in the pipeline.
+     * every active Mapper.
      * @param index to translate.
      * @return the translated index.
      */
@@ -519,15 +528,6 @@ public class Model {
         return index;
     }
 
-    /**
-     * Update the Rotor Offsets.
-     */
-    private void updateRotors() {
-
-        for (int i = 0; i < ROTOR_COUNT; ++i) {
-            setActiveRotorOffset(i);
-        }
-    }
 
     /**
      * Advance the Rotors and translate an index (numerical equivalent of the 
@@ -537,7 +537,7 @@ public class Model {
      */
     public int translate(int index) {
         advanceRotors();
-        updateRotors();
+        updateRotorOffsets();
         return translateIndex(index);
     }
 
@@ -591,7 +591,7 @@ public class Model {
     }
 
     public int test1(char key) {
-        updateRotors();
+        updateRotorOffsets();
         return translateIndex(Rotor.charToIndex(key));
         // return translate(Rotor.charToIndex(key));
     }

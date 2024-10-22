@@ -132,7 +132,7 @@ public class Mapper {
 
         rightMap = initRightMap();
         leftMap = initLeftMap();
-        }
+    }
 
     /**
      * Constructor.
