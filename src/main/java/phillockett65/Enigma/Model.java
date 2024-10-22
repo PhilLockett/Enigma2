@@ -338,9 +338,9 @@ public class Model {
     private Rotor buildNewRotor(int id) {
         return new Rotor(getRotorData(rotors, getWheelChoice(id)), getRingIndex(id));
     }
-    
+
     private Rotor getActiveRotor(int id) { return activeRotors.get(id); }
-    
+
     private void addActiveRotorEntry(int id) { activeRotors.add(id, buildNewRotor(id)); }
     private void updateActiveRotorEntry(int id) { activeRotors.set(id, buildNewRotor(id)); }
     private void setActiveRotorOffset(int id) { getActiveRotor(id).setOffset(getRotorIndex(id)); }
@@ -418,7 +418,6 @@ public class Model {
     private boolean show = false;
 
     private ArrayList<Rotor> activeRotors = new ArrayList<Rotor>();
-    private ArrayList<Translation> pipeline = new ArrayList<Translation>();
 
     public boolean isShow() { return show; }
     public void setShow(boolean state) { show = state; }
@@ -477,30 +476,11 @@ public class Model {
     }
 
 
-    /**
-     * Translation is a class that is used in the construction of the pipeline 
-     * to maintain direction and helps manage the offsets of the Rotors.
-     */
-    private class Translation {
-        private final Mapper mapper;
-        private final int dir;
-
-        public Translation(Mapper mapper, int dir) {
-            this.mapper = mapper;
-            this.dir = dir;
-        }
-
-    
-        /**
-         * Translates an index (numerical equivalent of the letter) to another 
-         * using this directional Mapper (Rotor).
-         * @param index to translate.
-         * @return the translated index.
-         */
-        public int translate(int index) {
-            return mapper.swap(dir, index, isShow());
-        }	
-
+    private int mapperTranslate(int index, Mapper mapper, int dir) {
+        return mapper.swap(dir, index, isShow());
+    }
+    private int mapperTranslate(int index, int id, int dir) {
+        return getActiveRotor(id).swap(dir, index, isShow());
     }
 
     /**
@@ -509,12 +489,29 @@ public class Model {
      * @param index to translate.
      * @return the translated index.
      */
-    private int translatePipeline(int index) {
+    private int translateIndex(int index) {
         if (isShow())
             System.out.print("Key: " + Mapper.indexToLetter(index) + "  ");
 
-        for (Translation translator : pipeline)
-            index = translator.translate(index);
+        index = mapperTranslate(index, plugboard, Mapper.RIGHT_TO_LEFT);
+
+        index = mapperTranslate(index, RIGHT, Mapper.RIGHT_TO_LEFT);
+        index = mapperTranslate(index, MIDDLE, Mapper.RIGHT_TO_LEFT);
+        index = mapperTranslate(index, LEFT, Mapper.RIGHT_TO_LEFT);
+
+        if (fourthWheel)
+            index = mapperTranslate(index, SLOW, Mapper.RIGHT_TO_LEFT);
+
+        index = mapperTranslate(index, reflector, Mapper.RIGHT_TO_LEFT);
+
+        if (fourthWheel)
+            index = mapperTranslate(index, SLOW, Mapper.LEFT_TO_RIGHT);
+
+        index = mapperTranslate(index, LEFT, Mapper.LEFT_TO_RIGHT);
+        index = mapperTranslate(index, MIDDLE, Mapper.LEFT_TO_RIGHT);
+        index = mapperTranslate(index, RIGHT, Mapper.LEFT_TO_RIGHT);
+
+        index = mapperTranslate(index, plugboard, Mapper.LEFT_TO_RIGHT);
 
         if (isShow())
             System.out.println("Lamp: " + Mapper.indexToLetter(index));
@@ -523,10 +520,9 @@ public class Model {
     }
 
     /**
-     * Advance the Rotor Spinners then update the Rotors to match.
+     * Update the Rotor Offsets.
      */
-    private void updatePipeline() {
-        advanceRotors();
+    private void updateRotors() {
 
         for (int i = 0; i < ROTOR_COUNT; ++i) {
             setActiveRotorOffset(i);
@@ -540,47 +536,11 @@ public class Model {
      * @return the translated index.
      */
     public int translate(int index) {
-        updatePipeline();
-        return translatePipeline(index);
+        advanceRotors();
+        updateRotors();
+        return translateIndex(index);
     }
 
-    /**
-     * Build the pipeline of Mappers (Rotors) including the identifiers for 
-     * offset updates and the direction of translation.
-     */
-    private void buildPipeline() {
-
-        pipeline.clear();
-
-        buildNewPlugboard();
-        buildNewReflector();
-
-        Rotor slow = getActiveRotor(SLOW);
-
-        Rotor left = getActiveRotor(LEFT);
-        Rotor middle = getActiveRotor(MIDDLE);
-        Rotor right = getActiveRotor(RIGHT);
-
-        pipeline.add(new Translation(plugboard, Mapper.RIGHT_TO_LEFT));
-
-        pipeline.add(new Translation(right, Mapper.RIGHT_TO_LEFT));
-        pipeline.add(new Translation(middle, Mapper.RIGHT_TO_LEFT));
-        pipeline.add(new Translation(left, Mapper.RIGHT_TO_LEFT));
-
-        if (fourthWheel)
-            pipeline.add(new Translation(slow, Mapper.RIGHT_TO_LEFT));
-
-        pipeline.add(new Translation(reflector, Mapper.RIGHT_TO_LEFT));
-
-        if (fourthWheel)
-            pipeline.add(new Translation(slow, Mapper.LEFT_TO_RIGHT));
-
-        pipeline.add(new Translation(left, Mapper.LEFT_TO_RIGHT));
-        pipeline.add(new Translation(middle, Mapper.LEFT_TO_RIGHT));
-        pipeline.add(new Translation(right, Mapper.LEFT_TO_RIGHT));
-
-        pipeline.add(new Translation(plugboard, Mapper.LEFT_TO_RIGHT));
-    }
 
     /**
      * Lockdown all the settings ready for translation. This involves building 
@@ -588,12 +548,12 @@ public class Model {
      * ring settings and building the pipeline.
      */
     private void lockdownSettings() {
+        buildNewPlugboard();
+        buildNewReflector();
 
         for (int i = 0; i < ROTOR_COUNT; ++i) {
             updateActiveRotorEntry(i);
         }
-
-        buildPipeline();
     }
 
     /**
@@ -608,18 +568,14 @@ public class Model {
             lockdownSettings();
     }
 
-    private void buildTheMappers() {
-        for (int i = 0; i < ROTOR_COUNT; ++i) {
-            addActiveRotorEntry(i);
-            setActiveRotorOffset(i);
-        }
-    }
-
     /**
      * Initialize "Translation" panel.
      */
     private void initializeEncipher() {
-        buildTheMappers();
+        for (int i = 0; i < ROTOR_COUNT; ++i) {
+            addActiveRotorEntry(i);
+            setActiveRotorOffset(i);
+        }
     }
 
 
@@ -635,8 +591,8 @@ public class Model {
     }
 
     public int test1(char key) {
-        updatePipeline();
-        return translatePipeline(Rotor.charToIndex(key));
+        updateRotors();
+        return translateIndex(Rotor.charToIndex(key));
         // return translate(Rotor.charToIndex(key));
     }
 
