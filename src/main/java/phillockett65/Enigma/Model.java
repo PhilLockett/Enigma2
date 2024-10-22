@@ -341,7 +341,7 @@ public class Model {
 
     private Rotor getActiveRotor(int id) { return activeRotors.get(id); }
 
-    private void addActiveRotorEntry(int id) { activeRotors.add(id, buildNewRotor(id)); }
+    private void addActiveRotorEntry(int id) { activeRotors.add(buildNewRotor(id)); }
     private void updateActiveRotorEntry(int id) { activeRotors.set(id, buildNewRotor(id)); }
     private void setActiveRotorOffset(int id) { getActiveRotor(id).setOffset(getRotorIndex(id)); }
 
