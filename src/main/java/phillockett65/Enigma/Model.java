@@ -25,6 +25,7 @@
 package phillockett65.Enigma;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -136,9 +137,8 @@ public class Model {
     /************************************************************************
      * Support code for Rotor definitions.
      */
-
-    private ObservableList<RotorData> rotors = FXCollections.observableArrayList();
-    private ObservableList<RotorData> reflectors = FXCollections.observableArrayList();
+    private HashMap<String, RotorData> rotors = new HashMap<>();
+    private HashMap<String, RotorData> reflectors = new HashMap<>();
 
     private static final RotorData[] rotorData = {
 
@@ -188,13 +188,14 @@ public class Model {
 
         // Build list of rotors and list of reflectors that can be selected.
         for (RotorData rotor : rotorData) {
+            String id = rotor.getId();
 
             if (rotor.isReflector()) {
-                reflectors.add(rotor);
-                reflectorList.add(rotor.getId());
+                reflectors.put(id, rotor);
+                reflectorList.add(id);
             } else {
-                rotors.add(rotor);
-                wheelList.add(rotor.getId());
+                rotors.put(id, rotor);
+                wheelList.add(id);
             }
         }
 
@@ -440,12 +441,8 @@ public class Model {
      * @param target id of Rotor.
      * @return RotorData with matching id if found, entry 0 otherwise.
      */
-    private RotorData getRotorData(ObservableList<RotorData> list, String target) {
-        for (RotorData rotor : list)
-             if (rotor.is(target))
-                return rotor;
-
-        return list.get(0);
+    private RotorData getRotorData(HashMap<String, RotorData> list, String target) {
+        return list.get(target);
     }
 
 
