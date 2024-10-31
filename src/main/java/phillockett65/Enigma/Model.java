@@ -286,6 +286,7 @@ public class Model {
     private ObservableList<String> wheelList = FXCollections.observableArrayList();
 
     private ArrayList<RotorControl> rotorControls = new ArrayList<RotorControl>(ROTOR_COUNT);
+    private ArrayList<Rotor> activeRotors = new ArrayList<Rotor>(ROTOR_COUNT);
 
     private boolean fourthWheel = false;
     private boolean useNumbers = false;
@@ -417,8 +418,6 @@ public class Model {
 
     private boolean encipher = false;
     private boolean show = false;
-
-    private ArrayList<Rotor> activeRotors = new ArrayList<Rotor>();
 
     public boolean isShow() { return show; }
     public void setShow(boolean state) { show = state; }
