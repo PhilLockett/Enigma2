@@ -20,7 +20,7 @@
 
 /*
  * Rotor is a class that extends Mapper and captures the details of a rotor 
- * including the ring setting which is set post instantiation and the rotation
+ * including the ring setting which is set at instantiation and the rotation
  * (offset) which is dynamically updated in normal use. Note, the turnover point
  * immediately follows the notch point.
  */
@@ -36,11 +36,51 @@ public class Rotor extends Mapper {
 
     private int ringSetting;
     private int offset;
+    private int back;       // Inverse of offset.
+
+    private final boolean[] turnover;
+    private final boolean[] notches;
 
 
     /************************************************************************
      * Initialization support code.
      */
+
+    /**
+     * Convert a String representing 1 or more turnover points into an array 
+     * of flags.
+     * @param turnovers String representation of the turnover points.
+     * @return array of flags indicating turnover points.
+     */
+    private boolean[] buildTurnover(String turnovers) {
+        boolean [] output = new boolean[26];
+
+        for (int i = 0; i < output.length; ++i)
+            output[i] = false;
+
+        for (int i = 0; i < turnovers.length(); ++i) {
+            final int c = charToIndex(turnovers.charAt(i));
+            output[c] = true;
+        }
+
+        return output;
+    }
+
+    /**
+     * Translate the turnover points to notch points which occur 1 letter 
+     * before the turnover point.
+     * @return array of flags indicating notch points.
+     */
+    private boolean[] buildNotches() {
+        boolean [] output = new boolean[26];
+
+        for (int i = 1; i < turnover.length; ++i)
+            output[i - 1] = turnover[i];
+
+        output[turnover.length - 1] = turnover[0];
+
+        return output;
+    }
 
     /**
      * Constructor.
@@ -56,6 +96,9 @@ public class Rotor extends Mapper {
 
         setRingSetting(ring);
         setOffset(0);
+
+        turnover = buildTurnover(rd.getTurnovers());
+        notches = buildNotches();
     }
 
 
@@ -63,8 +106,8 @@ public class Rotor extends Mapper {
      * Getters support code.
      */
 
-    public boolean isTurnoverPoint(int index) { return data.isTurnoverPoint(index); }
-    public boolean isNotchPoint(int index) { return data.isNotchPoint(index); }
+    public boolean isTurnoverPoint(int index) { return turnover[index]; }
+    public boolean isNotchPoint(int index) { return notches[index]; }
 
     public int getRingSetting()	{ return ringSetting; }
 
@@ -80,7 +123,8 @@ public class Rotor extends Mapper {
 
     public void setOffset(int value) { 
         // System.out.println("setOffset(" + getId() + " " + value + ")");
-        offset = value; 
+        offset = value % 26;
+        back = 26 - offset;
     }
 
     /**
@@ -98,6 +142,14 @@ public class Rotor extends Mapper {
     }
 
     /**
+     * Rotate an index by offset.
+     * @param index (0..25) to rotate.
+     * @param offset (0..25) amount to rotate.
+     * @return rotated index.
+     */
+    private int rotate(int index, int offset) { return (index + offset) % 26; }
+
+    /**
      * Translates (swaps) an index (numerical equivalent of the letter) to 
      * another using the map.
      * @param direction of mapping. Eg A may map to J, but J may not map to A.
@@ -106,10 +158,9 @@ public class Rotor extends Mapper {
      * @return the translated index.
      */
     public int swap(int direction, int index, boolean show) {
-        final int shift = (index + offset) % 26;
 
-        int output = swap(direction, shift);
-        output = (output + 26 - offset) % 26;
+        int output = swap(direction, rotate(index, offset));
+        output = rotate(output, back);
 
         if (show)
             System.out.print(getId() + "[" + indexToLetter(offset) + "](" + indexToLetter(index) + "->" + indexToLetter(output) + ")  ");
@@ -118,8 +169,7 @@ public class Rotor extends Mapper {
     }
 
     /**
-     * Set the ring setting and update the left and right mappings using the
-     * map and ring setting.
+     * Update the left and right mappings using the map and ring setting.
      * @param index of the required ring setting.
      */
     public void setRingSetting(int index) {
@@ -128,15 +178,10 @@ public class Rotor extends Mapper {
         ringSetting = index;
 
         for (int i = 0; i < getMapLength(); ++i)
-            rightMap[(i + index) % 26] = (getMapItem(i) + index) % 26;
+            rightMap[rotate(i, index)] = rotate(getMapItem(i), index);
 
         for (int i = 0; i < getMapLength(); ++i)
             leftMap[rightMap[i]] = i;
-
-        // System.out.print("rightMap = ");
-        // dumpRightMap();
-        // System.out.print("leftMap  = ");
-        // dumpLeftMap();
     }
 
 
@@ -149,15 +194,22 @@ public class Rotor extends Mapper {
         return "Rotor [" + 
             "id=" + getId() + 
             ", map=" + Arrays.toString(getMap()) + 
-            // ", cipher=" + cipher + 
             ", name=" + data.getName() + 
             ", reflect=" + isReflector() + 
             ", offset=" + offset + 
-            // ", date=" + date + 
             "]";
+    }
+
+    public void dumpFlags(boolean[] flags) {
+        for (int i = 0; i < flags.length; ++i)
+            System.out.print(flags[i] ? "1" : "0");
+
+        System.out.println();
     }
 
     public void dumpLeftMap() { dumpMapping(leftMap); }
     public void dumpRightMap() { dumpMapping(rightMap); }
+    public void dumpTurnover() { dumpFlags(turnover); }
+    public void dumpNotches() { dumpFlags(notches); }
 
 }
