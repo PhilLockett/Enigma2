@@ -224,6 +224,10 @@ public class Model {
     public void setReconfigurable(boolean state) { reconfigurable = state; }
     public boolean isReconfigurable() { return reconfigurable; }
 
+    public void initPairText(ArrayList<String> links) {
+        pairs.setLinks(links);
+    }
+
     public void setPairText(int index, String text) { pairs.setText(index, text); }
 
     public int getPairCount() { return pairs.size(); }
@@ -383,6 +387,10 @@ public class Model {
         plugs.countLetterUsage();
     }
     public boolean isExtPlugboard() { return extPlugboard; }
+
+    public void initPlugText(ArrayList<String> links) {
+        plugs.setLinks(links);
+    }
 
     public void setPlugText(int index, String text) { plugs.setText(index, text); }
 

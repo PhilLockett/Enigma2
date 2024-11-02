@@ -110,10 +110,7 @@ public class DataStore implements Serializable {
 
         model.setReflectorChoice(reflectorChoice);
         model.setReconfigurable(reconfigurable);
-
-        final int pairCount = pairs.size();
-        for (int i = 0; i < pairCount; ++i)
-            model.setPairText(i, pairs.get(i));
+        model.initPairText(pairs);
 
         model.setFourthWheel(fourthWheel);
         model.setUseNumbers(useNumbers);
@@ -124,10 +121,7 @@ public class DataStore implements Serializable {
             model.setRotorState(i, wheels.get(i), ringSettings.get(i), rotorOffsets.get(i));
         }
 
-        final int plugCount = plugs.size();
-        for (int i = 0; i < plugCount; ++i)
-            model.setPlugText(i, plugs.get(i));
-
+        model.initPlugText(plugs);
         model.setExtPlugboard(extPlugboard);
 
         model.setEncipher(encipher);

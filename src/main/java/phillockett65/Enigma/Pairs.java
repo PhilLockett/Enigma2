@@ -187,6 +187,26 @@ public class Pairs {
     }
 
     /**
+     * Initialise pairList with the given ArrayList of Strings represntation.
+     * @param links ArrayList of Strings.
+     */
+    public void setLinks(ArrayList<String> links) {
+        // System.out.println("setLinks()");
+        clear();
+        if (links == null)
+            return;
+
+        int index = 0;
+        for (String pairString : links) {
+            if (pairString.length() != 2)
+                continue;
+
+            list.get(index++).set(pairString);
+        }
+        countLetterUsage();
+    }
+
+    /**
      * Construct a pair set.
      * @param allow blank pairs.
      */
