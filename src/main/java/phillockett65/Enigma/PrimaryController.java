@@ -436,9 +436,6 @@ public class PrimaryController {
     private MFXToggleButton useNumbersCheckbox;
 
     @FXML
-    private MFXToggleButton showStepsCheckbox;
-
-    @FXML
     void fourthWheelCheckboxActionPerformed(ActionEvent event) {
         model.setFourthWheel(fourthWheelCheckbox.isSelected());
     }
@@ -446,10 +443,6 @@ public class PrimaryController {
     @FXML
     void useNumbersCheckboxActionPerformed(ActionEvent event) {
         model.setUseNumbers(useNumbersCheckbox.isSelected());
-    }
-    @FXML
-    void showStepsCheckboxActionPerformed(ActionEvent event) {
-        model.setShow(showStepsCheckbox.isSelected());
     }
 
     /**
@@ -476,7 +469,6 @@ public class PrimaryController {
         rotorSetUpTitledPane.setTooltip(new Tooltip("Select and set up the Rotors (wheels / drums)"));
         fourthWheelCheckbox.setTooltip(new Tooltip("Select to use a fourth Rotor"));
         useNumbersCheckbox.setTooltip(new Tooltip("Select to use Numbers on the Rotors instead of Letters"));
-        showStepsCheckbox.setTooltip(new Tooltip("Select to show each translation step on the command line"));
     }
 
 
@@ -652,6 +644,9 @@ public class PrimaryController {
     private Button resetButton;
 
     @FXML
+    private MFXToggleButton showStepsCheckbox;
+
+    @FXML
     private HBox mainIO;
 
     @FXML
@@ -675,6 +670,11 @@ public class PrimaryController {
         updateGUIState();
         syncUI();
         keyIO.requestFocus();
+    }
+
+    @FXML
+    void showStepsCheckboxActionPerformed(ActionEvent event) {
+        model.setShow(showStepsCheckbox.isSelected());
     }
 
     @FXML
@@ -738,6 +738,7 @@ public class PrimaryController {
         syncEncipherButton();
         encipherCheckbox.setSelected(updateGUIState());
         resetButton.setTooltip(new Tooltip("Click to return all settings to the default values"));
+        showStepsCheckbox.setTooltip(new Tooltip("Select to show each translation step on the command line"));
 
         mainLabel.setText("Configure Settings");
         final char arrow = '\u2799';
