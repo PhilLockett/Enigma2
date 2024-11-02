@@ -101,23 +101,23 @@ public class Mapper {
     }
 
     private int[] initRightMap() {
-        int[] newMap = new int[map.length];
+        int[] output = new int[map.length];
 
         for (int i = 0; i < map.length; ++i) {
-            newMap[i] = map[i];
+            output[i] = map[i];
         }
 
-        return newMap;
+        return output;
     }
 
     private int[] initLeftMap() {
-        int[] newMap = new int[map.length];
+        int[] output = new int[map.length];
 
         for (int i = 0; i < map.length; ++i) {
-            newMap[map[i]] = i;
+            output[map[i]] = i;
         }
 
-        return newMap;
+        return output;
     }
 
     /**
