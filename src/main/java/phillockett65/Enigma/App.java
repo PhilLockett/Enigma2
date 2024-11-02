@@ -51,7 +51,7 @@ public class App extends Application {
 
         Scene scene = new Scene(root);
 
-        stage.setTitle("Enigma 2.0");
+        stage.setTitle("Enigma 2.0.1");
         stage.setOnCloseRequest(e -> Platform.exit());
         stage.resizableProperty().setValue(false);
         stage.initStyle(StageStyle.UNDECORATED);

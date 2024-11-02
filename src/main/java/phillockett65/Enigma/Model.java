@@ -35,7 +35,6 @@ public class Model {
 
     private final static String DATAFILE = "Settings.dat";
 
-    public static final int ROTOR_COUNT = 4;
     public final static int FULL_COUNT = 13;
     public final static int PLUG_COUNT = 10;
     public final static int PAIR_COUNT = 12;
@@ -44,6 +43,7 @@ public class Model {
     private static final int LEFT = 1;
     private static final int MIDDLE = 2;
     private static final int RIGHT = 3;
+    private static final int ROTOR_COUNT = 4;
 
     private boolean defaulted = false;
     public boolean isDefaulted() { return defaulted; }
@@ -105,6 +105,8 @@ public class Model {
         if (!DataStore.readData(this))
             defaultSettings();
     }
+
+    public String getTitle() { return stage.getTitle(); }
 
     /**
      * Set all attributes to the default values.

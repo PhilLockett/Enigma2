@@ -127,6 +127,8 @@ public class PrimaryController {
             stage.setX(model.getMainXPos());
             stage.setY(model.getMainYPos());
         }
+
+        headingLabel.setText(model.getTitle());
     }
 
     /**
