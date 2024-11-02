@@ -54,7 +54,7 @@
 .text-field:readonly{
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-background-color: #808080;
+    -fx-background-color: #606060;
 }
 .text-field{
     -fx-text-fill: black;
@@ -88,6 +88,12 @@
     -fx-text-fill: #e8e8e8;
     -fx-font-weight: bold;
 }
+.choice-box:hover, .button:hover{
+    -fx-background-color: linear-gradient(to bottom, #DB8682, #9B4642);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+}
 
 .toggle-button:selected{
     -fx-text-fill: #e8e8e8;
@@ -107,6 +113,11 @@
     -fx-font-weight: bold;
 
     -fx-padding: 10;
+}
+
+.mfx-toggle-button:hover {
+    -mfx-main-circle: radial-gradient(center 50% 25%, radius 100%, #ffffff, #969696);
+    -mfx-secondary-circle: radial-gradient(center 50% 25%, radius 100%, #A8A8A8, #6d6d6d);
 }
 
 .mfx-toggle-button:selected {
@@ -164,6 +175,14 @@
 }
 .increment-arrow, .decrement-arrow, .arrow{
     -fx-background-color: #e8e8e8;
+}
+.increment-arrow-button:hover{
+    -fx-background-radius: 0 12 0 0;
+    -fx-background-color: linear-gradient(to bottom, #DB8682, #AB6662);
+}
+.decrement-arrow-button:hover{
+    -fx-background-radius: 0 0 12 0;
+    -fx-background-color: linear-gradient(to bottom, #AB6662, #9B4642);
 }
 
 .big-text-field{
