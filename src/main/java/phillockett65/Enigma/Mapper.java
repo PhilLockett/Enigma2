@@ -27,6 +27,7 @@
  */
 package phillockett65.Enigma;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Mapper {
@@ -65,23 +66,6 @@ public class Mapper {
     /************************************************************************
      * Initialization support code.
      */
-
-    /**
-     * Convert a String representation of the map to an integer array of 
-     * indices (numerical equivalent of the letter).
-     * @param cipher String representation of the mapping.
-     * @return array of indices.
-     */
-    private static int[] buildIndices(String cipher) {
-        int [] alan = new int[26];
-
-        for (int i = 0; i < cipher.length(); ++i) {
-            final int c = charToIndex(cipher.charAt(i));
-            alan[i] = c;
-        }
-
-        return alan;
-    }
 
     /**
      * Calculate if this is a reflector mapping.
@@ -141,7 +125,7 @@ public class Mapper {
      */
     public Mapper(String id, String cipher) {
         this.id = id;
-        this.map = buildIndices(cipher);
+        this.map = deriveMap(cipher);
         reflect = isReflect();
 
         rightMap = initRightMap();
@@ -201,6 +185,146 @@ public class Mapper {
 
         if (show)
             System.out.print(id + "(" + indexToLetter(index) + "->" + indexToLetter(output) + ")  ");
+
+        return output;
+    }
+
+
+    /************************************************************************
+     * Mapping support code.
+     */
+
+    /**
+     * @brief Create and initialise a map with zeros, 
+     * 
+     * @param length of map.
+     * @return initialised map.
+     */
+    public static int[] initZeroMap(int length)
+    {
+        int[] output = new int[length];
+
+        for (int i = 0; i < length; ++i) {
+            output[i] = i;
+        }
+
+        return output;
+    }
+
+    /**
+     * @brief Create and initialise a map as a through map, 
+     * i.e. A maps to A, B maps to B etc.
+     * 
+     * @param length of map.
+     * @return initialised map.
+     */
+    public static int[] initThroughMap(int length)
+    {
+        int[] output = new int[length];
+
+        for (int i = 0; i < length; ++i) {
+            output[i] = i;
+        }
+
+        return output;
+    }
+
+    /**
+     * @brief Create a map from a string representation
+     * (e.g. cipher: "EKMFLGDQVZNTOWYHXUSPAIBRCJ").
+     * 
+     * @param cipher String representation of the mapping.
+     * @return map derived from pairString.
+     */
+    public static int[] deriveMap(String cipher)
+    {
+        int[] output = initThroughMap(26);
+
+        for (int i = 0; i < cipher.length(); ++i) {
+            output[i] = charToIndex(cipher.charAt(i));
+        }
+
+        return output;
+    }
+
+    /**
+     * @brief Convert a String of space seperated words into a list of Strings, 
+     * each containing a word.
+     * 
+     * @param wordString required to be split.
+     * @return list of words.
+     */
+    public static ArrayList<String> splitWords(String wordString)
+    {
+        ArrayList<String> output = new ArrayList<String>();
+
+        String regex = "[\\s]";
+        String[] words = wordString.split(regex);
+        for (String word : words) {
+            output.add(word);
+        }
+
+        return output;
+    }
+
+    /**
+     * @brief Create a plugboard map from pairs captured as a string
+     * (e.g. pairString: "SZ GT DV KU FO MY EW JN IX LQ").
+     * 
+     * @param pairString of the required translation.
+     * @return plugboard map derived from pairString.
+     */
+    public static int[] derivePlugboardMap(String pairString)
+    {
+        int[] output = initThroughMap(26);
+        ArrayList<String> pairs = splitWords(pairString);
+
+        for (String pair: pairs) {
+            final int p0 = charToIndex(pair.charAt(0));
+            final int p1 = charToIndex(pair.charAt(1));
+            output[p0] = p1;
+            output[p1] = p0;
+        }
+
+        return output;
+    }
+
+    /**
+     * @brief Create a reflector map from pairs captured as a string
+     * (e.g. pairString: "IL AP EU HO QT WZ KV GM BF NR DX CS").
+     * 
+     * @param pairString of the required translation.
+     * @return reflector map derived from pairString.
+     */
+    public static int[] deriveReflectorMap(String pairString)
+    {
+        int[] output = initThroughMap(26);
+        int[] letterCounts = initZeroMap(26);
+        ArrayList<String> pairs = splitWords(pairString);
+
+        for (String pair: pairs) {
+            final int p0 = charToIndex(pair.charAt(0));
+            final int p1 = charToIndex(pair.charAt(1));
+            output[p0] = p1;
+            output[p1] = p0;
+            letterCounts[p0]++;
+            letterCounts[p1]++;
+        }
+
+        // Find and set up the unconfigured pair.
+        int first = -1;
+        for (int index = 0; index < letterCounts.length; ++index) {
+            if (letterCounts[index] == 0) {
+                if (first == -1) {
+                    first = index;
+                } else {
+                    output[first] = index;
+                    output[index] = first;
+    
+                    break;
+                }
+            }
+        }
 
         return output;
     }

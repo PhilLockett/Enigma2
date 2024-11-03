@@ -79,6 +79,7 @@ public class Model {
      */
     public Model() {
         initRotorWiring();
+        initDefaultSettings();
 
         initializeReflector();
         initializeRotorSetup();
@@ -132,6 +133,25 @@ public class Model {
         plugs.clear();
 
         setEncipher(false);
+    }
+
+    public void dailySettings(int date) {
+
+        SettingsData settings = keyList649[date];
+
+        ArrayList<String> list = Mapper.splitWords(settings.getReflector());
+        initPairText(list);
+        setReconfigurable(true);
+
+        setFourthWheel(false);
+
+        for (int i = 0; i < ROTOR_COUNT; ++i) {
+            setRotorState(i, settings.getRotor(i), settings.getRingSetting(i), settings.getOffset(i, 0));
+        }
+
+        list = Mapper.splitWords(settings.getPlugboard());
+        initPlugText(list);
+        buildNewPlugboard();
     }
 
 
@@ -206,6 +226,72 @@ public class Model {
 
 
     /************************************************************************
+     * Support code for the monthly key list data number 649.
+     *   https://en.wikipedia.org/wiki/Enigma_machine#Details
+     */
+
+    private HashMap<String, String> reflectors649 = new HashMap<>();
+    private SettingsData[] keyList649 = new SettingsData[32];
+
+    private void addToReflectors649(String name, String pairString) {
+        reflectors649.put(name, pairString);
+    }
+    private void initRef649Reflector() {
+        addToReflectors649("Ref649-1",  "IL AP EU HO QT WZ KV GM BF NR DX CS");
+        addToReflectors649("Ref649-9",  "AI BT MV HU FW EL DG KN RZ OQ CP SX");
+        addToReflectors649("Ref649-17", "IU AS DV GL FT OX EZ CH MR KN BQ PW");
+        addToReflectors649("Ref649-25", "KM AX FZ GO DI CN BR PV LT EQ HS UW");
+     }
+ 
+    private void addToKeyList649(int day, String wheels, int r1, int r2, int r3, 
+        String ref, String plugs, String indicator) {
+
+        String reflector = reflectors649.get(ref);
+        keyList649[day] = new SettingsData(wheels, r1, r2, r3, reflector, plugs, indicator);
+    }
+    private void initKeyList649() {
+        addToKeyList649(31, "I V III",    14, 9, 24,  "Ref649-25",    "SZ GT DV KU FO MY EW JN IX LQ", "wny dgy ekb rzg");
+        addToKeyList649(30, "IV III II",  5, 26, 2,   "Ref649-25",    "IS EV MX RW DT UZ JQ AO CH NY", "ktl acw zci wzo");
+        addToKeyList649(29, "III II I",   2, 24, 3,   "Ref649-25",    "DJ AT CV IO ER QS LW PZ FN BH", "ioc acn ovw wvc");
+        addToKeyList649(28, "II III V",   6, 8, 16,   "Ref649-25",    "CR FV AI DK OT MQ EU BX LP GJ", "lrb cld ude rzh");
+        addToKeyList649(27, "III I IV",   11, 3, 7,   "Ref649-25",    "DY IN BV GR AM LO FP HT EX UW", "woj fbh vct uis");
+        addToKeyList649(26, "I IV V",     17, 22, 19, "Ref649-25",    "VZ AL RT KO CG EI BJ DU FS HP", "xle gbo uev rxm");
+        addToKeyList649(25, "IV III I",   8, 25, 12,  "Ref649-25",    "OR PV AD IT FK HJ LZ NS EQ CW", "ouc uhq uew uit");
+        addToKeyList649(24, "V I IV",     5, 18, 14,  "Ref649-17",    "TY AS OW KV JM DR HX GL CZ NU", "kpl rwl vci tlq");
+        addToKeyList649(23, "IV II I",    24, 12, 4,  "Ref649-17",    "QV FR AK EO DH CJ MZ SX GN LT", "ebn rwm udf tlo");
+        addToKeyList649(22, "II IV V",    1, 9, 21,   "Ref649-17",    "FJ ES IM RX LV AY OU BG WZ CN", "jrc acx mwe wve");
+        addToKeyList649(21, "I V II",     13, 5, 19,  "Ref649-17",    "RU HL FY OS GZ DM AW CE TV NX", "jpw del mwf wvf");
+        addToKeyList649(20, "III IV V",   24, 1, 10,  "Ref649-17",    "DF MO QZ AU RY SV JL GX BE TW", "jqd cef nvo ysh");
+        addToKeyList649(19, "V III I",    17, 25, 20, "Ref649-17",    "OX PR FH WY DL CM AE TZ JS GI", "idf fpx jwg tlg");
+        addToKeyList649(18, "IV II V",    15, 23, 26, "Ref649-17",    "EJ OY IV AQ KW FX MT PS LU BD", "lsa zbw vcj rxn");
+        addToKeyList649(17, "I IV II",    21, 10, 6,  "Ref649-17",    "IR KZ LS EM OV GY QX AF JP BU", "mae hzi sog ysi");
+        addToKeyList649(16, "V II III",   8, 16, 13,  "Ref649-9",     "HM JO DI NR BY XZ GS PU FQ CT", "tdp dhb fkb uiv");
+        addToKeyList649(15, "II IV I",    1, 3, 7,    "Ref649-9",     "DS HY MR GW LX AJ BQ CO IP NT", "ldw hzj soh wvg");
+        addToKeyList649(14, "IV I V",     15, 11, 5,  "Ref649-9",     "GM JR KS IY HZ PL AX BT CQ NV", "imz noa tjv xtk");
+        addToKeyList649(13, "I III II",   13, 20, 3,  "Ref649-9",     "LY AG KM BR IQ JU HV SW ET CX", "zgr dgz gjo ryq");
+        addToKeyList649(12, "V II IV",    18, 10, 7,  "Ref649-9",     "MU BP CY RZ KX AN JT DG IL FW", "zdy rkf tjw xtl");
+        addToKeyList649(11, "II IV III",  2, 26, 15,  "Ref649-9",     "KN UY HR PW FM BO EZ QT DX JV", "zea rjy soi wvh");
+        addToKeyList649(10, "III V IV",   23, 21, 1,  "Ref649-9",     "LR IK MS QU HW PT GO VX FZ EN", "lrc zbx vbm rxo");
+        addToKeyList649( 9, "V I III",    16, 4, 8,   "Ref649-9",     "QY BS LN KT AP IU DW HO RV JZ", "edj eyr vby tlh");
+        addToKeyList649( 8, "IV II V",    13, 19, 25, "Ref649-1",     "FI NQ SY CU BZ AH EL TX DO KP", "yiz dha ekc tli");
+        addToKeyList649( 7, "I IV II",    9, 3, 22,   "Ref649-1",     "UX IZ HN BK GQ CP FT JY MW AR", "lan dgb zsj wbi");
+        addToKeyList649( 6, "III I V",    11, 18, 14, "Ref649-1",     "DQ GU BW NP HK AZ CI FO JX VY", "lao cft zsk wbj");
+        addToKeyList649( 5, "V II IV",    23, 2, 25,  "Ref649-1",     "MV CL GK OQ BI FU HS PX NW EY", "lju cdr iye waj");
+        addToKeyList649( 4, "II IV I",    4, 21, 9,   "Ref649-1",     "AC BL OZ EK QW GP SU DH JM TX", "lsb zby vcy ujb");
+        addToKeyList649( 3, "V I II",     19, 11, 6,  "Ref649-1",     "KR MP CN BF EH DZ IW AV GJ LO", "lap owd iwu wak");
+        addToKeyList649( 2, "IV V I",     16, 14, 2,  "Ref649-1",     "BN HU EG PY KQ CF OS JW AI VZ", "aqd bdy iyf xtd");
+        addToKeyList649( 1, "II I III",   23, 12, 10, "Ref649-1",     "DP BM NZ CK GV HQ AF UY SW JO", "kgl cdf giq wuv");
+    }
+
+    /**
+     * Construct all the monthly key list data.
+     */
+    private void initDefaultSettings() {
+        initRef649Reflector();
+        initKeyList649();
+    }
+
+     /************************************************************************
      * Support code for "Reflector Set-Up" panel.
      */
 
@@ -428,6 +514,7 @@ public class Model {
 
     private boolean encipher = false;
     private boolean show = false;
+    private ObservableList<Integer> settingsList = FXCollections.observableArrayList();
 
     public boolean isShow() { return show; }
     public void setShow(boolean state) { show = state; }
@@ -443,6 +530,8 @@ public class Model {
     }
 
     public boolean isEncipher() { return encipher; }
+
+    public ObservableList<Integer> getSettingsList()   { return settingsList; }
 
     /**
      * Find a RotorData with the given id in the given list,
@@ -574,14 +663,28 @@ public class Model {
             lockdownSettings();
     }
 
-    /**
-     * Initialize "Translation" panel.
-     */
-    private void initializeEncipher() {
+
+    private void buildTheMappers() {
         for (int i = 0; i < ROTOR_COUNT; ++i) {
             addActiveRotorEntry(i);
             setActiveRotorOffset(i);
         }
+    }
+
+    private void initSettingsList() {
+        final int max = keyList649.length;
+        for (int i = 0; i < max; ++i) {
+            if (keyList649[i] != null)
+                settingsList.add(i);
+        }
+    }
+
+    /**
+     * Initialize "Translation" panel.
+     */
+    private void initializeEncipher() {
+        buildTheMappers();
+        initSettingsList();
     }
 
 

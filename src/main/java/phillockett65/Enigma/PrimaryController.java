@@ -35,7 +35,6 @@ import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -641,7 +640,7 @@ public class PrimaryController {
     private MFXToggleButton encipherCheckbox;
 
     @FXML
-    private Button resetButton;
+    private ChoiceBox<Integer> settingsChoicebox;
 
     @FXML
     private MFXToggleButton showStepsCheckbox;
@@ -688,7 +687,7 @@ public class PrimaryController {
      * @param editable indicates if the reset button is available.
      */
     private void editableTranslation(boolean editable) {
-        resetButton.setDisable(!editable);
+        settingsChoicebox.setDisable(!editable);
     }
 
     /**
@@ -737,8 +736,15 @@ public class PrimaryController {
     private void initializeEncipher() {
         syncEncipherButton();
         encipherCheckbox.setSelected(updateGUIState());
-        resetButton.setTooltip(new Tooltip("Click to return all settings to the default values"));
+        settingsChoicebox.setItems(model.getSettingsList());
+
+        settingsChoicebox.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> {
+            model.dailySettings(newValue);
+            syncUI();
+        });
+
         showStepsCheckbox.setTooltip(new Tooltip("Select to show each translation step on the command line"));
+        settingsChoicebox.setTooltip(new Tooltip("Select a settings entry from the Luftwaffe Enigma key list number 649"));
 
         mainLabel.setText("Configure Settings");
         final char arrow = '\u2799';
