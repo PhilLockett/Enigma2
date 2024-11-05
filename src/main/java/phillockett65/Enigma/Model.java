@@ -313,10 +313,10 @@ public class Model {
     public void initPairText(ArrayList<String> links) {
         pairs.setLinks(links);
     }
+    public ArrayList<String> getPairText()  { return pairs.getLinks(); }
 
     public void setPairText(int index, String text) { pairs.setText(index, text); }
 
-    public int getPairCount() { return pairs.size(); }
     public String getPairText(int index)	{ return pairs.getText(index); }
     public int getPairCount(int index)		{ return pairs.getCount(index); }
 
@@ -477,10 +477,10 @@ public class Model {
     public void initPlugText(ArrayList<String> links) {
         plugs.setLinks(links);
     }
+    public ArrayList<String> getPlugText()  { return plugs.getLinks(); }
 
     public void setPlugText(int index, String text) { plugs.setText(index, text); }
 
-    public int getPlugCount() { return plugs.size(); }
     public int getActivePlugCount() { return extPlugboard ? plugs.size() : PLUG_COUNT; }
     public String getPlugText(int index)	{ return plugs.getText(index); }
     public int getPlugCount(int index)		{ return plugs.getCount(index); }

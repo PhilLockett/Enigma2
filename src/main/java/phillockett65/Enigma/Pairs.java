@@ -187,6 +187,21 @@ public class Pairs {
     }
 
     /**
+     * Construct an ArrayList of Strings represntation of the Pair set.
+     * @return the ArrayList of Strings represntation.
+     */
+    public ArrayList<String> getLinks() {
+        // System.out.println("getList()");
+
+        ArrayList<String> output = new ArrayList<String>();
+        final int MAX = size();
+        for (int i = 0; i < MAX; ++i)
+            output.add(getText(i));
+
+        return output;
+    }
+
+    /**
      * Initialise pairList with the given ArrayList of Strings represntation.
      * @param links ArrayList of Strings.
      */
