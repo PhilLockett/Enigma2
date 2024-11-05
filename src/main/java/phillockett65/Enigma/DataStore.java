@@ -198,12 +198,15 @@ public class DataStore implements Serializable {
       * Print data store on the command line.
       */
     private void dump() {
+        // System.out.println("mainX = " + mainX);
+        // System.out.println("mainY = " + mainY);
+
         // System.out.println("reflectorChoice = " + reflectorChoice);
         // System.out.println("reconfigurable = " + reconfigurable);
         // System.out.println("pairs = " + pairs);
 
         // System.out.println("fourthWheel = " + fourthWheel);
-        // System.out.println("useLetters = " + useLetters);
+        // System.out.println("useNumbers = " + useNumbers);
         // System.out.println("show = " + show);
 
         // System.out.println("wheels = " + wheels);
@@ -211,7 +214,10 @@ public class DataStore implements Serializable {
         // System.out.println("rotorOffsets = " + rotorOffsets);
 
         // System.out.println("plugs = " + plugs);
+        // System.out.println("extPlugboard = " + extPlugboard);
+
         // System.out.println("encipher = " + encipher);
+        // System.out.println("show = " + show);
     }
 
 }
