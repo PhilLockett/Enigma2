@@ -63,10 +63,4 @@ public class Pair {
         return true;
     }
 
-    /**
-     * Perform clean up on the pair.
-     */
-    public void sanitize() {
-        letters = letters.toUpperCase();
-    }
 }
